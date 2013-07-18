@@ -225,7 +225,7 @@ class MeasureBase(object):
                 }
             )
             return float(result)
-        return unit / value
+        return value / unit
 
     def _convert_value_from(self, unit, value):
         if not isinstance(value, float):

@@ -39,3 +39,23 @@ You can either install from pip:
     git clone https://github.com/latestrevision/python-measurement
     cd python-measurement
     python setup.py install
+
+Use Instructions
+----------------
+
+This module provides the following measurement classes:
+
+* `measure.measures.Distance`
+* `measure.measures.Area`
+* `measure.measures.Temperature`
+* `measure.measures.Volume`
+* `measure.measures.Weight`
+
+You can create and convert between any supported units like so:
+
+```python
+from measurement.measures import Distance
+
+ten_miles = Distance(mi=10)
+print ten_miles
+```

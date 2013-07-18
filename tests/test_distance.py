@@ -22,3 +22,12 @@ class DistanceTest(MeasurementTestBase):
             kilometers.m,
             expected_meters
         )
+
+    def test_identity_conversion(self):
+        expected_miles = 10
+        miles = Distance(mi=expected_miles)
+
+        self.assertAlmostEqual(
+            miles.mi,
+            expected_miles
+        )
