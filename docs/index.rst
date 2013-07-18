@@ -25,8 +25,8 @@ objects, but also other measurements including Weight, Volume, and Temperature.
    floating-point numbers are very slightly lossy, you should be aware of
    any inaccuracies that this might cause.
 
-TLDR: Do not use this in
-`navigation algorithms guiding probes into the atmosphere of extraterrestrial worlds <http://en.wikipedia.org/wiki/Mars_Climate_Orbiter>`_.
+   TLDR: Do not use this in
+   `navigation algorithms guiding probes into the atmosphere of extraterrestrial worlds <http://en.wikipedia.org/wiki/Mars_Climate_Orbiter>`_.
 
 Contents:
 
