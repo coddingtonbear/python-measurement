@@ -224,7 +224,7 @@ class MeasureBase(object):
                     self.SU: value
                 }
             )
-            return result
+            return float(result)
         return unit / value
 
     def _convert_value_from(self, unit, value):

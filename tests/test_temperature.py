@@ -22,3 +22,12 @@ class TemperatureTest(MeasurementTestBase):
             celsius.f,
             expected_farenheit
         )
+
+    def test_ensure_that_we_always_output_float(self):
+        kelvin = Temperature(kelvin=10)
+
+        celsius = kelvin.c
+
+        self.assertTrue(
+            isinstance(celsius, float)
+        )
