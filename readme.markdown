@@ -5,6 +5,14 @@ Python-Measurement
 
 Easily use and manipulate unit-aware measurement objects in Python.
 
+[django.contrib.gis.measure](https://github.com/django/django/blob/master/django/contrib/gis/measure.py)
+has these wonderful 'Distance' objects that can be used not only for storing a
+unit-aware distance measurement, but also for converting between different
+units and adding/subtracting these objects from one another.
+
+This module not only provides those Distance (Length) and Area measurement
+objects, but also other measurements including Weight and Volume.
+
 Installation
 ------------
 
