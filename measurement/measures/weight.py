@@ -1,6 +1,11 @@
 from measurement.base import MeasureBase
 
 
+__all__ = [
+    'Weight',
+]
+
+
 class Weight(MeasureBase):
     STANDARD_UNIT = 'g'
     UNITS = {

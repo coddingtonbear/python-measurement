@@ -11,7 +11,15 @@ unit-aware distance measurement, but also for converting between different
 units and adding/subtracting these objects from one another.
 
 This module not only provides those Distance (Length) and Area measurement
-objects, but also other measurements including Weight and Volume.
+objects, but also other measurements including Weight, Volume, and Temperature.
+
+**NOTE**: Measurements are stored internally by converting them to a
+floating-point number of a (generally) reasonable SI unit.  Given that 
+floating-point numbers are very slightly lossy, you should be aware of
+any inaccuracies that this might cause.
+
+TLDR: Do not use this in
+[navigation algorithms guiding probes into the atmosphere of extraterrestrial worlds](http://en.wikipedia.org/wiki/Mars_Climate_Orbiter).
 
 Installation
 ------------

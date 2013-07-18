@@ -1,6 +1,11 @@
 from measurement.base import MeasureBase
 
 
+__all__ = [
+    'Volume',
+]
+
+
 class Volume(MeasureBase):
     STANDARD_UNIT = 'cubic_meter'
     UNITS = {

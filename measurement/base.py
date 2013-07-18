@@ -29,6 +29,8 @@
 from decimal import Decimal
 
 import six
+import sympy
+from sympy.solvers import solve_linear
 
 from measurement.utils import total_ordering
 
@@ -63,7 +65,10 @@ class MeasureBase(object):
 
     def __getattr__(self, name):
         if name in self.UNITS:
-            return self.standard / self.UNITS[name]
+            return self._convert_value_to(
+                self.UNITS[name],
+                self.standard,
+            )
         else:
             raise AttributeError('Unknown unit type: %s' % name)
 
@@ -209,6 +214,28 @@ class MeasureBase(object):
     def __nonzero__(self):      # Python 2 compatibility
         return type(self).__bool__(self)
 
+    def _convert_value_to(self, unit, value):
+        if not isinstance(value, float):
+            value = float(value)
+
+        if isinstance(unit, sympy.Expr):
+            result = unit.evalf(
+                subs={
+                    self.SU: value
+                }
+            )
+            return result
+        return unit / value
+
+    def _convert_value_from(self, unit, value):
+        if not isinstance(value, float):
+            value = float(value)
+
+        if isinstance(unit, sympy.Expr):
+            _, result = solve_linear(unit, value)
+            return result
+        return unit * value
+
     def default_units(self, kwargs):
         """
         Return the unit value and the default units specified
@@ -217,24 +244,21 @@ class MeasureBase(object):
         val = 0.0
         default_unit = self.STANDARD_UNIT
         for unit, value in six.iteritems(kwargs):
-            if not isinstance(value, float):
-                value = float(value)
-
             if unit in self.UNITS:
-                val += self.UNITS[unit] * value
+                val = self._convert_value_from(self.UNITS[unit], value)
                 default_unit = unit
             elif unit in self.ALIAS:
                 u = self.ALIAS[unit]
-                val += self.UNITS[u] * value
+                val = self._convert_value_from(self.UNITS[u], value)
                 default_unit = u
             else:
                 lower = unit.lower()
                 if lower in self.UNITS:
-                    val += self.UNITS[lower] * value
+                    val = self._convert_value_from(self.UNITS[lower], value)
                     default_unit = lower
                 elif lower in self.LALIAS:
                     u = self.LALIAS[lower]
-                    val += self.UNITS[u] * value
+                    val = self._convert_value_from(self.UNITS[u], value)
                     default_unit = u
                 else:
                     raise AttributeError('Unknown unit type: %s' % unit)
