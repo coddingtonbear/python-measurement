@@ -8,7 +8,7 @@ with open('requirements.txt', 'r') as in_:
 
 setup(
     name='measurement',
-    version='0.0.1',
+    version='1.0',
     url='http://bitbucket.org/latestrevision/python-measurement/',
     description='Easily use and manipulate unit-aware measurements in Python',
     author='Adam Coddington',
