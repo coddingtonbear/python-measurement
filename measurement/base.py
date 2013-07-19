@@ -55,13 +55,40 @@ class MeasureBase(object):
         if default_unit and isinstance(default_unit, six.string_types):
             self._default_unit = default_unit
 
-    def _get_standard(self):
+    @property
+    def standard(self):
         return getattr(self, self.STANDARD_UNIT)
 
-    def _set_standard(self, value):
+    @standard.setter
+    def standard(self, value):
         setattr(self, self.STANDARD_UNIT, value)
 
-    standard = property(_get_standard, _set_standard)
+    @property
+    def value(self):
+        return getattr(self, self._default_unit)
+
+    @value.setter
+    def value(self, value):
+        setattr(self, self._default_unit, float(value))
+
+    @property
+    def unit(self):
+        return self._default_unit
+
+    @unit.setter
+    def unit(self, value):
+        unit = None
+        if value in self.UNITS:
+            unit = value
+        elif value in self.ALIAS:
+            unit = self.ALIAS[unit]
+        elif value.lower() in self.UNITS:
+            unit = value.lower()
+        elif value.lower() in self.LALIAS:
+            unit = self.LALIAS[value.lower]
+        if not unit:
+            raise ValueError('Invalid unit %s' % value)
+        self._default_unit = unit
 
     def __getattr__(self, name):
         if name in self.UNITS:

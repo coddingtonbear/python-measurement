@@ -17,6 +17,12 @@ You can create a measurement unit using any compatible unit and can transform
 it into any compatible unit.  See :doc:`measures` for information about which
 units are supported by which measures.
 
+To access the raw value of a unit in the unit it was defined in, you can use
+the 'value' property::
+
+    print w.value
+    >> 135.0
+
 
 Guessing Measurements
 =====================
@@ -38,7 +44,6 @@ measures checked (or check your own measurement classes, too) to make sure
 that your measurement is not mis-guessed, and you can do that by specifying
 the ``measures`` keyword argument::
 
-    from measurement.utils import guess
     from measurement.measures import Distance, Temperature, Volume
 
     m = guess(24, 'f', measures=[Distance, Volume, Temperature])
