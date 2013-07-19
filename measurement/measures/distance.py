@@ -41,7 +41,6 @@ from measurement.base import MeasureBase, NUMERIC_TYPES, pretty_name
 __all__ = [
     'Distance',
     'Area',
-    'Length'  # alias of distance
 ]
 
 
@@ -182,6 +181,3 @@ class Area(MeasureBase):
 
     def __div__(self, other):  # Python 2 compatibility
         return type(self).__truediv__(self, other)
-
-
-Length = Distance

@@ -1,3 +1,4 @@
+import inspect
 import sys
 
 
@@ -34,3 +35,30 @@ else:
                 opfunc.__doc__ = getattr(int, opname).__doc__
                 setattr(cls, opname, opfunc)
         return cls
+
+
+def get_all_measures():
+    from measurement import measures
+    m = []
+    for name, obj in inspect.getmembers(measures):
+        if inspect.isclass(obj):
+            m.append(obj)
+    return m
+
+
+def guess(value, unit, measures=None):
+    if measures is None:
+        measures = get_all_measures()
+    for measure in measures:
+        try:
+            return measure(**{unit: value})
+        except AttributeError:
+            pass
+    raise ValueError(
+        'No valid measure found for %s %s; checked %s' % (
+            value,
+            unit,
+            ', '.join([m.__name__ for m in measures])
+        )
+    )
+

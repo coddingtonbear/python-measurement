@@ -16,8 +16,9 @@ has these wonderful 'Distance' objects that can be used not only for storing a
 unit-aware distance measurement, but also for converting between different
 units and adding/subtracting these objects from one another.
 
-This module not only provides those Distance (Length) and Area measurement
-objects, but also other measurements including Weight, Volume, and Temperature.
+This module not only provides those Distance and Area measurement objects
+(courtesy of Django), but also other measurements including Weight, Volume, and
+Temperature.
 
 .. warning::
    Measurements are stored internally by converting them to a
