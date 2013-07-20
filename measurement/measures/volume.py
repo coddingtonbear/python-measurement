@@ -19,7 +19,6 @@ class Volume(MeasureBase):
         'cubic_centimeter': 100.0,
         'cubic_meter': 1.0,
         'l': 0.001,
-        'ml': 1e-6,
         'cubic_foot': 0.0283168,
         'cubic_inch': 1.6387e-5,
         'imperial_g': 0.00454609,
@@ -41,7 +40,7 @@ class Volume(MeasureBase):
         'cubic centimeter': 'cubic_centimeter',
         'cubic meter': 'cubic_meter',
         'liter': 'l',
-        'milliliter': 'ml',
+        'litre': 'l',
         'cubic foot': 'cubic_foot',
         'cubic inch': 'cubic_inch',
         'Imperial Gram': 'imperial_g',
@@ -51,6 +50,7 @@ class Volume(MeasureBase):
         'Imperial Tablespoon': 'imperial_tbsp',
         'Imperial Teaspoon': 'imperial_tsp',
     }
+    SI_UNITS = ['l']
     LALIAS = dict([(k.lower(), v) for k, v in ALIAS.items()])
 
     def __init__(self, *args, **kwargs):

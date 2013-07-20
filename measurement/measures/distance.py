@@ -56,7 +56,6 @@ class Distance(MeasureBase):
         'british_chain_benoit': 20.1167824944,
         'british_chain_sears': 20.1167651216,
         'british_chain_sears_truncated': 20.116756,
-        'cm': 0.01,
         'british_ft': 0.304799471539,
         'british_yd': 0.914398414616,
         'clarke_ft': 0.3047972654,
@@ -67,35 +66,27 @@ class Distance(MeasureBase):
         'gold_coast_ft': 0.304799710181508,
         'indian_yd': 0.914398530744,
         'inch': 0.0254,
-        'km': 1000.0,
         'link': 0.201168,
         'link_benoit': 0.20116782,
         'link_sears': 0.20116765,
         'm': 1.0,
         'mi': 1609.344,
-        'mm': 0.001,
-        'nm': 1852.0,
         'nm_uk': 1853.184,
         'rod': 5.0292,
         'sears_yd': 0.91439841,
         'survey_ft': 0.304800609601,
-        'um': 0.000001,
         'yd': 0.9144,
     }
+    SI_UNITS = [
+        'm'
+    ]
 
     # Unit aliases for `UNIT` terms encountered in Spatial Reference WKT.
     ALIAS = {
-        'centimeter': 'cm',
         'foot': 'ft',
         'inches': 'inch',
-        'kilometer': 'km',
-        'kilometre': 'km',
         'meter': 'm',
         'metre': 'm',
-        'micrometer': 'um',
-        'micrometre': 'um',
-        'millimeter': 'mm',
-        'millimetre': 'mm',
         'mile': 'mi',
         'yard': 'yd',
         'British chain (Benoit 1895 B)': 'british_chain_benoit',
