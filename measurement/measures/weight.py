@@ -21,10 +21,7 @@ class Weight(MeasureBase):
         'long_ton': 1016000.0,
     }
     ALIAS = {
-        'microgram': 'mcg',
-        'milligram': 'mg',
         'gram': 'g',
-        'kilogram': 'kg',
         'ton': 'short_ton',
         'metric tonne': 'tonne',
         'metric ton': 'tonne',
@@ -34,3 +31,4 @@ class Weight(MeasureBase):
         'long ton': 'long_ton',
     }
     LALIAS = dict([(k.lower(), v) for k, v in ALIAS.items()])
+    SI_UNITS = ['g']

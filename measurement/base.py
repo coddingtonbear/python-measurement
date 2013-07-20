@@ -48,12 +48,84 @@ class MeasureBase(object):
     ALIAS = {}
     UNITS = {}
     LALIAS = {}
+    SI_UNITS = []
+    SI_PREFIXES = {
+        'yocto': 'y',
+        'zepto': 'z',
+        'atto': 'a',
+        'femto': 'f',
+        'pico': 'p',
+        'nano': 'n',
+        'micro': 'u',
+        'milli': 'm',
+        'kilo': 'k',
+        'mega': 'M',
+        'giga': 'G',
+        'tera': 'T',
+        'peta': 'P',
+        'exa': 'E',
+        'zeta': 'Z',
+        'yotta': 'Y',
+    }
+    SI_MAGNITUDES = {
+        'yocto': 1e-24,
+        'zepto': 1e-21,
+        'atto': 1e-18,
+        'femto': 1e-15,
+        'pico': 1e-12,
+        'nano': 1e-9,
+        'micro': 1e-6,
+        'milli': 1e-3,
+        'kilo': 1e3,
+        'mega': 1e6,
+        'giga': 1e9,
+        'tera': 1e12,
+        'peta': 1e15,
+        'exa': 1e18,
+        'zeta': 1e21,
+        'yotta': 1e24,
+    }
 
     def __init__(self, default_unit=None, **kwargs):
         value, self._default_unit = self.default_units(kwargs)
         setattr(self, self.STANDARD_UNIT, value)
         if default_unit and isinstance(default_unit, six.string_types):
             self._default_unit = default_unit
+
+    @classmethod
+    def get_units(cls):
+        units = cls.UNITS.copy()
+        for unit in cls.SI_UNITS:
+            unit_value = units[unit]
+            for magnitude, value in cls.SI_MAGNITUDES.items():
+                unit_abbreviation = cls.SI_PREFIXES[magnitude] + unit
+                units[unit_abbreviation] = unit_value * value
+        return units
+
+    @classmethod
+    def get_si_aliases(cls):
+        si_aliases = {}
+        for alias, abbrev in cls.ALIAS.items():
+            if abbrev in cls.SI_UNITS:
+                si_aliases[alias] = abbrev
+        return si_aliases
+
+    @classmethod
+    def get_aliases(cls):
+        aliases = cls.ALIAS.copy()
+        si_aliases = cls.get_si_aliases()
+        for si_alias, unit_abbrev in si_aliases.items():
+            for magnitude, _ in cls.SI_MAGNITUDES.items():
+                magnitude_alias = magnitude + si_alias
+                prefix = cls.SI_PREFIXES[magnitude]
+                aliases[magnitude_alias] = prefix + unit_abbrev
+        return aliases
+
+    def get_lowercase_aliases(self):
+        lowercased = {}
+        for alias, value in self.get_aliases().items():
+            lowercased[alias.lower()] = value
+        return lowercased
 
     @property
     def standard(self):
@@ -77,23 +149,27 @@ class MeasureBase(object):
 
     @unit.setter
     def unit(self, value):
+        aliases = self.get_aliases()
+        laliases = self.get_lowercase_aliases()
+        units = self.get_units()
         unit = None
         if value in self.UNITS:
             unit = value
-        elif value in self.ALIAS:
-            unit = self.ALIAS[unit]
-        elif value.lower() in self.UNITS:
+        elif value in aliases:
+            unit = aliases[unit]
+        elif value.lower() in units:
             unit = value.lower()
-        elif value.lower() in self.LALIAS:
-            unit = self.LALIAS[value.lower]
+        elif value.lower() in laliases:
+            unit = laliases[value.lower]
         if not unit:
             raise ValueError('Invalid unit %s' % value)
         self._default_unit = unit
 
     def __getattr__(self, name):
-        if name in self.UNITS:
+        units = self.get_units()
+        if name in units:
             return self._convert_value_to(
-                self.UNITS[name],
+                units[name],
                 self.standard,
             )
         else:
@@ -268,24 +344,27 @@ class MeasureBase(object):
         Return the unit value and the default units specified
         from the given keyword arguments dictionary.
         """
+        aliases = self.get_aliases()
+        laliases = self.get_lowercase_aliases()
+        units = self.get_units()
         val = 0.0
         default_unit = self.STANDARD_UNIT
         for unit, value in six.iteritems(kwargs):
-            if unit in self.UNITS:
-                val = self._convert_value_from(self.UNITS[unit], value)
+            if unit in units:
+                val = self._convert_value_from(units[unit], value)
                 default_unit = unit
-            elif unit in self.ALIAS:
-                u = self.ALIAS[unit]
-                val = self._convert_value_from(self.UNITS[u], value)
+            elif unit in aliases:
+                u = aliases[unit]
+                val = self._convert_value_from(units[u], value)
                 default_unit = u
             else:
                 lower = unit.lower()
-                if lower in self.UNITS:
-                    val = self._convert_value_from(self.UNITS[lower], value)
+                if lower in units:
+                    val = self._convert_value_from(units[lower], value)
                     default_unit = lower
-                elif lower in self.LALIAS:
-                    u = self.LALIAS[lower]
-                    val = self._convert_value_from(self.UNITS[u], value)
+                elif lower in laliases:
+                    u = laliases[lower]
+                    val = self._convert_value_from(units[u], value)
                     default_unit = u
                 else:
                     raise AttributeError('Unknown unit type: %s' % unit)
@@ -298,13 +377,15 @@ class MeasureBase(object):
         For example, if the given unit string is 'metre', 'm' would be returned.
         An exception is raised if an attribute cannot be found.
         """
+        laliases = cls.get_lowercase_aliases()
+        units = cls.get_units()
         lower = unit_str.lower()
-        if unit_str in cls.UNITS:
+        if unit_str in units:
             return unit_str
-        elif lower in cls.UNITS:
+        elif lower in units:
             return lower
-        elif lower in cls.LALIAS:
-            return cls.LALIAS[lower]
+        elif lower in laliases:
+            return laliases[lower]
         else:
             raise Exception(
                 'Could not find a unit keyword associated with "%s"' % (

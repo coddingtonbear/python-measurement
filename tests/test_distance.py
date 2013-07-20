@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from .base import MeasurementTestBase
 
 
@@ -31,3 +32,23 @@ class DistanceTest(MeasurementTestBase):
             miles.mi,
             expected_miles
         )
+
+    def test_auto_si_kwargs(self):
+        meters = Distance(meter=1e6)
+        megameters = Distance(megameter=1)
+
+        self.assertEqual(
+            meters,
+            megameters,
+        )
+
+    def test_auto_si_attrs(self):
+        one_meter = Distance(m=1)
+
+        micrometers = one_meter.um
+
+        self.assertEquals(
+            one_meter.value * 10**6,
+            micrometers
+        )
+
