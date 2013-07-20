@@ -2,7 +2,7 @@
 from .base import MeasurementTestBase
 
 
-from measurement.measures import Distance
+from measurement.measures import Distance, Area
 
 
 class DistanceTest(MeasurementTestBase):
@@ -47,8 +47,17 @@ class DistanceTest(MeasurementTestBase):
 
         micrometers = one_meter.um
 
-        self.assertEquals(
+        self.assertEqual(
             one_meter.value * 10**6,
             micrometers
         )
 
+    def test_area_sq_km(self):
+        one_sq_km = Area(sq_km=10)
+        miles_sqd = Area(sq_mi=3.8610216)
+
+        self.assertAlmostEqual(
+            one_sq_km.standard,
+            miles_sqd.standard,
+            places=1
+        )

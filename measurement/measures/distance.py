@@ -146,13 +146,13 @@ class Area(MeasureBase):
     UNITS = dict(
         [
             ('%s%s' % (AREA_PREFIX, k), v ** 2)
-            for k, v in Distance.UNITS.items()
+            for k, v in Distance.get_units().items()
         ]
     )
     ALIAS = dict(
         [
             (k, '%s%s' % (AREA_PREFIX, v))
-            for k, v in Distance.ALIAS.items()
+            for k, v in Distance.get_aliases().items()
         ]
     )
     LALIAS = dict([(k.lower(), v) for k, v in ALIAS.items()])

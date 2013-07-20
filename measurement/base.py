@@ -87,7 +87,9 @@ class MeasureBase(object):
     }
 
     def __init__(self, default_unit=None, **kwargs):
-        value, self._default_unit = self.default_units(kwargs)
+        value, default, instantiation = self.default_units(kwargs)
+        self._default_unit = default
+        self._instantiation_unit = instantiation
         setattr(self, self.STANDARD_UNIT, value)
         if default_unit and isinstance(default_unit, six.string_types):
             self._default_unit = default_unit
@@ -178,14 +180,14 @@ class MeasureBase(object):
     def __repr__(self):
         return '%s(%s=%s)' % (
             pretty_name(self),
-            self._default_unit,
+            self._instantiation_unit,
             getattr(self, self._default_unit)
         )
 
     def __str__(self):
         return '%s %s' % (
             getattr(self, self._default_unit),
-            self._default_unit
+            self._instantiation_unit
         )
 
     # **** Comparison methods ****
@@ -368,7 +370,7 @@ class MeasureBase(object):
                     default_unit = u
                 else:
                     raise AttributeError('Unknown unit type: %s' % unit)
-        return val, default_unit
+        return val, default_unit, unit
 
     @classmethod
     def unit_attname(cls, unit_str):

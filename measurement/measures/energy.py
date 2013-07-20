@@ -9,9 +9,13 @@ __all__ = [
 class Energy(MeasureBase):
     STANDARD_UNIT = 'J'
     UNITS = {
-        'c': 4.1400,
+        'c': 4.18400,
+        'C': 4184.0,
         'J': 1.0,
     }
     ALIAS = {
-        'joule': 'j'
+        'joule': 'j',
+        'calorie': 'c',
+        'Calorie': 'C',
     }
+    SI_UNITS = ['J', 'c']
