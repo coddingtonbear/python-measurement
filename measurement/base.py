@@ -449,6 +449,10 @@ class BidimensionalMeasure(object):
         return self.primary.standard / self.reference.standard
 
     @property
+    def STANDARD_UNIT(self):
+        return self.primary.STANDARD_UNIT + '__' + self.reference.STANDARD_UNIT
+
+    @property
     def unit(self):
         return self.primary.unit + '__' + self.reference.unit
 
