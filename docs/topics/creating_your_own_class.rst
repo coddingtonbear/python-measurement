@@ -6,7 +6,7 @@ You can create your own measures easily by subclassing either
 ``measurement.base.MeasureBase`` or ``measurement.base.BidimensionalMeasure``.
 
 
-Normal Measures
+Simple Measures
 ---------------
 
 If your measure is not a measure dependent upon another measure (e.g speed, 
@@ -62,6 +62,9 @@ Important details:
   ``Mg`` (megagrams), ``Gg`` (gigagrams), ``Tg`` (teragrams),
   ``Pg`` (petagrams), ``Eg`` (exagrams), ``Zg`` (zetagrams),
   ``Yg`` (yottagrams).
+
+Using formula-based conversions
+-------------------------------
 
 In some situations, your conversions between units may not be simple enough
 to be accomplished by using simple conversions (e.g. temperature); for
