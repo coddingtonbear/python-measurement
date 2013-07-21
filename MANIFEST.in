@@ -1,4 +1,4 @@
-include readme.markdown
+include readme.rst
 include requirements.txt
 recursive-include tests *
 recursive-include docs *
