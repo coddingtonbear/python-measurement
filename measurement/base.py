@@ -526,11 +526,7 @@ class BidimensionalMeasure(object):
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
-            return (
-                self.primary == other.primary
-                and
-                self.reference == other.reference
-            )
+            return self.standard == other.standard
         else:
             return NotImplemented
 
