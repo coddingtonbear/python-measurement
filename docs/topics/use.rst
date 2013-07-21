@@ -16,8 +16,8 @@ You can create a measurement unit using any compatible unit and can transform
 it into any compatible unit.  See :doc:`measures` for information about which
 units are supported by which measures.
 
-To access the raw value of a unit in the unit it was defined in, you can use
-the 'value' property::
+To access the raw integer value of a measurement in the unit it was defined in,
+you can use the 'value' property::
 
     >>> print w.value
     135.0
@@ -33,7 +33,7 @@ use the `guess` function to give you a measurement object.::
     >>> from measurement.utils import guess
     >>> m = guess(10, 'mg')
     >>> print repr(m)
-    Weight(g=10.0)
+    Weight(mg=10.0)
 
 By default, this will check all built-in measures, and will return the first
 measure having an appropriate unit.  You may want to constrain the list of
