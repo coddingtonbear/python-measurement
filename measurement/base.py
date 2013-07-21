@@ -170,6 +170,7 @@ class MeasureBase(object):
             unit = laliases[value.lower]
         if not unit:
             raise ValueError('Invalid unit %s' % value)
+        self._instantiation_unit = unit
         self._default_unit = unit
 
     def __getattr__(self, name):
@@ -462,11 +463,27 @@ class BidimensionalMeasure(object):
         )
 
     @property
+    def value(self):
+        return self.primary.value
+
+    @property
     def unit(self):
         return '%s__%s' % (
             self.primary.unit,
             self.reference.unit,
         )
+
+    @unit.setter
+    def unit(self, value):
+        primary, reference = value.split('__')
+        reference_units = self.REFERENCE_DIMENSION.get_units()
+        if reference != self.reference.unit:
+            reference_chg = (
+                reference_units[self.reference.unit]/reference_units[reference]
+            )
+            self.primary.standard = self.primary.standard / reference_chg
+        self.primary.unit = primary
+        self.reference.unit = reference
 
     def _normalize(self, other):
         std_value = getattr(other, self.unit)

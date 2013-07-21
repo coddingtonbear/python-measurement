@@ -189,3 +189,15 @@ class SpeedTest(MeasurementTestBase):
             expected_kph,
             actual_kph,
         )
+
+    def test_set_unit(self):
+        speed = Speed(mi__hr=10)
+        speed.unit = 'm__sec'
+
+        expected_value = 4.4704
+        actual_value = speed.value
+
+        self.assertAlmostEqual(
+            expected_value,
+            actual_value,
+        )
