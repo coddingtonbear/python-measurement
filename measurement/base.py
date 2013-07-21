@@ -123,6 +123,7 @@ class MeasureBase(object):
                 aliases[magnitude_alias] = prefix + unit_abbrev
         return aliases
 
+    @classmethod
     def get_lowercase_aliases(self):
         lowercased = {}
         for alias, value in self.get_aliases().items():
@@ -394,3 +395,250 @@ class MeasureBase(object):
                     unit_str,
                 )
             )
+
+
+@total_ordering
+class BidimensionalMeasure(object):
+    PRIMARY_DIMENSION = None
+    REFERENCE_DIMENSION = None
+
+    ALIASES = {
+    }
+
+    def __init__(self, **kwargs):
+        if 'primary' in kwargs and 'reference' in kwargs:
+            self.primary = kwargs['primary']
+            self.reference = kwargs['reference']
+        else:
+            items = kwargs.items()
+            if len(items) > 1:
+                raise ValueError('Only one keyword argument is expected')
+            measure_string, value = items[0]
+
+            self.primary, self.reference = self._get_measures(
+                measure_string,
+                value
+            )
+
+    def _get_unit_parts(self, measure_string):
+        if measure_string in self.ALIASES:
+            measure_string = self.ALIASES[measure_string]
+        try:
+            primary_unit, reference_unit = measure_string.split('__')
+        except ValueError:
+            raise AttributeError(
+                (
+                    'Unit not found: \'%s\';'
+                    'Units should be expressed using double-underscore '
+                    'separated units; for example: meters-per-second would be '
+                    'expressed with either \'meter__second\' or \'m__sec\'.'
+                ) % (
+                    measure_string
+                )
+            )
+        return primary_unit, reference_unit
+
+    def _get_measures(self, measure_string, value):
+        primary_unit, reference_unit = self._get_unit_parts(measure_string)
+        primary = self.PRIMARY_DIMENSION(**{primary_unit: value})
+        reference = self.REFERENCE_DIMENSION(**{reference_unit: 1})
+
+        return primary, reference
+
+    @property
+    def standard(self):
+        return self.primary.standard / self.reference.standard
+
+    @property
+    def unit(self):
+        return self.primary.unit + '__' + self.reference.unit
+
+    def _normalize(self, other):
+        std_value = getattr(other, self.unit)
+
+        primary = self.PRIMARY_DIMENSION(**{self.primary.unit: std_value})
+        reference = self.REFERENCE_DIMENSION(**{self.reference.unit: 1})
+
+        return self.__class__(primary=primary, reference=reference)
+
+    def __getattr__(self, measure_string):
+        primary_units = self.PRIMARY_DIMENSION.get_units()
+        reference_units = self.REFERENCE_DIMENSION.get_units()
+
+        p1, r1 = self.primary.unit, self.reference.unit
+        p2, r2 = self._get_unit_parts(measure_string)
+
+        primary_chg = primary_units[p2]/primary_units[p1]
+        reference_chg = reference_units[r2]/reference_units[r1]
+
+        return self.primary.value / primary_chg * reference_chg
+
+    def __repr__(self):
+        return '%s(%s__%s=%s)' % (
+            pretty_name(self),
+            self.primary.unit,
+            self.reference.unit,
+            self.primary.value,
+        )
+
+    def __str__(self):
+        return '%s %s/%s' % (
+            self.primary.value,
+            self.primary.unit,
+            self.reference.unit,
+        )
+
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return (
+                self.primary == other.primary
+                and
+                self.reference == other.reference
+            )
+        else:
+            return NotImplemented
+
+    def __lt__(self, other):
+        if isinstance(other, self.__class__):
+            return self.standard < other.standard
+        else:
+            return NotImplemented
+
+    def __add__(self, other):
+        if isinstance(other, self.__class__):
+            normalized = self._normalize(other)
+            total_value = normalized.primary.value + self.primary.value
+            return self.__class__(
+                primary=self.PRIMARY_DIMENSION(
+                    **{self.primary.unit: total_value}
+                ),
+                reference=self.REFERENCE_DIMENSION(
+                    **{self.reference.unit: 1}
+                )
+            )
+        else:
+            raise TypeError(
+                '%(class)s must be added with %(class)s' % {
+                    "class": pretty_name(self)
+                }
+            )
+
+    def __iadd__(self, other):
+        if isinstance(other, self.__class__):
+            normalized = self._normalize(other)
+            self.primary.standard += normalized.primary.standard
+            return self
+        else:
+            raise TypeError(
+                '%(class)s must be added with %(class)s' % {
+                    "class": pretty_name(self)
+                }
+            )
+
+    def __sub__(self, other):
+        if isinstance(other, self.__class__):
+            normalized = self._normalize(other)
+            total_value = self.primary.value - normalized.primary.value
+            return self.__class__(
+                primary=self.PRIMARY_DIMENSION(
+                    **{self.primary.unit: total_value}
+                ),
+                reference=self.REFERENCE_DIMENSION(
+                    **{self.reference.unit: 1}
+                )
+            )
+        else:
+            raise TypeError(
+                '%(class)s must be added with %(class)s' % {
+                    "class": pretty_name(self)
+                }
+            )
+
+    def __isub__(self, other):
+        if isinstance(other, self.__class__):
+            normalized = self._normalize(other)
+            self.primary.standard -= normalized.primary.standard
+            return self
+        else:
+            raise TypeError(
+                '%(class)s must be added with %(class)s' % {
+                    "class": pretty_name(self)
+                }
+            )
+
+    def __mul__(self, other):
+        if isinstance(other, NUMERIC_TYPES):
+            total_value = self.primary.value * other
+            return self.__class__(
+                primary=self.PRIMARY_DIMENSION(
+                    **{self.primary.unit: total_value}
+                ),
+                reference=self.REFERENCE_DIMENSION(
+                    **{self.reference.unit: 1}
+                )
+            )
+        else:
+            raise TypeError(
+                '%(class)s must be multiplied with number' % {
+                    "class": pretty_name(self)
+                }
+            )
+
+    def __rmul__(self, other):
+        return self * other
+
+    def __imul__(self, other):
+        if isinstance(other, NUMERIC_TYPES):
+            self.primary.standard *= float(other)
+            return self
+        else:
+            raise TypeError(
+                '%(class)s must be multiplied with number' % {
+                    "class": pretty_name(self)
+                }
+            )
+
+    def __truediv__(self, other):
+        if isinstance(other, self.__class__):
+            normalized = self._normalize(other)
+            return self.primary.standard / normalized.primary.standard
+        if isinstance(other, NUMERIC_TYPES):
+            total_value = self.primary.value / other
+            return self.__class__(
+                primary=self.PRIMARY_DIMENSION(
+                    **{self.primary.unit: total_value}
+                ),
+                reference=self.REFERENCE_DIMENSION(
+                    **{self.reference.unit: 1}
+                )
+            )
+        else:
+            raise TypeError(
+                '%(class)s must be divided with number or %(class)s' % {
+                    "class": pretty_name(self)
+                }
+            )
+
+    def __itruediv__(self, other):
+        if isinstance(other, NUMERIC_TYPES):
+            self.primary.standard /= float(other)
+            return self
+        else:
+            raise TypeError(
+                '%(class)s must be divided with number' % {
+                    "class": pretty_name(self)
+                }
+            )
+
+    def __div__(self, other):   # Python 2 compatibility
+        return type(self).__truediv__(self, other)
+
+    def __idiv__(self, other):  # Python 2 compatibility
+        return type(self).__itruediv__(self, other)
+
+    def __bool__(self):
+        return bool(self.primary.standard)
+
+    def __nonzero__(self):  # Python 2 compatibility
+        return type(self).__bool__(self)
+
