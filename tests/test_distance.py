@@ -61,3 +61,20 @@ class DistanceTest(MeasurementTestBase):
             miles_sqd.standard,
             places=1
         )
+
+    def test_set_value(self):
+        distance = Distance(mi=10)
+
+        expected_standard = 16093.44
+        self.assertEqual(
+            distance.standard,
+            expected_standard,
+        )
+
+        distance.value = 11
+
+        expected_standard = 17702.784
+        self.assertEqual(
+            distance.standard,
+            expected_standard
+        )

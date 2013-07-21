@@ -148,7 +148,11 @@ class MeasureBase(object):
 
     @value.setter
     def value(self, value):
-        setattr(self, self._default_unit, float(value))
+        units = self.get_units()
+        u1 = units[self.STANDARD_UNIT]
+        u2 = units[self.unit]
+
+        self.standard = value * (u2 / u1)
 
     @property
     def unit(self):
