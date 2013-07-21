@@ -178,3 +178,14 @@ class SpeedTest(MeasurementTestBase):
             expected_speed.standard,
             actual_speed.standard,
         )
+
+    def test_aliases(self):
+        speed = Speed(mph=10)
+
+        expected_kph = 16.09344
+        actual_kph = speed.kph
+
+        self.assertAlmostEqual(
+            expected_kph,
+            actual_kph,
+        )

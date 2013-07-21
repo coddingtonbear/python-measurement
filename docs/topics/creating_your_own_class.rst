@@ -120,8 +120,8 @@ You can create such measures by subclassing
        REFERENCE_DIMENSION = Time
 
        ALIAS = {
-           'mph': 'mile__hour',
-           'kph': 'kilometer__hour',
+           'mph': 'mi__hr',
+           'kph': 'km__hr',
        }
 
 Important details:

@@ -42,6 +42,11 @@ def pretty_name(obj):
     return obj.__name__ if obj.__class__ == type else obj.__class__.__name__
 
 
+class classproperty(property):
+    def __get__(self, cls, owner):
+        return self.fget.__get__(None, owner)()
+
+
 @total_ordering
 class MeasureBase(object):
     STANDARD_UNIT = None
@@ -448,13 +453,20 @@ class BidimensionalMeasure(object):
     def standard(self):
         return self.primary.standard / self.reference.standard
 
-    @property
+    @classproperty
+    @classmethod
     def STANDARD_UNIT(self):
-        return self.primary.STANDARD_UNIT + '__' + self.reference.STANDARD_UNIT
+        return '%s__%s' % (
+            self.PRIMARY_DIMENSION.STANDARD_UNIT,
+            self.REFERENCE_DIMENSION.STANDARD_UNIT,
+        )
 
     @property
     def unit(self):
-        return self.primary.unit + '__' + self.reference.unit
+        return '%s__%s' % (
+            self.primary.unit,
+            self.reference.unit,
+        )
 
     def _normalize(self, other):
         std_value = getattr(other, self.unit)

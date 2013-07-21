@@ -15,6 +15,6 @@ class Speed(BidimensionalMeasure):
     REFERENCE_DIMENSION = Time
 
     ALIAS = {
-        'mph': 'mile__hour',
-        'kph': 'kilometer__hour',
+        'mph': 'mi__hr',
+        'kph': 'km__hr',
     }
