@@ -14,7 +14,7 @@ class Energy(MeasureBase):
         'J': 1.0,
     }
     ALIAS = {
-        'joule': 'j',
+        'joule': 'J',
         'calorie': 'c',
         'Calorie': 'C',
     }
