@@ -68,9 +68,9 @@ Speed
    measure's primary measurement class, and an appropriate
    in the measure's reference class, and using them as a
    double-underscore-separated keyword argument (or, if
-   converting to another unit, attribute).
+   converting to another unit, as an attribute).
 
-   For example, to create an object representing 5 miles-per
+   For example, to create an object representing 24 miles-per
    hour::
 
       >>> from measurement.measure import Speed
@@ -104,6 +104,6 @@ Volume
 Weight
 ------
 
-* *Acceptable as Arguments or Attributes*: ``Eg``, ``Gg``, ``Mg``, ``Pg``, ``Tg``, ``Yg``, ``Zg``, ``ag``, ``fg``, ``g``, ``kg``, ``lb``, ``long_ton``, ``mcg``, ``mg``, ``ng``, ``oz``, ``pg``, ``short_ton``, ``stone``, ``tonne``, ``ug``, ``yg``, ``zg``
-* *Acceptable as Arguments*: ``attogram``, ``exagram``, ``femtogram``, ``gigagram``, ``gram``, ``kilogram``, ``long ton``, ``megagram``, ``metric ton``, ``metric tonne``, ``microgram``, ``milligram``, ``nanogram``, ``ounce``, ``petagram``, ``picogram``, ``pound``, ``short ton``, ``teragram``, ``ton``, ``yoctogram``, ``yottagram``, ``zeptogram``, ``zetagram``
+* *Acceptable as Arguments or Attributes*: ``Eg``, ``Gg``, ``Mg``, ``Pg``, ``Tg``, ``Yg``, ``Zg``, ``ag``, ``fg``, ``g``, ``kg``, ``lb``, ``long_ton``, ``mg``, ``ng``, ``oz``, ``pg``, ``short_ton``, ``stone``, ``tonne``, ``ug``, ``yg``, ``zg``
+* *Acceptable as Arguments*: ``attogram``, ``exagram``, ``femtogram``, ``gigagram``, ``gram``, ``kilogram``, ``long ton``, ``mcg``, ``megagram``, ``metric ton``, ``metric tonne``, ``microgram``, ``milligram``, ``nanogram``, ``ounce``, ``petagram``, ``picogram``, ``pound``, ``short ton``, ``teragram``, ``ton``, ``yoctogram``, ``yottagram``, ``zeptogram``, ``zetagram``
 
