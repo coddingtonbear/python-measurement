@@ -18,6 +18,7 @@ class Weight(MeasureBase):
         'long_ton': 1016000.0,
     }
     ALIAS = {
+        'mcg': 'ug',
         'gram': 'g',
         'ton': 'short_ton',
         'metric tonne': 'tonne',
