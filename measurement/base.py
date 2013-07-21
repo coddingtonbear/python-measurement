@@ -47,7 +47,6 @@ class MeasureBase(object):
     STANDARD_UNIT = None
     ALIAS = {}
     UNITS = {}
-    LALIAS = {}
     SI_UNITS = []
     SI_PREFIXES = {
         'yocto': 'y',

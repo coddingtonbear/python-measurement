@@ -9,10 +9,7 @@ __all__ = [
 class Weight(MeasureBase):
     STANDARD_UNIT = 'g'
     UNITS = {
-        'mcg': 0.000001,
-        'mg': 0.001,
         'g': 1.0,
-        'kg': 1000.0,
         'tonne': 1000000.0,
         'oz': 28.3495,
         'lb': 453.592,
@@ -30,5 +27,4 @@ class Weight(MeasureBase):
         'short ton': 'short_ton',
         'long ton': 'long_ton',
     }
-    LALIAS = dict([(k.lower(), v) for k, v in ALIAS.items()])
     SI_UNITS = ['g']

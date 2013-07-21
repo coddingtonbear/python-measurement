@@ -115,7 +115,6 @@ class Distance(MeasureBase):
         'Yard (Indian)': 'indian_yd',
         'Yard (Sears)': 'sears_yd'
     }
-    LALIAS = dict([(k.lower(), v) for k, v in ALIAS.items()])
 
     def __mul__(self, other):
         if isinstance(other, self.__class__):
@@ -155,7 +154,6 @@ class Area(MeasureBase):
             for k, v in Distance.get_aliases().items()
         ]
     )
-    LALIAS = dict([(k.lower(), v) for k, v in ALIAS.items()])
 
     def __truediv__(self, other):
         if isinstance(other, NUMERIC_TYPES):

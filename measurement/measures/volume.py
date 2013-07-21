@@ -51,7 +51,6 @@ class Volume(MeasureBase):
         'Imperial Teaspoon': 'imperial_tsp',
     }
     SI_UNITS = ['l']
-    LALIAS = dict([(k.lower(), v) for k, v in ALIAS.items()])
 
     def __init__(self, *args, **kwargs):
         super(Volume, self).__init__(*args, **kwargs)
