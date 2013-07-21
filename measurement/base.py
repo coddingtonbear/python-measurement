@@ -401,7 +401,7 @@ class BidimensionalMeasure(object):
     PRIMARY_DIMENSION = None
     REFERENCE_DIMENSION = None
 
-    ALIASES = {
+    ALIAS = {
     }
 
     def __init__(self, **kwargs):
@@ -420,8 +420,8 @@ class BidimensionalMeasure(object):
             )
 
     def _get_unit_parts(self, measure_string):
-        if measure_string in self.ALIASES:
-            measure_string = self.ALIASES[measure_string]
+        if measure_string in self.ALIAS:
+            measure_string = self.ALIAS[measure_string]
         try:
             primary_unit, reference_unit = measure_string.split('__')
         except ValueError:

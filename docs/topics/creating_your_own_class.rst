@@ -64,7 +64,7 @@ Important details:
   ``Yg`` (yottagrams).
 
 Using formula-based conversions
--------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In some situations, your conversions between units may not be simple enough
 to be accomplished by using simple conversions (e.g. temperature); for
@@ -95,3 +95,56 @@ Important details:
 * See above 'Important Details' under `Normal Measures`.
 * ``SU`` must define the symbol used in expressions relating your measure's
   ``STANDARD_UNIT`` to the unit you're defining. 
+
+
+Bi-dimensional Measures
+-----------------------
+
+Some measures are really just compositions of two separate measures -- Speed,
+being a measure of the amount of distance covered over a unit of time, is one
+common example of such a measure.
+
+You can create such measures by subclassing
+``measurement.base.BidimensionalMeasure``.
+
+.. code-block:: python
+
+   from measurement.base import BidimensionalMeasure
+
+   from measurement.measures.distance import Distance
+   from measurement.measures.time import Time
+
+
+   class Speed(BidimensionalMeasure):
+       PRIMARY_DIMENSION = Distance
+       REFERENCE_DIMENSION = Time
+
+       ALIAS = {
+           'mph': 'mile__hour',
+           'kph': 'kilometer__hour',
+       }
+
+Important details:
+
+* ``PRIMARY_DIMENSION`` is a class that measures the variable dimension of
+  this measure.  In the case of 'miles-per-hour', this would be the 'miles'
+  or 'distance' dimension of the measurement.
+* ``REFERENCE_DIMENSION`` is a class that measures the unit (reference)
+  dimension of the measure.  In the case of 'miles-per-hour', this would be
+  the 'hour' or 'time' dimension of the measurement.
+* ``ALIAS`` defines a list of convenient abbreviations for use either when
+  creating or defining a new instance of this measurement.  In the above case,
+  you can create an instance of speed like ``Speed(mph=10)`` (equivalent to
+  ``Speed(mile__hour=10)``) or convert to an existing measurement (
+  ``speed_measurement``) into one of the aliased measures by accessing
+  the attribute named -- ``speed_measurement.kph`` (equivalent to 
+  ``speed_measurement.kilometer__hour``).
+
+.. note::
+
+   Although unit aliases defined in a bi-dimensional measurement's ``ALIAS``
+   dictionary can be used either as keyword arguments or as attributes used
+   for conversion, unit aliases defined in simple measurements (those
+   subclassing ``measurement.base.MeasureBase``) can be used only as keyword
+   arguments.
+
