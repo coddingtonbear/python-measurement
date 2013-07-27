@@ -9,7 +9,27 @@ unit-aware distance measurement, but also for converting between different
 units and adding/subtracting these objects from one another.
 
 This module not only provides those Distance and Area measurement
-objects, but also other measurements including Weight, Volume, and Temperature.
+objects, but also other measurements including:
+
+- Energy
+- Speed
+- Temperature
+- Time
+- Volume
+- Weight
+
+Example:
+
+.. code-block:: python
+
+   >>> from measurement.measures import Weight
+   >>> weight_1 = Weight(lb=125)
+   >>> weight_2 = Weight(kg=40)
+   >>> added_together = weight_1 + weight_2
+   >>> added_together
+   Weight(lb=213.184976807)
+   >>> added_together.kg  # Maybe I actually need this value in kg?
+   96.699
 
 .. warning::
    Measurements are stored internally by converting them to a
