@@ -1,5 +1,5 @@
-from mimic import MimicTestBase
+import unittest
 
 
-class MeasurementTestBase(MimicTestBase):
+class MeasurementTestBase(unittest.TestCase):
     pass

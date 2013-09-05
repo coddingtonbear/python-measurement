@@ -417,7 +417,7 @@ class BidimensionalMeasure(object):
             self.primary = kwargs['primary']
             self.reference = kwargs['reference']
         else:
-            items = kwargs.items()
+            items = list(six.iteritems(kwargs))
             if len(items) > 1:
                 raise ValueError('Only one keyword argument is expected')
             measure_string, value = items[0]
