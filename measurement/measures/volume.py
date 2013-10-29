@@ -16,7 +16,7 @@ class Volume(MeasureBase):
         'us_oz': 2.9574e-5,
         'us_tbsp': 1.4787e-5,
         'us_tsp': 4.9289e-6,
-        'cubic_centimeter': 100.0,
+        'cubic_centimeter': 0.000001,
         'cubic_meter': 1.0,
         'l': 0.001,
         'cubic_foot': 0.0283168,
