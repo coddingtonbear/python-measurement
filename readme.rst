@@ -47,3 +47,9 @@ Example:
 - Test status available on
   `Travis-CI <https://travis-ci.org/latestrevision/python-measurement>`_.
 
+
+
+.. image:: https://d2weczhvl823v0.cloudfront.net/latestrevision/python-measurement/trend.png
+   :alt: Bitdeli badge
+   :target: https://bitdeli.com/free
+
