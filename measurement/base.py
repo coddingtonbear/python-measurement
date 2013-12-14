@@ -62,6 +62,10 @@ class MeasureBase(object):
         'nano': 'n',
         'micro': 'u',
         'milli': 'm',
+        'centi': 'c'
+        'deci': 'd'
+        'deca': 'da'
+        'hecto': 'h'
         'kilo': 'k',
         'mega': 'M',
         'giga': 'G',
@@ -80,6 +84,10 @@ class MeasureBase(object):
         'nano': 1e-9,
         'micro': 1e-6,
         'milli': 1e-3,
+        'centi': 1e-2,
+        'deci': 1e-1,
+        'deca': 1e1,
+        'hecto': 1e2,
         'kilo': 1e3,
         'mega': 1e6,
         'giga': 1e9,
