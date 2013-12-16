@@ -43,7 +43,7 @@ Example:
 - Documentation for python-measurement is available an
   `ReadTheDocs <http://python-measurement.readthedocs.org/>`_.
 - Please post issues on
-  `BitBucket <http://bitbucket.org/latestrevision/python-measurement/issues?status=new&status=open>`_.
+  `Github <https://github.com/latestrevision/python-measurement/issues>`_.
 - Test status available on
   `Travis-CI <https://travis-ci.org/latestrevision/python-measurement>`_.
 
