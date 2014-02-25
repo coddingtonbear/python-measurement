@@ -1,5 +1,5 @@
-.. image:: https://travis-ci.org/latestrevision/python-measurement.png?branch=master
-   :target: https://travis-ci.org/latestrevision/python-measurement
+.. image:: https://travis-ci.org/coddingtonbear/python-measurement.png?branch=master
+   :target: https://travis-ci.org/coddingtonbear/python-measurement
 
 Easily use and manipulate unit-aware measurement objects in Python.
 
@@ -43,13 +43,13 @@ Example:
 - Documentation for python-measurement is available an
   `ReadTheDocs <http://python-measurement.readthedocs.org/>`_.
 - Please post issues on
-  `Github <https://github.com/latestrevision/python-measurement/issues>`_.
+  `Github <https://github.com/coddingtonbear/python-measurement/issues>`_.
 - Test status available on
-  `Travis-CI <https://travis-ci.org/latestrevision/python-measurement>`_.
+  `Travis-CI <https://travis-ci.org/coddingtonbear/python-measurement>`_.
 
 
 
-.. image:: https://d2weczhvl823v0.cloudfront.net/latestrevision/python-measurement/trend.png
+.. image:: https://d2weczhvl823v0.cloudfront.net/coddingtonbear/python-measurement/trend.png
    :alt: Bitdeli badge
    :target: https://bitdeli.com/free
 
