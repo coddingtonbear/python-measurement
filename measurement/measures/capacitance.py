@@ -15,4 +15,4 @@ class Capacitance(MeasureBase):
     ALIAS = {
         'farad': 'F',
     }
-    SI_UNITS = ['F'],
+    SI_UNITS = ['F']
