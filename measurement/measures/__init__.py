@@ -5,3 +5,8 @@ from measurement.measures.volume import *
 from measurement.measures.weight import *
 from measurement.measures.speed import *
 from measurement.measures.time import *
+from measurement.measures.voltage import *
+from measurement.measures.resistance import *
+from measurement.measures.capacitance import *
+from measurement.measures.frequency import *
+from measurement.measures.current import *
