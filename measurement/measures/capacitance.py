@@ -8,7 +8,7 @@ __all__ = [
 
 
 class Capacitance(MeasureBase):
-    STANDARD_UNIT = 'uF'
+    STANDARD_UNIT = 'F'
     UNITS = {
         'F': 1.0,
     }

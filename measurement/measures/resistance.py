@@ -8,11 +8,10 @@ __all__ = [
 
 
 class Resistance(MeasureBase):
-    STANDARD_UNIT = 'Ω'
+    STANDARD_UNIT = 'ohm'
     UNITS = {
-        'Ω': 1.0,
+        'ohm': 1.0,
     }
     ALIAS = {
-        'ohm': 'Ω',
     }
-    SI_UNITS = ['Ω']
+    SI_UNITS = ['ohm']
