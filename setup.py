@@ -9,7 +9,7 @@ with open('requirements.txt', 'r') as in_:
 setup(
     name='measurement',
     version='1.7.2',
-    url='http://github.com/latestrevision/python-measurement/',
+    url='http://github.com/coddingtonbear/python-measurement/',
     description='Easily use and manipulate unit-aware measurements in Python',
     author='Adam Coddington',
     author_email='me@adamcoddington.net',
