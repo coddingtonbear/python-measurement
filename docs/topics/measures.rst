@@ -88,6 +88,26 @@ Temperature
 * *Acceptable as Arguments or Attributes*: ``c``, ``f``, ``k``
 * *Acceptable as Arguments*: ``celsius``, ``fahrenheit``, ``kelvin``
 
+.. warning::
+
+   Be aware that, unlike other measures, the zero point of the Celsius
+   and Farenheit scales are arbitrary and non-zero.
+   
+   If you attempt, for example, to calculate the average of a series of
+   temperatures using ``sum``, be sure to supply your 'start' (zero)
+   value as zero Kelvin (read: absolute zero) rather than zero
+   degrees Celsius (which is rather warm comparatively)::
+
+      >>> temperatures = [Temperature(c=10), Temperature(c=20)]
+      >>> average = sum(temperatures, Temperature(k=0)) / len(temperatures)
+      >>> print average  # The value will be shown in Kelvin by default since that is the starting unit
+      288.15 k
+      >>> print average.c  # But, you can easily get the Celsius value
+      15.0
+      >>> average.unit = 'c'  # Or, make the measurement report its value in Celsius by default
+      >>> print average
+      15.0 c
+
 Time
 ----
 
@@ -105,3 +125,4 @@ Weight
 
 * *Acceptable as Arguments or Attributes*: ``Eg``, ``Gg``, ``Mg``, ``Pg``, ``Tg``, ``Yg``, ``Zg``, ``ag``, ``cg``, ``dag``, ``dg``, ``fg``, ``g``, ``hg``, ``kg``, ``lb``, ``long_ton``, ``mg``, ``ng``, ``oz``, ``pg``, ``short_ton``, ``stone``, ``tonne``, ``ug``, ``yg``, ``zg``
 * *Acceptable as Arguments*: ``attogram``, ``centigram``, ``decagram``, ``decigram``, ``exagram``, ``femtogram``, ``gigagram``, ``gram``, ``hectogram``, ``kilogram``, ``long ton``, ``mcg``, ``megagram``, ``metric ton``, ``metric tonne``, ``microgram``, ``milligram``, ``nanogram``, ``ounce``, ``petagram``, ``picogram``, ``pound``, ``short ton``, ``teragram``, ``ton``, ``yoctogram``, ``yottagram``, ``zeptogram``, ``zetagram``
+
