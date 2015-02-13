@@ -90,7 +90,7 @@ Temperature
 
 .. warning::
 
-   Be aware that, unlike other measures, the zero point of the Celsius
+   Be aware that, unlike other measures, the zero points of the Celsius
    and Farenheit scales are arbitrary and non-zero.
    
    If you attempt, for example, to calculate the average of a series of
