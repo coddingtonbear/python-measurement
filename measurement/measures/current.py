@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from measurement.base import MeasureBase
 
 
@@ -9,7 +11,7 @@ __all__ = [
 class Current(MeasureBase):
     STANDARD_UNIT = 'A'
     UNITS = {
-        'A': 1.0,
+        'A': Decimal('1.0'),
     }
     ALIAS = {
         'amp': 'A',

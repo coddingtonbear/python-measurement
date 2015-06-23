@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from .base import MeasurementTestBase
 
 
@@ -29,5 +31,5 @@ class TemperatureTest(MeasurementTestBase):
         celsius = kelvin.c
 
         self.assertTrue(
-            isinstance(celsius, float)
+            isinstance(celsius, Decimal)
         )

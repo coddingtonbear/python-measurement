@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from measurement.base import MeasureBase
 
 
@@ -9,7 +11,7 @@ __all__ = [
 class Frequency(MeasureBase):
     STANDARD_UNIT = 'Hz'
     UNITS = {
-        'Hz': 1.0,
+        'Hz': Decimal('1.0'),
     }
     ALIAS = {
         'hertz': 'Hz',
