@@ -11,18 +11,20 @@ class SpeedTest(MeasurementTestBase):
         meters_per_second = Speed(meter__second=10)
         miles_per_hour = Decimal('22.3694')
 
-        self.assertEqual(
+        self.assertAlmostEqual(
             miles_per_hour,
-            Decimal(str(round(meters_per_second.mi__hr,4))),
+            meters_per_second.mi__hr,
+            places=4,
         )
 
     def test_attrconversion_nonstandard(self):
         miles_per_hour = Speed(mi__hr=22.3694)
         kilometers_per_minute =  Decimal('0.600000995')
 
-        self.assertEqual(
+        self.assertAlmostEqual(
             kilometers_per_minute,
-            Decimal(str(round(miles_per_hour.km__min,9))),
+            miles_per_hour.km__min,
+            places=9
         )
 
     def test_addition(self):
