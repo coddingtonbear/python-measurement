@@ -5,6 +5,7 @@ from measurement.measures import Speed
 
 
 class SpeedTest(MeasurementTestBase):
+
     def test_attrconversion(self):
         meters_per_second = Speed(meter__second=10)
         miles_per_hour = 22.3694
@@ -192,7 +193,7 @@ class SpeedTest(MeasurementTestBase):
 
     def test_set_unit(self):
         speed = Speed(mi__hr=10)
-        speed.unit = 'm__sec'
+        speed.unit = 'm__s'
 
         expected_value = 4.4704
         actual_value = speed.value

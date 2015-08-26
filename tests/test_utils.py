@@ -1,17 +1,18 @@
 from .base import MeasurementTestBase
 
 
-from measurement.measures import Weight, Distance, Temperature
+from measurement.measures import Mass, Distance, Temperature
 from measurement.utils import guess
 
 
 class UtilsTest(MeasurementTestBase):
+
     def test_guess_weight(self):
         result = guess(23, 'g')
 
         self.assertEqual(
             result,
-            Weight(g=23)
+            Mass(g=23)
         )
 
     def test_guess_distance(self):
