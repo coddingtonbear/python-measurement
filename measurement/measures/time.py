@@ -24,6 +24,7 @@ class Time(MeasureBase):
     }
     ALIAS = {
         'second': 's',
+        'sec': 's',  # For backward compatibility
         'minute': 'min',
         'hour': 'hr',
         'day': 'day'

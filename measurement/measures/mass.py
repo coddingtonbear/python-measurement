@@ -3,6 +3,7 @@ from measurement.base import MeasureBase
 
 __all__ = [
     'Mass',
+    'Weight',
 ]
 
 
@@ -29,3 +30,7 @@ class Mass(MeasureBase):
         'long ton': 'long_ton',
     }
     SI_UNITS = ['g']
+
+
+# For backward compatibility
+Weight = Mass
