@@ -4,11 +4,12 @@ from measurement.base import MeasureBase
 
 
 __all__ = [
+    'Mass',
     'Weight',
 ]
 
 
-class Weight(MeasureBase):
+class Mass(MeasureBase):
     STANDARD_UNIT = 'g'
     UNITS = {
         'g': Decimal('1.0'),
@@ -31,3 +32,7 @@ class Weight(MeasureBase):
         'long ton': 'long_ton',
     }
     SI_UNITS = ['g']
+
+
+# For backward compatibility
+Weight = Mass

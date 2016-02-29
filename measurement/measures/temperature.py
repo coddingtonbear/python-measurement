@@ -15,7 +15,7 @@ class Temperature(MeasureBase):
     UNITS = {
         'c': SU - S(273.15),
         'f': (SU - S(273.15)) * S('9/5') + 32,
-        'k': Decimal(1.0)
+        'k': Decimal('1.0')
     }
     ALIAS = {
         'celsius': 'c',
