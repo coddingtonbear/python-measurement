@@ -10,3 +10,4 @@ from measurement.measures.resistance import *
 from measurement.measures.capacitance import *
 from measurement.measures.frequency import *
 from measurement.measures.current import *
+from measurement.measures.pressure import *
