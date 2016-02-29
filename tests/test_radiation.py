@@ -8,19 +8,19 @@ from measurement.measures import Radiation
 
 class PressureTest(MeasurementTestBase):
     def test_sanity(self):
-        bq = Radiation(bq=2)
-        ci = Radiation(ci=Decimal('5.4054054054054E-11'))
+        bq = Radiation(Bq=2)
+        ci = Radiation(Ci=Decimal('5.4054054054054E-11'))
 
         self.assertAlmostEqual(
-            bq.bq,
-            ci.bq
+            bq.Bq,
+            ci.Bq
         )
 
     def test_conversion_to_non_si(self):
-        bar = Radiation(bq=2)
+        bar = Radiation(Bq=2)
         expected_ci = Decimal('5.4054054054054E-11')
         self.assertAlmostEqual(
-            bar.ci,
+            bar.Ci,
             expected_ci
         )
 

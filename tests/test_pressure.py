@@ -12,8 +12,8 @@ class PressureTest(MeasurementTestBase):
         atm = Pressure(atm=Decimal('1.973846533432'))
 
         self.assertAlmostEqual(
-            bar.pa,
-            atm.pa
+            bar.Pa,
+            atm.Pa
         )
 
     def test_conversion_to_non_si(self):

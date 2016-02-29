@@ -10,9 +10,9 @@ __all__ = [
 
 
 class Pressure(MeasureBase):
-    STANDARD_UNIT = 'pa'
+    STANDARD_UNIT = 'Pa'
     UNITS = {
-        'pa': Decimal('1.0'),
+        'Pa': Decimal('1.0'),
         'bar': Decimal('100000'),
         'at': Decimal('98066.5'),
         'atm': Decimal('101325'),
@@ -20,11 +20,11 @@ class Pressure(MeasureBase):
         'psi': Decimal('6894.757293168'),
     }
     ALIAS = {
-        'pascal': 'pa',
+        'pascal': 'Pa',
         'bar': 'bar',
         'technical atmosphere': 'at',
         'atmosphere': 'atm',
         'torr': 'torr',
         'pounds per square inch': 'psi' 
     }
-    SI_UNITS = ['pa']
+    SI_UNITS = ['Pa']
