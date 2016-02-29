@@ -26,7 +26,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-from decimal import Decimal
+from decimal import Decimal, Inexact, Context
 
 import six
 import sympy
@@ -46,6 +46,19 @@ class classproperty(property):
     def __get__(self, cls, owner):
         return self.fget.__get__(None, owner)()
 
+def float_to_decimal(f):
+    """Convert a floating point number to a Decimal with no loss of information
+         From https://docs.python.org/release/2.6.7/library/decimal.html#decimal-faq
+    """
+    n, d = f.as_integer_ratio()
+    numerator, denominator = Decimal(n), Decimal(d)
+    ctx = Context(prec=60)
+    result = ctx.divide(numerator, denominator)
+    while ctx.flags[Inexact]:
+        ctx.flags[Inexact] = False
+        ctx.prec *= 2
+        result = ctx.divide(numerator, denominator)
+    return result
 
 @total_ordering
 class MeasureBase(object):
@@ -368,7 +381,11 @@ class MeasureBase(object):
         val = 0.0
         default_unit = self.STANDARD_UNIT
         for unit, value in six.iteritems(kwargs):
-            value = Decimal(value)
+            if isinstance(value, float):
+                # Needed for python 2.6
+                value = float_to_decimal(value)
+            else:
+                value = Decimal(value)
             if unit in units:
                 val = self._convert_value_from(units[unit], value)
                 default_unit = unit
