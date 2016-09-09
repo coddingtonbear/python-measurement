@@ -367,7 +367,7 @@ class MeasureBase(object):
     def _convert_value_from(self, unit, value):
         if isinstance(unit, sympy.Expr):
             _, result = solve_linear(unit, sympy.Float(str(value)))
-            return result
+            return Decimal(str(result))
         return Decimal(unit) * Decimal(value)
 
     def default_units(self, kwargs):
