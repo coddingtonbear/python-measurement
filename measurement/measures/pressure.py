@@ -18,6 +18,7 @@ class Pressure(MeasureBase):
         'atm': Decimal('101325'),
         'torr': Decimal('133.322'),
         'psi': Decimal('6894.757293168'),
+        'inHg': Decimal('3386.38816'),
     }
     ALIAS = {
         'pascal': 'Pa',
@@ -25,6 +26,7 @@ class Pressure(MeasureBase):
         'technical atmosphere': 'at',
         'atmosphere': 'atm',
         'torr': 'torr',
-        'pounds per square inch': 'psi' 
+        'pounds per square inch': 'psi',
+        'inches of mercury': 'inHg',
     }
     SI_UNITS = ['Pa']
