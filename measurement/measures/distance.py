@@ -85,6 +85,7 @@ class Distance(MeasureBase):
     ALIAS = {
         'foot': 'ft',
         'inches': 'inch',
+        'in': 'inch',
         'meter': 'm',
         'metre': 'm',
         'mile': 'mi',
