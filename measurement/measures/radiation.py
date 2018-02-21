@@ -5,7 +5,9 @@ from measurement.base import MeasureBase
 
 
 __all__ = [
-    'Radiation'
+    'Radiation',
+    'AbsorbedDose',
+    'Exposure',
 ]
 
 
@@ -25,3 +27,28 @@ class Radiation(MeasureBase):
     }
     SI_UNITS = ['Bq']
 
+class AbsorbedDose(MeasureBase):
+    STANDARD_UNIT = 'Gy'
+    UNITS = {
+        'Gy': Decimal('1'),
+        'rad': Decimal('0.010'),
+    }
+    ALIAS = {
+        'gray': 'Gy',
+        'rad': 'rad',
+    }
+    SI_UNITS = ['Gy']
+    
+class Exposure(MeasureBase):
+    STANDARD_UNIT = 'C_kg'
+    UNITS = {
+        'C_kg': Decimal('1'),
+        'R': Decimal('0.000258'),
+    }
+    
+    ALIAS = {
+        'coulomb per kilogram': 'C_kg',
+        'roentgen': 'R',
+    }
+    
+    SI_UNITS = ['C_kg']    
