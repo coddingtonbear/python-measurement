@@ -3,7 +3,7 @@ from decimal import Decimal
 from .base import MeasurementTestBase
 
 
-from measurement.measures import Radiation, AbsorbedDose, Exposure
+from measurement.measures import Radiation, RadiationAbsorbedDose, RadiationExposure
 
 
 class RaditionTest(MeasurementTestBase):
@@ -24,10 +24,10 @@ class RaditionTest(MeasurementTestBase):
             expected_ci
         )
 
-class AbsorbedDoseTest(MeasurementTestBase):
+class RadiationAbsorbedDoseTest(MeasurementTestBase):
     def test_sanity(self):
-        gy = AbsorbedDose(Gy=2)
-        rad = AbsorbedDose(rad=200)
+        gy = RadiationAbsorbedDose(Gy=2)
+        rad = RadiationAbsorbedDose(rad=200)
 
         self.assertAlmostEqual(
             gy.Gy,
@@ -35,17 +35,17 @@ class AbsorbedDoseTest(MeasurementTestBase):
         )
     
     def test_conversion_to_non_si(self):
-        rad = AbsorbedDose(rad=50)
+        rad = RadiationAbsorbedDose(rad=50)
         expected_ci = Decimal('.5')
         self.assertAlmostEqual(
             rad.Gy,
             expected_ci
         )
 
-class ExposureTest(MeasurementTestBase):
+class RadiationExposureTest(MeasurementTestBase):
     def test_sanity(self):
-        c_kg = Exposure(C_kg=1)
-        roentgen = Exposure(R=Decimal('3875.968992248062'))
+        c_kg = RadiationExposure(C_kg=1)
+        roentgen = RadiationExposure(R=Decimal('3875.968992248062'))
 
         self.assertAlmostEqual(
             c_kg.C_kg,
@@ -53,7 +53,7 @@ class ExposureTest(MeasurementTestBase):
         )
     
     def test_conversion_to_non_si(self):
-        r = Exposure(R=Decimal('3875.968992248062'))
+        r = RadiationExposure(R=Decimal('3875.968992248062'))
         expected_ci = 1
         self.assertAlmostEqual(
             r.C_kg,
