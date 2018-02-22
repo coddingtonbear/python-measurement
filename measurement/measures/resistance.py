@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from decimal import Decimal
+
 from measurement.base import MeasureBase
 
 
@@ -10,7 +12,7 @@ __all__ = [
 class Resistance(MeasureBase):
     STANDARD_UNIT = 'ohm'
     UNITS = {
-        'ohm': 1.0,
+        'ohm': Decimal('1.0'),
     }
     ALIAS = {
     }

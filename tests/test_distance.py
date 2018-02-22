@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from decimal import Decimal
 from .base import MeasurementTestBase
 
 
@@ -65,7 +66,7 @@ class DistanceTest(MeasurementTestBase):
     def test_set_value(self):
         distance = Distance(mi=10)
 
-        expected_standard = 16093.44
+        expected_standard = Decimal('16093.44')
         self.assertEqual(
             distance.standard,
             expected_standard,
@@ -73,7 +74,7 @@ class DistanceTest(MeasurementTestBase):
 
         distance.value = 11
 
-        expected_standard = 17702.784
+        expected_standard = Decimal('17702.784')
         self.assertEqual(
             distance.standard,
             expected_standard

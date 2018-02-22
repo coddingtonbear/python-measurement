@@ -35,6 +35,8 @@ Authors: Robert Coup, Justin Bronn, Riccardo Di Virgilio
 Inspired by GeoPy (http://exogen.case.edu/projects/geopy/)
 and Geoff Biggs' PhD work on dimensioned units for robotics.
 """
+from decimal import Decimal
+
 from measurement.base import MeasureBase, NUMERIC_TYPES, pretty_name
 
 
@@ -50,32 +52,32 @@ AREA_PREFIX = "sq_"
 class Distance(MeasureBase):
     STANDARD_UNIT = "m"
     UNITS = {
-        'chain': 20.1168,
-        'chain_benoit': 20.116782,
-        'chain_sears': 20.1167645,
-        'british_chain_benoit': 20.1167824944,
-        'british_chain_sears': 20.1167651216,
-        'british_chain_sears_truncated': 20.116756,
-        'british_ft': 0.304799471539,
-        'british_yd': 0.914398414616,
-        'clarke_ft': 0.3047972654,
-        'clarke_link': 0.201166195164,
-        'fathom':  1.8288,
-        'ft': 0.3048,
-        'german_m': 1.0000135965,
-        'gold_coast_ft': 0.304799710181508,
-        'indian_yd': 0.914398530744,
-        'inch': 0.0254,
-        'link': 0.201168,
-        'link_benoit': 0.20116782,
-        'link_sears': 0.20116765,
-        'm': 1.0,
-        'mi': 1609.344,
-        'nm_uk': 1853.184,
-        'rod': 5.0292,
-        'sears_yd': 0.91439841,
-        'survey_ft': 0.304800609601,
-        'yd': 0.9144,
+        'chain': Decimal('20.1168'),
+        'chain_benoit': Decimal('20.116782'),
+        'chain_sears': Decimal('20.1167645'),
+        'british_chain_benoit': Decimal('20.1167824944'),
+        'british_chain_sears': Decimal('20.1167651216'),
+        'british_chain_sears_truncated': Decimal('20.116756'),
+        'british_ft': Decimal('0.304799471539'),
+        'british_yd': Decimal('0.914398414616'),
+        'clarke_ft': Decimal('0.3047972654'),
+        'clarke_link': Decimal('0.201166195164'),
+        'fathom':  Decimal('1.8288'),
+        'ft': Decimal('0.3048'),
+        'german_m': Decimal('1.0000135965'),
+        'gold_coast_ft': Decimal('0.304799710181508'),
+        'indian_yd': Decimal('0.914398530744'),
+        'inch': Decimal('0.0254'),
+        'link': Decimal('0.201168'),
+        'link_benoit': Decimal('0.20116782'),
+        'link_sears': Decimal('0.20116765'),
+        'm': Decimal('1.0'),
+        'mi': Decimal('1609.344'),
+        'nm_uk': Decimal('1853.184'),
+        'rod': Decimal('5.0292'),
+        'sears_yd': Decimal('0.91439841'),
+        'survey_ft': Decimal('0.304800609601'),
+        'yd': Decimal('0.9144'),
     }
     SI_UNITS = [
         'm'

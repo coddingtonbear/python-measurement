@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from .base import MeasurementTestBase
 
 
@@ -23,11 +25,11 @@ class TemperatureTest(MeasurementTestBase):
             expected_farenheit
         )
 
-    def test_ensure_that_we_always_output_float(self):
+    def test_ensure_that_we_always_output_decimal(self):
         kelvin = Temperature(kelvin=10)
 
         celsius = kelvin.c
 
         self.assertTrue(
-            isinstance(celsius, float)
+            isinstance(celsius, Decimal)
         )

@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from measurement.base import MeasureBase
 
 
@@ -17,10 +19,10 @@ class Time(MeasureBase):
     """
     STANDARD_UNIT = 's'
     UNITS = {
-        's': 1.0,
-        'min': 60.0,
-        'hr': 3600.0,
-        'day': 86400.0
+        's': Decimal('1.0'),
+        'min': Decimal('60.0'),
+        'hr': Decimal('3600.0'),
+        'day': Decimal('86400.0')
     }
     ALIAS = {
         'second': 's',

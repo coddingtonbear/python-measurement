@@ -1,4 +1,5 @@
 from sympy import S, Symbol
+from decimal import Decimal
 
 from measurement.base import MeasureBase
 
@@ -14,7 +15,7 @@ class Temperature(MeasureBase):
     UNITS = {
         'c': SU - S(273.15),
         'f': (SU - S(273.15)) * S('9/5') + 32,
-        'k': 1.0
+        'k': Decimal('1.0')
     }
     ALIAS = {
         'celsius': 'c',

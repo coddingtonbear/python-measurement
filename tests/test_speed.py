@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from .base import MeasurementTestBase
 
 
@@ -8,22 +10,22 @@ class SpeedTest(MeasurementTestBase):
 
     def test_attrconversion(self):
         meters_per_second = Speed(meter__second=10)
-        miles_per_hour = 22.3694
+        miles_per_hour = Decimal('22.3694')
 
         self.assertAlmostEqual(
             miles_per_hour,
             meters_per_second.mi__hr,
-            places=3
+            places=4,
         )
 
     def test_attrconversion_nonstandard(self):
         miles_per_hour = Speed(mi__hr=22.3694)
-        kilometers_per_minute = 0.599748864
+        kilometers_per_minute =  Decimal('0.600000995')
 
         self.assertAlmostEqual(
             kilometers_per_minute,
             miles_per_hour.km__min,
-            places=3
+            places=9
         )
 
     def test_addition(self):
@@ -170,7 +172,7 @@ class SpeedTest(MeasurementTestBase):
         train = Speed(mile__hour=10)
         increase = Speed(km__day=2)
 
-        two_km_day_in_mph = 0.0517809327
+        two_km_day_in_mph =  Decimal('0.0517809327')
 
         expected_speed = Speed(mile__hour=10 + two_km_day_in_mph)
         actual_speed = train + increase
@@ -183,10 +185,10 @@ class SpeedTest(MeasurementTestBase):
     def test_aliases(self):
         speed = Speed(mph=10)
 
-        expected_kph = 16.09344
+        expected_kph =  Decimal('16.09344')
         actual_kph = speed.kph
 
-        self.assertAlmostEqual(
+        self.assertEqual(
             expected_kph,
             actual_kph,
         )
@@ -195,10 +197,10 @@ class SpeedTest(MeasurementTestBase):
         speed = Speed(mi__hr=10)
         speed.unit = 'm__s'
 
-        expected_value = 4.4704
+        expected_value =  Decimal('4.4704')
         actual_value = speed.value
 
-        self.assertAlmostEqual(
+        self.assertEqual(
             expected_value,
             actual_value,
         )

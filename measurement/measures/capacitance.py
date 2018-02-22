@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+from decimal import Decimal
+
 from measurement.base import MeasureBase
 
 
@@ -10,7 +13,7 @@ __all__ = [
 class Capacitance(MeasureBase):
     STANDARD_UNIT = 'F'
     UNITS = {
-        'F': 1.0,
+        'F': Decimal('1.0'),
     }
     ALIAS = {
         'farad': 'F',
