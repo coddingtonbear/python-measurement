@@ -27,7 +27,7 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 """
-Distance and Area objects to allow for sensible and convienient calculation
+Distance and Area objects to allow for sensible and convenient calculation
 and conversions.
 
 Authors: Robert Coup, Justin Bronn, Riccardo Di Virgilio
@@ -87,6 +87,7 @@ class Distance(MeasureBase):
     ALIAS = {
         'foot': 'ft',
         'inches': 'inch',
+        'in': 'inch',
         'meter': 'm',
         'metre': 'm',
         'mile': 'mi',

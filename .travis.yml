@@ -1,9 +1,21 @@
 language: python
+sudo: false
 python:
-    - "2.6"
-    - "2.7"
-    - "3.3"
-install:
-    - pip install -q -e . --use-mirrors
-script:
-    - python setup.py test
+- '2.7'
+- '3.5'
+- '3.6'
+- nightly
+matrix:
+  allow_failures:
+  - python: nightly
+install: pip install -e .
+script: pytest
+deploy:
+  provider: pypi
+  user: codingjoe
+  password:
+    secure: nYe/kosb8Yz/YuOfJHvw8ff0GsKTT2P5gRvvqBB/+8entr+UjtW3AuORbUvk3YmMLdzAzhl7xSeP3VfNnl9wZw9Mw0BGwjMo715YRAgLEGk2IGu7IamH0NY/JPi7H1XeASFmQJe0nbugbJjtmgIICCOhw/RoBrth5sV5tzwSl5I=
+  on:
+    tags: true
+    distributions: sdist bdist_wheel
+    repo: coddingtonbear/python-measurement

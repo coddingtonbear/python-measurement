@@ -76,7 +76,7 @@ your measure's standard unit and the unit you're defining:
    from sympy import S, Symbol
    from measurement.base import MeasureBase
 
-   class Tempoerature(MeasureBase):
+   class Temperature(MeasureBase):
        SU = Symbol('kelvin')
        STANDARD_UNIT = 'k'
        UNITS = {

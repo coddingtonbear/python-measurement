@@ -187,7 +187,7 @@ class MeasureBase(object):
         if value in self.UNITS:
             unit = value
         elif value in aliases:
-            unit = aliases[unit]
+            unit = aliases[value]
         elif value.lower() in units:
             unit = value.lower()
         elif value.lower() in laliases:
@@ -697,4 +697,3 @@ class BidimensionalMeasure(object):
 
     def __nonzero__(self):  # Python 2 compatibility
         return type(self).__bool__(self)
-
