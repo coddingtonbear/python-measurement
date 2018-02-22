@@ -51,4 +51,4 @@ class RadiationExposure(MeasureBase):
         'roentgen': 'R',
     }
     
-    SI_UNITS = ['C_kg']    
+    SI_UNITS = ['C_kg', 'R']    
