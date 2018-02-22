@@ -54,8 +54,13 @@ class RadiationExposureTest(MeasurementTestBase):
     
     def test_conversion_to_non_si(self):
         r = RadiationExposure(R=Decimal('3875.968992248062'))
+        r2 = RadiationExposure(mR=Decimal('3875.968992248062') * 1000)
         expected_ci = 1
         self.assertAlmostEqual(
             r.C_kg,
+            expected_ci
+        )
+        self.assertAlmostEqual(
+            r2.C_kg,
             expected_ci
         )
