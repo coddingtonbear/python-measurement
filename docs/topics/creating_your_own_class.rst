@@ -46,7 +46,7 @@ Important details:
 
 * ``STANDARD_UNIT`` defines what unit will be used internally by the library
   for storing the value of this measurement.
-* ``UNITS`` provides a mapping relating a unit of your ``STANDRD_UNIT`` to 
+* ``UNITS`` provides a mapping relating a unit of your ``STANDARD_UNIT`` to 
   any number of defined units.  In the example above, you will see that
   we've established ``28.3495 g`` to be equal to ``1 oz``.
 * ``ALIAS`` provides a list of aliases mapping keyword arguments to ``UNITS``.
