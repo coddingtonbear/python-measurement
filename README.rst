@@ -41,7 +41,7 @@ Example:
    `navigation algorithms guiding probes into the atmosphere of extraterrestrial worlds <http://en.wikipedia.org/wiki/Mars_Climate_Orbiter>`_.
 
 - Documentation for python-measurement is available an
-  `ReadTheDocs <http://python-measurement.readthedocs.org/>`_.
+  `ReadTheDocs <https://python-measurement.readthedocs.org/>`_.
 - Please post issues on
   `Github <https://github.com/coddingtonbear/python-measurement/issues>`_.
 - Test status available on
