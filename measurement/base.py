@@ -28,14 +28,13 @@
 #
 from decimal import Decimal
 
-import six
 import sympy
 from sympy.solvers import solve_linear
 
 from measurement.utils import total_ordering
 
 
-NUMERIC_TYPES = six.integer_types + (float, Decimal)
+NUMERIC_TYPES = int, float, Decimal
 
 
 def pretty_name(obj):
@@ -102,7 +101,7 @@ class MeasureBase(object):
         value, default = self.default_units(kwargs)
         self._default_unit = default
         setattr(self, self.STANDARD_UNIT, value)
-        if default_unit and isinstance(default_unit, six.string_types):
+        if default_unit and isinstance(default_unit, str):
             self._default_unit = default_unit
 
     @classmethod
@@ -367,7 +366,7 @@ class MeasureBase(object):
         units = self.get_units()
         val = 0.0
         default_unit = self.STANDARD_UNIT
-        for unit, value in six.iteritems(kwargs):
+        for unit, value in kwargs.items():
             if unit in units:
                 val = self._convert_value_from(units[unit], value)
                 default_unit = unit
@@ -425,10 +424,9 @@ class BidimensionalMeasure(object):
             self.primary = kwargs['primary']
             self.reference = kwargs['reference']
         else:
-            items = list(six.iteritems(kwargs))
-            if len(items) > 1:
+            if len(kwargs) > 1:
                 raise ValueError('Only one keyword argument is expected')
-            measure_string, value = items[0]
+            measure_string, value = kwargs.popitem()
 
             self.primary, self.reference = self._get_measures(
                 measure_string,
