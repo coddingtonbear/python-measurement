@@ -1,15 +1,15 @@
 language: python
-sudo: false
+dist: xenial
 python:
 - '2.7'
 - '3.5'
 - '3.6'
+- '3.7'
 - nightly
 matrix:
   allow_failures:
   - python: nightly
-install: pip install -e .
-script: pytest
+script: python setup.py test
 deploy:
   provider: pypi
   user: codingjoe

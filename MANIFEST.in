@@ -1,0 +1,4 @@
+exclude .*
+exclude CONTRIBUTING.md
+prune tests
+prune docs

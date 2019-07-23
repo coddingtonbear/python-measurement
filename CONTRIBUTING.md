@@ -1,11 +1,23 @@
 # Contributing
 
+### Run tests
+
+```bash
+python setup.py test
+```
+
+### Build Sphinx documentation
+
+```bash
+python setup.py build_sphinx
+```
+
 ### Releases
 
 Please create new releases via GitHub's release functionality or using the
 GitHub CLI.
 
-```shell
+```bash
 hub release create origin <version_number>
 ```
 

@@ -6,7 +6,7 @@
 python-measurement
 ==================
 
-.. image:: https://travis-ci.org/coddingtonbear/python-measurement.png?branch=master
+.. image:: https://travis-ci.org/coddingtonbear/python-measurement.svg?branch=master
    :target: https://travis-ci.org/coddingtonbear/python-measurement
 
 Easily use and manipulate unit-aware measurement objects in Python.
