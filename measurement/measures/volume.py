@@ -10,6 +10,7 @@ class Volume(MeasureBase):
     STANDARD_UNIT = 'cubic_meter'
     UNITS = {
         'us_g': 0.00378541,
+        'mil_us_g': 3785.41,
         'us_qt': 0.000946353,
         'us_pint': 0.000473176,
         'us_cup': 0.000236588,
@@ -29,9 +30,13 @@ class Volume(MeasureBase):
         'imperial_oz': 2.8413e-5,
         'imperial_tbsp': 1.7758e-5,
         'imperial_tsp': 5.9194e-6,
+        'acre_in': 102.79015461,
+        'acre_ft': 1233.48185532,
+
     }
     ALIAS = {
         'US Gallon': 'us_g',
+        'Million US Gallons': 'mil_us_g',
         'US Quart': 'us_qt',
         'US Pint': 'us_pint',
         'US Cup': 'us_cup',
@@ -53,6 +58,9 @@ class Volume(MeasureBase):
         'Imperial Ounce': 'imperial_oz',
         'Imperial Tablespoon': 'imperial_tbsp',
         'Imperial Teaspoon': 'imperial_tsp',
+        'acre-in': 'acre_in',
+        'acre-ft': 'acre_ft',
+        'af': 'acre_ft',
     }
     SI_UNITS = ['l']
 
