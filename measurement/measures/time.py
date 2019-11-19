@@ -8,7 +8,7 @@ __all__ = [
 
 class Time(MeasureBase):
 
-    """ Time measurements (generally for multidimensional measures).
+    """Time measurements (generally for multidimensional measures).
 
     Please do not use this for handling durations of time unrelated to
     measure classes -- python's built-in datetime module has much better
