@@ -1,8 +1,6 @@
 from measurement.base import BidimensionalMeasure
-
-
-from measurement.measures.volume import Volume
 from measurement.measures.time import Time
+from measurement.measures.volume import Volume
 
 
 __all__ = [
@@ -11,7 +9,7 @@ __all__ = [
 
 
 class VolumetricFlow(BidimensionalMeasure):
-    """ Volumetric Flow measurements (generally for water flow). """
+    """Volumetric Flow measurements (generally for water flow)."""
 
     PRIMARY_DIMENSION = Volume
     REFERENCE_DIMENSION = Time
