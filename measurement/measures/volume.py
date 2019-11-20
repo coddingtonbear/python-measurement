@@ -10,6 +10,7 @@ class Volume(MeasureBase):
     STANDARD_UNIT = 'cubic_meter'
     UNITS = {
         'us_g': 0.00378541,
+        'mil_us_g': 3785.41,
         'us_qt': 0.000946353,
         'us_pint': 0.000473176,
         'us_cup': 0.000236588,
@@ -23,15 +24,20 @@ class Volume(MeasureBase):
         'l': 0.001,
         'cubic_foot': 0.0283168,
         'cubic_inch': 1.6387e-5,
+        'cubic_yard': 0.76455486121558,
         'imperial_g': 0.00454609,
         'imperial_qt': 0.00113652,
         'imperial_pint': 0.000568261,
         'imperial_oz': 2.8413e-5,
         'imperial_tbsp': 1.7758e-5,
         'imperial_tsp': 5.9194e-6,
+        'acre_in': 102.79015461,
+        'acre_ft': 1233.48185532,
+
     }
     ALIAS = {
         'US Gallon': 'us_g',
+        'Million US Gallons': 'mil_us_g',
         'US Quart': 'us_qt',
         'US Pint': 'us_pint',
         'US Cup': 'us_cup',
@@ -47,12 +53,16 @@ class Volume(MeasureBase):
         'litre': 'l',
         'cubic foot': 'cubic_foot',
         'cubic inch': 'cubic_inch',
+        'cubic yard': 'cubic_yard',
         'Imperial Gram': 'imperial_g',
         'Imperial Quart': 'imperial_qt',
         'Imperial Pint': 'imperial_pint',
         'Imperial Ounce': 'imperial_oz',
         'Imperial Tablespoon': 'imperial_tbsp',
         'Imperial Teaspoon': 'imperial_tsp',
+        'acre-in': 'acre_in',
+        'acre-ft': 'acre_ft',
+        'af': 'acre_ft',
     }
     SI_UNITS = ['l']
 
