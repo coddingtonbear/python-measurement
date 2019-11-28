@@ -158,8 +158,8 @@ class Area(MeasureBase):
 
     UNITS.update(
         [
-            ('acre', (43560 * (Distance(ft=1) ** 2))),
-            ('hectare', (10000 * (Distance(m=1) ** 2))),
+            ('acre', ((43560 * Distance(ft=1).value) ** 2)),
+            ('hectare', ((10000 * Distance(m=1).value) ** 2)),
         ]
     )
 
