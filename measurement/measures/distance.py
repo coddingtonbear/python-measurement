@@ -162,12 +162,10 @@ class Area(MeasureBase):
             ('hectare', (10000)),  # 10,000 sq_m
         ]
     )
-
-
     ALIAS.update(
         [
             ('Acre', 'acre'),
-            ('hectare', 'hectare'),
+            ('Hectare', 'hectare'),
             ('ha', 'hectare'),
         ]
     )
