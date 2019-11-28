@@ -156,6 +156,22 @@ class Area(MeasureBase):
         ]
     )
 
+    UNITS.update(
+        [
+            ('acre', (43560 * (Distance(ft=1) ** 2))),
+            ('hectare', (10000 * (Distance(m=1) ** 2))),
+        ]
+    )
+
+
+    ALIAS.update(
+        [
+            ('Acre', 'acre'),
+            ('hectare', 'hectare'),
+            ('ha', 'hectare'),
+        ]
+    )
+
     def __truediv__(self, other):
         if isinstance(other, NUMERIC_TYPES):
             return self.__class__(
