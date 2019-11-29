@@ -151,16 +151,19 @@ class Area(MeasureBase):
         'acre': 43560 * (Distance(ft=1).m ** 2),
         'hectare': (10000),  # 10,000 sq_m
     }
-    
-    ALIAS = {
-        **{
+    ALIAS = dict(
+        [
             (k, '%s%s' % (AREA_PREFIX, v))
             for k, v in Distance.get_aliases().items()
-        },
-        ('Acre': 'acre'),
-        ('Hectare': 'hectare'),
-        ('ha': 'hectare'),
-    }
+        ]
+    )
+    ALIAS.update(
+        [
+            ('Acre', 'acre'),
+            ('Hectare', 'hectare'),
+            ('ha', 'hectare'),
+        ]
+    )
 
     def __truediv__(self, other):
         if isinstance(other, NUMERIC_TYPES):
