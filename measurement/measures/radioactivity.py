@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from measurement.base import MeasureBase
 
 
@@ -16,7 +14,7 @@ class Radioactivity(MeasureBase):
         'bq': 1,
         'ci': 37000000000,
         'rd': 1000000,
-        'dpm': 0.0166666666666666666666666667,
+        'dpm': 1/60,
     }
     ALIAS = {
         'becquerel': 'bq',
