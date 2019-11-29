@@ -157,9 +157,9 @@ class Area(MeasureBase):
             (k, '%s%s' % (AREA_PREFIX, v))
             for k, v in Distance.get_aliases().items()
         },
-        'Acre': 'acre',
-        'Hectare': 'hectare',
-        'ha': 'hectare',
+        ('Acre': 'acre'),
+        ('Hectare': 'hectare'),
+        ('ha': 'hectare'),
     }
 
     def __truediv__(self, other):
