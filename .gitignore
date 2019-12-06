@@ -8,3 +8,4 @@ dist/
 include/
 lib/
 docs/_build/
+.coverage
