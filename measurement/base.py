@@ -33,7 +33,6 @@ from sympy.solvers import solve_linear
 
 from measurement.utils import total_ordering
 
-
 NUMERIC_TYPES = int, float, Decimal
 
 
@@ -53,48 +52,48 @@ class MeasureBase(object):
     UNITS = {}
     SI_UNITS = []
     SI_PREFIXES = {
-        'yocto': 'y',
-        'zepto': 'z',
-        'atto': 'a',
-        'femto': 'f',
-        'pico': 'p',
-        'nano': 'n',
-        'micro': 'u',
-        'milli': 'm',
-        'centi': 'c',
-        'deci': 'd',
-        'deca': 'da',
-        'hecto': 'h',
-        'kilo': 'k',
-        'mega': 'M',
-        'giga': 'G',
-        'tera': 'T',
-        'peta': 'P',
-        'exa': 'E',
-        'zeta': 'Z',
-        'yotta': 'Y',
+        "yocto": "y",
+        "zepto": "z",
+        "atto": "a",
+        "femto": "f",
+        "pico": "p",
+        "nano": "n",
+        "micro": "u",
+        "milli": "m",
+        "centi": "c",
+        "deci": "d",
+        "deca": "da",
+        "hecto": "h",
+        "kilo": "k",
+        "mega": "M",
+        "giga": "G",
+        "tera": "T",
+        "peta": "P",
+        "exa": "E",
+        "zeta": "Z",
+        "yotta": "Y",
     }
     SI_MAGNITUDES = {
-        'yocto': 1e-24,
-        'zepto': 1e-21,
-        'atto': 1e-18,
-        'femto': 1e-15,
-        'pico': 1e-12,
-        'nano': 1e-9,
-        'micro': 1e-6,
-        'milli': 1e-3,
-        'centi': 1e-2,
-        'deci': 1e-1,
-        'deca': 1e1,
-        'hecto': 1e2,
-        'kilo': 1e3,
-        'mega': 1e6,
-        'giga': 1e9,
-        'tera': 1e12,
-        'peta': 1e15,
-        'exa': 1e18,
-        'zeta': 1e21,
-        'yotta': 1e24,
+        "yocto": 1e-24,
+        "zepto": 1e-21,
+        "atto": 1e-18,
+        "femto": 1e-15,
+        "pico": 1e-12,
+        "nano": 1e-9,
+        "micro": 1e-6,
+        "milli": 1e-3,
+        "centi": 1e-2,
+        "deci": 1e-1,
+        "deca": 1e1,
+        "hecto": 1e2,
+        "kilo": 1e3,
+        "mega": 1e6,
+        "giga": 1e9,
+        "tera": 1e12,
+        "peta": 1e15,
+        "exa": 1e18,
+        "zeta": 1e21,
+        "yotta": 1e24,
     }
 
     def __init__(self, default_unit=None, **kwargs):
@@ -179,31 +178,25 @@ class MeasureBase(object):
         elif value.lower() in laliases:
             unit = laliases[value.lower]
         if not unit:
-            raise ValueError('Invalid unit %s' % value)
+            raise ValueError("Invalid unit %s" % value)
         self._default_unit = unit
 
     def __getattr__(self, name):
         units = self.get_units()
         if name in units:
-            return self._convert_value_to(
-                units[name],
-                self.standard,
-            )
+            return self._convert_value_to(units[name], self.standard,)
         else:
-            raise AttributeError('Unknown unit type: %s' % name)
+            raise AttributeError("Unknown unit type: %s" % name)
 
     def __repr__(self):
-        return '%s(%s=%s)' % (
+        return "%s(%s=%s)" % (
             pretty_name(self),
             self.unit,
-            getattr(self, self._default_unit)
+            getattr(self, self._default_unit),
         )
 
     def __str__(self):
-        return '%s %s' % (
-            getattr(self, self._default_unit),
-            self.unit
-        )
+        return "%s %s" % (getattr(self, self._default_unit), self.unit)
 
     # **** Comparison methods ****
 
@@ -229,9 +222,7 @@ class MeasureBase(object):
             )
         else:
             raise TypeError(
-                '%(class)s must be added with %(class)s' % {
-                    "class": pretty_name(self)
-                }
+                "%(class)s must be added with %(class)s" % {"class": pretty_name(self)}
             )
 
     def __iadd__(self, other):
@@ -240,9 +231,7 @@ class MeasureBase(object):
             return self
         else:
             raise TypeError(
-                '%(class)s must be added with %(class)s' % {
-                    "class": pretty_name(self)
-                }
+                "%(class)s must be added with %(class)s" % {"class": pretty_name(self)}
             )
 
     def __sub__(self, other):
@@ -253,9 +242,8 @@ class MeasureBase(object):
             )
         else:
             raise TypeError(
-                '%(class)s must be subtracted from %(class)s' % {
-                    "class": pretty_name(self)
-                }
+                "%(class)s must be subtracted from %(class)s"
+                % {"class": pretty_name(self)}
             )
 
     def __isub__(self, other):
@@ -264,9 +252,8 @@ class MeasureBase(object):
             return self
         else:
             raise TypeError(
-                '%(class)s must be subtracted from %(class)s' % {
-                    "class": pretty_name(self)
-                }
+                "%(class)s must be subtracted from %(class)s"
+                % {"class": pretty_name(self)}
             )
 
     def __mul__(self, other):
@@ -277,9 +264,8 @@ class MeasureBase(object):
             )
         else:
             raise TypeError(
-                '%(class)s must be multiplied with number' % {
-                    "class": pretty_name(self)
-                }
+                "%(class)s must be multiplied with number"
+                % {"class": pretty_name(self)}
             )
 
     def __imul__(self, other):
@@ -288,9 +274,8 @@ class MeasureBase(object):
             return self
         else:
             raise TypeError(
-                '%(class)s must be multiplied with number' % {
-                    "class": pretty_name(self)
-                }
+                "%(class)s must be multiplied with number"
+                % {"class": pretty_name(self)}
             )
 
     def __rmul__(self, other):
@@ -306,12 +291,11 @@ class MeasureBase(object):
             )
         else:
             raise TypeError(
-                '%(class)s must be divided with number or %(class)s' % {
-                    "class": pretty_name(self)
-                }
+                "%(class)s must be divided with number or %(class)s"
+                % {"class": pretty_name(self)}
             )
 
-    def __div__(self, other):   # Python 2 compatibility
+    def __div__(self, other):  # Python 2 compatibility
         return type(self).__truediv__(self, other)
 
     def __itruediv__(self, other):
@@ -320,9 +304,7 @@ class MeasureBase(object):
             return self
         else:
             raise TypeError(
-                '%(class)s must be divided with number' % {
-                    "class": pretty_name(self)
-                }
+                "%(class)s must be divided with number" % {"class": pretty_name(self)}
             )
 
     def __idiv__(self, other):  # Python 2 compatibility
@@ -331,7 +313,7 @@ class MeasureBase(object):
     def __bool__(self):
         return bool(self.standard)
 
-    def __nonzero__(self):      # Python 2 compatibility
+    def __nonzero__(self):  # Python 2 compatibility
         return type(self).__bool__(self)
 
     def _convert_value_to(self, unit, value):
@@ -339,11 +321,7 @@ class MeasureBase(object):
             value = float(value)
 
         if isinstance(unit, sympy.Expr):
-            result = unit.evalf(
-                subs={
-                    self.SU: value
-                }
-            )
+            result = unit.evalf(subs={self.SU: value})
             return float(result)
         return value / unit
 
@@ -357,10 +335,7 @@ class MeasureBase(object):
         return unit * value
 
     def default_units(self, kwargs):
-        """
-        Return the unit value and the default units specified
-        from the given keyword arguments dictionary.
-        """
+        """Return the unit value and default units as specified by the given arguments."""
         aliases = self.get_aliases()
         laliases = self.get_lowercase_aliases()
         units = self.get_units()
@@ -384,13 +359,14 @@ class MeasureBase(object):
                     val = self._convert_value_from(units[u], value)
                     default_unit = u
                 else:
-                    raise AttributeError('Unknown unit type: %s' % unit)
+                    raise AttributeError("Unknown unit type: %s" % unit)
         return val, default_unit
 
     @classmethod
     def unit_attname(cls, unit_str):
         """
-        Retrieves the unit attribute name for the given unit string.
+        Retrieve the unit attribute name for the given unit string.
+
         For example, if the given unit string is 'metre', 'm' would be returned.
         An exception is raised if an attribute cannot be found.
         """
@@ -405,9 +381,7 @@ class MeasureBase(object):
             return laliases[lower]
         else:
             raise Exception(
-                'Could not find a unit keyword associated with "%s"' % (
-                    unit_str,
-                )
+                'Could not find a unit keyword associated with "%s"' % (unit_str,)
             )
 
 
@@ -416,38 +390,33 @@ class BidimensionalMeasure(object):
     PRIMARY_DIMENSION = None
     REFERENCE_DIMENSION = None
 
-    ALIAS = {
-    }
+    ALIAS = {}
 
     def __init__(self, **kwargs):
-        if 'primary' in kwargs and 'reference' in kwargs:
-            self.primary = kwargs['primary']
-            self.reference = kwargs['reference']
+        if "primary" in kwargs and "reference" in kwargs:
+            self.primary = kwargs["primary"]
+            self.reference = kwargs["reference"]
         else:
             if len(kwargs) > 1:
-                raise ValueError('Only one keyword argument is expected')
+                raise ValueError("Only one keyword argument is expected")
             measure_string, value = kwargs.popitem()
 
-            self.primary, self.reference = self._get_measures(
-                measure_string,
-                value
-            )
+            self.primary, self.reference = self._get_measures(measure_string, value)
 
     def _get_unit_parts(self, measure_string):
         if measure_string in self.ALIAS:
             measure_string = self.ALIAS[measure_string]
         try:
-            primary_unit, reference_unit = measure_string.split('__')
+            primary_unit, reference_unit = measure_string.split("__")
         except ValueError:
             raise AttributeError(
                 (
-                    'Unit not found: \'%s\';'
-                    'Units should be expressed using double-underscore '
-                    'separated units; for example: meters-per-second would be '
-                    'expressed with either \'meter__second\' or \'m__sec\'.'
-                ) % (
-                    measure_string
+                    "Unit not found: '%s';"
+                    "Units should be expressed using double-underscore "
+                    "separated units; for example: meters-per-second would be "
+                    "expressed with either 'meter__second' or 'm__sec'."
                 )
+                % (measure_string)
             )
         return primary_unit, reference_unit
 
@@ -465,7 +434,7 @@ class BidimensionalMeasure(object):
     @classproperty
     @classmethod
     def STANDARD_UNIT(self):
-        return '%s__%s' % (
+        return "%s__%s" % (
             self.PRIMARY_DIMENSION.STANDARD_UNIT,
             self.REFERENCE_DIMENSION.STANDARD_UNIT,
         )
@@ -476,18 +445,15 @@ class BidimensionalMeasure(object):
 
     @property
     def unit(self):
-        return '%s__%s' % (
-            self.primary.unit,
-            self.reference.unit,
-        )
+        return "%s__%s" % (self.primary.unit, self.reference.unit,)
 
     @unit.setter
     def unit(self, value):
-        primary, reference = value.split('__')
+        primary, reference = value.split("__")
         reference_units = self.REFERENCE_DIMENSION.get_units()
         if reference != self.reference.unit:
             reference_chg = (
-                reference_units[self.reference.unit]/reference_units[reference]
+                reference_units[self.reference.unit] / reference_units[reference]
             )
             self.primary.standard = self.primary.standard / reference_chg
         self.primary.unit = primary
@@ -508,13 +474,13 @@ class BidimensionalMeasure(object):
         p1, r1 = self.primary.unit, self.reference.unit
         p2, r2 = self._get_unit_parts(measure_string)
 
-        primary_chg = primary_units[p2]/primary_units[p1]
-        reference_chg = reference_units[r2]/reference_units[r1]
+        primary_chg = primary_units[p2] / primary_units[p1]
+        reference_chg = reference_units[r2] / reference_units[r1]
 
         return self.primary.value / primary_chg * reference_chg
 
     def __repr__(self):
-        return '%s(%s__%s=%s)' % (
+        return "%s(%s__%s=%s)" % (
             pretty_name(self),
             self.primary.unit,
             self.reference.unit,
@@ -522,7 +488,7 @@ class BidimensionalMeasure(object):
         )
 
     def __str__(self):
-        return '%s %s/%s' % (
+        return "%s %s/%s" % (
             self.primary.value,
             self.primary.unit,
             self.reference.unit,
@@ -545,18 +511,12 @@ class BidimensionalMeasure(object):
             normalized = self._normalize(other)
             total_value = normalized.primary.value + self.primary.value
             return self.__class__(
-                primary=self.PRIMARY_DIMENSION(
-                    **{self.primary.unit: total_value}
-                ),
-                reference=self.REFERENCE_DIMENSION(
-                    **{self.reference.unit: 1}
-                )
+                primary=self.PRIMARY_DIMENSION(**{self.primary.unit: total_value}),
+                reference=self.REFERENCE_DIMENSION(**{self.reference.unit: 1}),
             )
         else:
             raise TypeError(
-                '%(class)s must be added with %(class)s' % {
-                    "class": pretty_name(self)
-                }
+                "%(class)s must be added with %(class)s" % {"class": pretty_name(self)}
             )
 
     def __iadd__(self, other):
@@ -566,9 +526,7 @@ class BidimensionalMeasure(object):
             return self
         else:
             raise TypeError(
-                '%(class)s must be added with %(class)s' % {
-                    "class": pretty_name(self)
-                }
+                "%(class)s must be added with %(class)s" % {"class": pretty_name(self)}
             )
 
     def __sub__(self, other):
@@ -576,18 +534,12 @@ class BidimensionalMeasure(object):
             normalized = self._normalize(other)
             total_value = self.primary.value - normalized.primary.value
             return self.__class__(
-                primary=self.PRIMARY_DIMENSION(
-                    **{self.primary.unit: total_value}
-                ),
-                reference=self.REFERENCE_DIMENSION(
-                    **{self.reference.unit: 1}
-                )
+                primary=self.PRIMARY_DIMENSION(**{self.primary.unit: total_value}),
+                reference=self.REFERENCE_DIMENSION(**{self.reference.unit: 1}),
             )
         else:
             raise TypeError(
-                '%(class)s must be added with %(class)s' % {
-                    "class": pretty_name(self)
-                }
+                "%(class)s must be added with %(class)s" % {"class": pretty_name(self)}
             )
 
     def __isub__(self, other):
@@ -597,27 +549,20 @@ class BidimensionalMeasure(object):
             return self
         else:
             raise TypeError(
-                '%(class)s must be added with %(class)s' % {
-                    "class": pretty_name(self)
-                }
+                "%(class)s must be added with %(class)s" % {"class": pretty_name(self)}
             )
 
     def __mul__(self, other):
         if isinstance(other, NUMERIC_TYPES):
             total_value = self.primary.value * other
             return self.__class__(
-                primary=self.PRIMARY_DIMENSION(
-                    **{self.primary.unit: total_value}
-                ),
-                reference=self.REFERENCE_DIMENSION(
-                    **{self.reference.unit: 1}
-                )
+                primary=self.PRIMARY_DIMENSION(**{self.primary.unit: total_value}),
+                reference=self.REFERENCE_DIMENSION(**{self.reference.unit: 1}),
             )
         else:
             raise TypeError(
-                '%(class)s must be multiplied with number' % {
-                    "class": pretty_name(self)
-                }
+                "%(class)s must be multiplied with number"
+                % {"class": pretty_name(self)}
             )
 
     def __rmul__(self, other):
@@ -629,9 +574,8 @@ class BidimensionalMeasure(object):
             return self
         else:
             raise TypeError(
-                '%(class)s must be multiplied with number' % {
-                    "class": pretty_name(self)
-                }
+                "%(class)s must be multiplied with number"
+                % {"class": pretty_name(self)}
             )
 
     def __truediv__(self, other):
@@ -641,18 +585,13 @@ class BidimensionalMeasure(object):
         if isinstance(other, NUMERIC_TYPES):
             total_value = self.primary.value / other
             return self.__class__(
-                primary=self.PRIMARY_DIMENSION(
-                    **{self.primary.unit: total_value}
-                ),
-                reference=self.REFERENCE_DIMENSION(
-                    **{self.reference.unit: 1}
-                )
+                primary=self.PRIMARY_DIMENSION(**{self.primary.unit: total_value}),
+                reference=self.REFERENCE_DIMENSION(**{self.reference.unit: 1}),
             )
         else:
             raise TypeError(
-                '%(class)s must be divided with number or %(class)s' % {
-                    "class": pretty_name(self)
-                }
+                "%(class)s must be divided with number or %(class)s"
+                % {"class": pretty_name(self)}
             )
 
     def __itruediv__(self, other):
@@ -661,12 +600,10 @@ class BidimensionalMeasure(object):
             return self
         else:
             raise TypeError(
-                '%(class)s must be divided with number' % {
-                    "class": pretty_name(self)
-                }
+                "%(class)s must be divided with number" % {"class": pretty_name(self)}
             )
 
-    def __div__(self, other):   # Python 2 compatibility
+    def __div__(self, other):  # Python 2 compatibility
         return type(self).__truediv__(self, other)
 
     def __idiv__(self, other):  # Python 2 compatibility
