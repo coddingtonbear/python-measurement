@@ -154,6 +154,3 @@ class Area(MeasureBase):
             raise TypeError(
                 "%(class)s must be divided by a number" % {"class": pretty_name(self)}
             )
-
-    def __div__(self, other):  # Python 2 compatibility
-        return type(self).__truediv__(self, other)
