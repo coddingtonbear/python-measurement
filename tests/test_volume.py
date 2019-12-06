@@ -1,7 +1,6 @@
-from .base import MeasurementTestBase
-
-
 from measurement.measures import Volume
+
+from .base import MeasurementTestBase
 
 
 class VolumeTest(MeasurementTestBase):
@@ -9,7 +8,4 @@ class VolumeTest(MeasurementTestBase):
         milliliters = Volume(ml=200)
         fl_oz = Volume(us_oz=6.76280454)
 
-        self.assertAlmostEqual(
-            milliliters.standard,
-            fl_oz.standard
-        )
+        self.assertAlmostEqual(milliliters.standard, fl_oz.standard)

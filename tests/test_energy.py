@@ -1,7 +1,6 @@
-from .base import MeasurementTestBase
-
-
 from measurement.measures import Energy
+
+from .base import MeasurementTestBase
 
 
 class EnergyTest(MeasurementTestBase):
@@ -10,6 +9,5 @@ class EnergyTest(MeasurementTestBase):
         kilojoules = Energy(kJ=8368)
 
         self.assertEqual(
-            calories.standard,
-            kilojoules.standard,
+            calories.standard, kilojoules.standard,
         )
