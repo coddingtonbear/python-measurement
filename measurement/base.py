@@ -27,11 +27,10 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 from decimal import Decimal
+from functools import total_ordering
 
 import sympy
 from sympy.solvers import solve_linear
-
-from measurement.utils import total_ordering
 
 NUMERIC_TYPES = int, float, Decimal
 
@@ -295,9 +294,6 @@ class MeasureBase(object):
                 % {"class": pretty_name(self)}
             )
 
-    def __div__(self, other):  # Python 2 compatibility
-        return type(self).__truediv__(self, other)
-
     def __itruediv__(self, other):
         if isinstance(other, NUMERIC_TYPES):
             self.standard /= float(other)
@@ -307,14 +303,8 @@ class MeasureBase(object):
                 "%(class)s must be divided with number" % {"class": pretty_name(self)}
             )
 
-    def __idiv__(self, other):  # Python 2 compatibility
-        return type(self).__itruediv__(self, other)
-
     def __bool__(self):
         return bool(self.standard)
-
-    def __nonzero__(self):  # Python 2 compatibility
-        return type(self).__bool__(self)
 
     def _convert_value_to(self, unit, value):
         if not isinstance(value, float):
@@ -603,14 +593,5 @@ class BidimensionalMeasure(object):
                 "%(class)s must be divided with number" % {"class": pretty_name(self)}
             )
 
-    def __div__(self, other):  # Python 2 compatibility
-        return type(self).__truediv__(self, other)
-
-    def __idiv__(self, other):  # Python 2 compatibility
-        return type(self).__itruediv__(self, other)
-
     def __bool__(self):
         return bool(self.primary.standard)
-
-    def __nonzero__(self):  # Python 2 compatibility
-        return type(self).__bool__(self)
