@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from measurement.base import MeasureBase
 
 __all__ = ["Radioactivity"]
@@ -8,10 +10,10 @@ class Radioactivity(MeasureBase):
 
     STANDARD_UNIT = "bq"
     UNITS = {
-        "bq": 1,
-        "ci": 37000000000,
-        "rd": 1000000,
-        "dpm": 1 / 60,
+        "bq": Decimal("1"),
+        "ci": Decimal("37000000000"),
+        "rd": Decimal("1000000"),
+        "dpm": Decimal("1") / Decimal("60"),
     }
     ALIAS = {
         "becquerel": "bq",

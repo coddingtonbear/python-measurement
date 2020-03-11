@@ -73,29 +73,30 @@ class MeasureBase(object):
         "yotta": "Y",
     }
     SI_MAGNITUDES = {
-        "yocto": 1e-24,
-        "zepto": 1e-21,
-        "atto": 1e-18,
-        "femto": 1e-15,
-        "pico": 1e-12,
-        "nano": 1e-9,
-        "micro": 1e-6,
-        "milli": 1e-3,
-        "centi": 1e-2,
-        "deci": 1e-1,
-        "deca": 1e1,
-        "hecto": 1e2,
-        "kilo": 1e3,
-        "mega": 1e6,
-        "giga": 1e9,
-        "tera": 1e12,
-        "peta": 1e15,
-        "exa": 1e18,
-        "zeta": 1e21,
-        "yotta": 1e24,
+        "yocto": Decimal("1e-24"),
+        "zepto": Decimal("1e-21"),
+        "atto": Decimal("1e-18"),
+        "femto": Decimal("1e-15"),
+        "pico": Decimal("1e-12"),
+        "nano": Decimal("1e-9"),
+        "micro": Decimal("1e-6"),
+        "milli": Decimal("1e-3"),
+        "centi": Decimal("1e-2"),
+        "deci": Decimal("1e-1"),
+        "deca": Decimal("1e1"),
+        "hecto": Decimal("1e2"),
+        "kilo": Decimal("1e3"),
+        "mega": Decimal("1e6"),
+        "giga": Decimal("1e9"),
+        "tera": Decimal("1e12"),
+        "peta": Decimal("1e15"),
+        "exa": Decimal("1e18"),
+        "zeta": Decimal("1e21"),
+        "yotta": Decimal("1e24"),
     }
 
-    def __init__(self, default_unit=None, **kwargs):
+    def __init__(self, default_unit=None, decimal=False, **kwargs):
+        self.decimal = decimal
         value, default = self.default_units(kwargs)
         self._default_unit = default
         setattr(self, self.STANDARD_UNIT, value)
@@ -148,7 +149,10 @@ class MeasureBase(object):
 
     @property
     def value(self):
-        return getattr(self, self._default_unit)
+        if self.decimal:
+            return getattr(self, self._default_unit)
+        else:
+            return float(getattr(self, self._default_unit))
 
     @value.setter
     def value(self, value):
@@ -156,7 +160,10 @@ class MeasureBase(object):
         u1 = units[self.STANDARD_UNIT]
         u2 = units[self.unit]
 
-        self.standard = value * (u2 / u1)
+        if self.decimal:
+            self.standard = Decimal(str(value)) * (u2 / u1)
+        else:
+            self.standard = float(value * (u2 / u1))
 
     @property
     def unit(self):
@@ -217,7 +224,8 @@ class MeasureBase(object):
         if isinstance(other, self.__class__):
             return self.__class__(
                 default_unit=self._default_unit,
-                **{self.STANDARD_UNIT: (self.standard + other.standard)}
+                **{self.STANDARD_UNIT: (self.standard + other.standard)},
+                decimal=self.decimal
             )
         else:
             raise TypeError(
@@ -237,7 +245,8 @@ class MeasureBase(object):
         if isinstance(other, self.__class__):
             return self.__class__(
                 default_unit=self._default_unit,
-                **{self.STANDARD_UNIT: (self.standard - other.standard)}
+                **{self.STANDARD_UNIT: (self.standard - other.standard)},
+                decimal=self.decimal
             )
         else:
             raise TypeError(
@@ -259,7 +268,8 @@ class MeasureBase(object):
         if isinstance(other, NUMERIC_TYPES):
             return self.__class__(
                 default_unit=self._default_unit,
-                **{self.STANDARD_UNIT: (self.standard * other)}
+                **{self.STANDARD_UNIT: (self.standard * other)},
+                decimal=self.decimal
             )
         else:
             raise TypeError(
@@ -269,7 +279,10 @@ class MeasureBase(object):
 
     def __imul__(self, other):
         if isinstance(other, NUMERIC_TYPES):
-            self.standard *= float(other)
+            if not self.decimal:
+                self.standard *= float(other)
+            else:
+                self.standard *= Decimal(other)
             return self
         else:
             raise TypeError(
@@ -286,7 +299,8 @@ class MeasureBase(object):
         if isinstance(other, NUMERIC_TYPES):
             return self.__class__(
                 default_unit=self._default_unit,
-                **{self.STANDARD_UNIT: (self.standard / other)}
+                **{self.STANDARD_UNIT: (self.standard / other)},
+                decimal=self.decimal
             )
         else:
             raise TypeError(
@@ -296,7 +310,10 @@ class MeasureBase(object):
 
     def __itruediv__(self, other):
         if isinstance(other, NUMERIC_TYPES):
-            self.standard /= float(other)
+            if not self.decimal:
+                self.standard /= float(other)
+            else:
+                self.standard /= Decimal(other)
             return self
         else:
             raise TypeError(
@@ -307,22 +324,29 @@ class MeasureBase(object):
         return bool(self.standard)
 
     def _convert_value_to(self, unit, value):
-        if not isinstance(value, float):
-            value = float(value)
-
         if isinstance(unit, sympy.Expr):
-            result = unit.evalf(subs={self.SU: value})
-            return float(result)
-        return value / unit
+            result = unit.evalf(subs={self.SU: sympy.Float(str(value))})
+            if self.decimal:
+                return Decimal(str(result))
+            else:
+                return float(result)
+
+        if self.decimal:
+            return Decimal(str(value)) / Decimal(unit)
+        else:
+            return float(value) / float(unit)
 
     def _convert_value_from(self, unit, value):
-        if not isinstance(value, float):
-            value = float(value)
-
         if isinstance(unit, sympy.Expr):
-            _, result = solve_linear(unit, value)
-            return result
-        return unit * value
+            _, result = solve_linear(unit, sympy.Float(str(value)))
+            if self.decimal:
+                return Decimal(str(result))
+            else:
+                return float(result)
+        if self.decimal:
+            return Decimal(unit) * Decimal(str(value))
+        else:
+            return float(unit) * float(value)
 
     def default_units(self, kwargs):
         """Return the unit value and default units as specified by the given arguments."""
@@ -350,7 +374,10 @@ class MeasureBase(object):
                     default_unit = u
                 else:
                     raise AttributeError("Unknown unit type: %s" % unit)
-        return val, default_unit
+        if self.decimal:
+            return Decimal(val), default_unit
+        else:
+            return float(val), default_unit
 
     @classmethod
     def unit_attname(cls, unit_str):
@@ -382,7 +409,8 @@ class BidimensionalMeasure(object):
 
     ALIAS = {}
 
-    def __init__(self, **kwargs):
+    def __init__(self, decimal=False, **kwargs):
+        self.decimal = decimal
         if "primary" in kwargs and "reference" in kwargs:
             self.primary = kwargs["primary"]
             self.reference = kwargs["reference"]
@@ -445,7 +473,7 @@ class BidimensionalMeasure(object):
             reference_chg = (
                 reference_units[self.reference.unit] / reference_units[reference]
             )
-            self.primary.standard = self.primary.standard / reference_chg
+            self.primary.standard = Decimal(str(self.primary.standard)) / reference_chg
         self.primary.unit = primary
         self.reference.unit = reference
 
@@ -467,7 +495,10 @@ class BidimensionalMeasure(object):
         primary_chg = primary_units[p2] / primary_units[p1]
         reference_chg = reference_units[r2] / reference_units[r1]
 
-        return self.primary.value / primary_chg * reference_chg
+        if self.decimal:
+            return Decimal(self.primary.value) / primary_chg * reference_chg
+        else:
+            return float(self.primary.value) / float(primary_chg) * float(reference_chg)
 
     def __repr__(self):
         return "%s(%s__%s=%s)" % (
@@ -560,7 +591,10 @@ class BidimensionalMeasure(object):
 
     def __imul__(self, other):
         if isinstance(other, NUMERIC_TYPES):
-            self.primary.standard *= float(other)
+            if not self.decimal:
+                self.primary.standard *= float(other)
+            else:
+                self.primary.standard *= Decimal(other)
             return self
         else:
             raise TypeError(
@@ -586,7 +620,10 @@ class BidimensionalMeasure(object):
 
     def __itruediv__(self, other):
         if isinstance(other, NUMERIC_TYPES):
-            self.primary.standard /= float(other)
+            if not self.decimal:
+                self.primary.standard /= float(other)
+            else:
+                self.primary.standard /= Decimal(other)
             return self
         else:
             raise TypeError(

@@ -5,21 +5,32 @@ Using Measurement Objects
 You can import any of the above measures from `measurement.measures` 
 and use it for easily handling measurements like so::
 
-    >>> from measurement.measures import Weight
-    >>> w = Weight(lb=135) # Represents 135lbs
-    >>> print w
+    >>> from measurement.measures import Mass
+    >>> m = Mass(lb=135) # Represents 135lbs
+    >>> print(m)
     135.0 lb
-    >>> print w.kg
-    61.234919999999995
+    >>> print(m.long_ton)
+    0.06027063971456693
 
 You can create a measurement unit using any compatible unit and can transform
 it into any compatible unit.  See :doc:`measures` for information about which
 units are supported by which measures.
 
+By default, measures are stored as float values. For higher precision, you can 
+use decimals by setting the optional decimal argument to True. To do this, the 
+example above becomes::
+
+    >>> from measurement.measures import Mass
+    >>> m = Mass(lb=135, decimal=True) # Represents 135lbs
+    >>> print(m)
+    135 lb
+    >>> print(m.long_ton)
+    0.06027063971456692913385826772
+
 To access the raw integer value of a measurement in the unit it was defined in,
 you can use the 'value' property::
 
-    >>> print w.value
+    >>> print(w.value)
     135.0
 
 
@@ -32,8 +43,8 @@ use the `guess` function to give you a measurement object.::
 
     >>> from measurement.utils import guess
     >>> m = guess(10, 'mg')
-    >>> print repr(m)
-    Weight(mg=10.0)
+    >>> print(repr(m))
+    Mass(mg=10.0)
 
 By default, this will check all built-in measures, and will return the first
 measure having an appropriate unit.  You may want to constrain the list of
@@ -43,7 +54,7 @@ the ``measures`` keyword argument::
 
     >>> from measurement.measures import Distance, Temperature, Volume
     >>> m = guess(24, 'f', measures=[Distance, Volume, Temperature])
-    >>> print repr(m)
+    >>> print(repr(m))
     Temperature(f=24)
 
 .. warning::

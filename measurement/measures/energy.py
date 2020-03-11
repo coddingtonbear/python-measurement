@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from measurement.base import MeasureBase
 
 __all__ = ["Energy"]
@@ -6,11 +8,11 @@ __all__ = ["Energy"]
 class Energy(MeasureBase):
     STANDARD_UNIT = "J"
     UNITS = {
-        "c": 4.18400,
-        "C": 4184.0,
-        "J": 1.0,
-        "eV": 1.602177e-19,
-        "tonne_tnt": 4184000000,
+        "c": Decimal("4.18400"),
+        "C": Decimal("4184.0"),
+        "J": Decimal("1.0"),
+        "eV": Decimal("1.602177e-19"),
+        "tonne_tnt": Decimal("4184000000"),
     }
     ALIAS = {
         "joule": "J",

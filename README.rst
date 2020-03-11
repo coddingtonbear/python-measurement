@@ -16,20 +16,20 @@ objects, but also other measurements including:
 - Temperature
 - Time
 - Volume
-- Weight
+- Mass
 
 Example:
 
 .. code-block:: python
 
-   >>> from measurement.measures import Weight
-   >>> weight_1 = Weight(lb=125)
-   >>> weight_2 = Weight(kg=40)
+   >>> from measurement.measures import Mass
+   >>> mass_1 = Mass(lb=125)
+   >>> mass_2 = Mass(kg=40)
    >>> added_together = weight_1 + weight_2
    >>> added_together
-   Weight(lb=213.184976807)
+   Mass(lb=213.184976807)
    >>> added_together.kg  # Maybe I actually need this value in kg?
-   96.699
+   96.69904625
 
 .. warning::
    Measurements are stored internally by converting them to a
@@ -39,6 +39,18 @@ Example:
 
    TLDR: Do not use this in
    `navigation algorithms guiding probes into the atmosphere of extraterrestrial worlds <http://en.wikipedia.org/wiki/Mars_Climate_Orbiter>`_.
+
+    Optionally, measurements can use
+    Decimal values internally by setting the decimal parameter to True.
+
+    Example:
+
+    .. code-block:: python
+
+       >>> from measurement.measures import Mass
+       >>> mass = Mass(lb=125, decimal=True)
+       >>> mass.kg
+       Decimal('56.69904625')
 
 - Documentation for python-measurement is available an
   `ReadTheDocs <https://python-measurement.readthedocs.org/>`_.

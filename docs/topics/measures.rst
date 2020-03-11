@@ -36,7 +36,7 @@ This application provides the following measures:
       >>> unit = 'U.S. Foot'
       >>> value = 10
       >>> measurement = guess(value, unit)
-      >>> print measurement
+      >>> print(measurement)
       10.0 U.S. Foot
 
 
@@ -74,9 +74,9 @@ Speed
 
       >>> from measurement.measure import Speed
       >>> my_speed = Speed(mile__hour=24)
-      >>> print my_speed
+      >>> print(my_speed)
       24.0 mi/hr
-      >>> print my_speed.km__hr
+      >>> print(my_speed.km__hr)
       38.624256
 
 * *Primary Measurement*: Distance
@@ -100,12 +100,12 @@ Temperature
 
       >>> temperatures = [Temperature(c=10), Temperature(c=20)]
       >>> average = sum(temperatures, Temperature(k=0)) / len(temperatures)
-      >>> print average  # The value will be shown in Kelvin by default since that is the starting unit
+      >>> print(average)  # The value will be shown in Kelvin by default since that is the starting unit
       288.15 k
-      >>> print average.c  # But, you can easily get the Celsius value
+      >>> print(average.c)  # But, you can easily get the Celsius value
       15.0
       >>> average.unit = 'c'  # Or, make the measurement report its value in Celsius by default
-      >>> print average
+      >>> print(average)
       15.0 c
 
 Time

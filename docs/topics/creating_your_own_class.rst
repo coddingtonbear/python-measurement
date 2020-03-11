@@ -17,30 +17,32 @@ A simple example is Weight:
 
 .. code-block:: python
 
+   from decimal import Decimal
    from measurement.base import MeasureBase
 
+
    class Weight(MeasureBase):
-       STANDARD_UNIT = 'g'
+       STANDARD_UNIT = "g"
        UNITS = {
-           'g': 1.0,
-           'tonne': 1000000.0,
-           'oz': 28.3495,
-           'lb': 453.592,
-           'stone': 6350.29,
-           'short_ton': 907185.0,
-           'long_ton': 1016000.0,
+           "g": Decimal("1.0"),
+           "tonne": Decimal("1000000.0"),
+           "oz": Decimal("28.3495"),
+           "lb": Decimal("453.592"),
+           "stone": Decimal("6350.29"),
+           "short_ton": Decimal("907185.0"),
+           "long_ton": Decimal("1016000.0"),
        }
        ALIAS = {
-           'gram': 'g',
-           'ton': 'short_ton',
-           'metric tonne': 'tonne',
-           'metric ton': 'tonne',
-           'ounce': 'oz',
-           'pound': 'lb',
-           'short ton': 'short_ton',
-           'long ton': 'long_ton',
+           "gram": "g",
+           "ton": "short_ton",
+           "metric tonne": "tonne",
+           "metric ton": "tonne",
+           "ounce": "oz",
+           "pound": "lb",
+           "short ton": "short_ton",
+           "long ton": "long_ton",
        }
-       SI_UNITS = ['g']
+       SI_UNITS = ["g"]
 
 Important details:
 
@@ -73,21 +75,22 @@ your measure's standard unit and the unit you're defining:
 
 .. code-block:: python
 
+   from decimal import Decimal
    from sympy import S, Symbol
    from measurement.base import MeasureBase
 
    class Temperature(MeasureBase):
-       SU = Symbol('kelvin')
-       STANDARD_UNIT = 'k'
+       SU = Symbol("kelvin")
+       STANDARD_UNIT = "k"
        UNITS = {
-           'c': SU - S(273.15),
-           'f': (SU - S(273.15)) * S('9/5') + 32,
-           'k': 1.0
+           "c": SU - S(273.15),
+           "f": (SU - S(273.15)) * S("9/5") + 32,
+           "k": Decimal("1.0")
        }
        ALIAS = {
-           'celsius': 'c',
-           'fahrenheit': 'f',
-           'kelvin': 'k',
+           "celsius": "c",
+           "fahrenheit": "f",
+           "kelvin": "k",
        }
 
 Important details:

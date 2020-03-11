@@ -1,8 +1,8 @@
 import inspect
+from measurement import measures
 
 
 def get_all_measures():
-    from measurement import measures
 
     m = []
     for name, obj in inspect.getmembers(measures):
@@ -10,13 +10,12 @@ def get_all_measures():
             m.append(obj)
     return m
 
-
-def guess(value, unit, measures=None):
+def guess(value, unit, measures=None, decimal=False):
     if measures is None:
         measures = get_all_measures()
     for measure in measures:
         try:
-            return measure(**{unit: value})
+            return measure(**{unit: value}, decimal=decimal)
         except AttributeError:
             pass
     raise ValueError(

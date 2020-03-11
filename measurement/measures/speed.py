@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from measurement.base import BidimensionalMeasure
 from measurement.measures.distance import Distance
 from measurement.measures.time import Time

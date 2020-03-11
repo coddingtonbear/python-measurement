@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from measurement.base import MeasureBase
 
 __all__ = [
@@ -9,13 +11,13 @@ __all__ = [
 class Mass(MeasureBase):
     STANDARD_UNIT = "g"
     UNITS = {
-        "g": 1.0,
-        "tonne": 1000000.0,
-        "oz": 28.3495,
-        "lb": 453.592,
-        "stone": 6350.29,
-        "short_ton": 907185.0,
-        "long_ton": 1016000.0,
+        "g": Decimal("1.0"),
+        "tonne": Decimal("1000000.0"),
+        "oz": Decimal("28.34952"),
+        "lb": Decimal("453.59237"),
+        "stone": Decimal("6350.293"),
+        "short_ton": Decimal("907185.0"),
+        "long_ton": Decimal("1016000.0"),
     }
     ALIAS = {
         "mcg": "ug",
