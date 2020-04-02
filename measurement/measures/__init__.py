@@ -3,6 +3,7 @@ from measurement.measures.current import *
 from measurement.measures.distance import *
 from measurement.measures.energy import *
 from measurement.measures.frequency import *
+from measurement.measures.inductance import *
 from measurement.measures.mass import *
 from measurement.measures.pressure import *
 from measurement.measures.radioactivity import *
