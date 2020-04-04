@@ -1,11 +1,11 @@
-from measurement.base import MeasureBase
+import decimal
 
-__all__ = [
-    "Time",
-]
+from measurement.base import AbstractMeasure, MetricUnit, Unit
+
+__all__ = ["Time", "Frequency"]
 
 
-class Time(MeasureBase):
+class Time(AbstractMeasure):
     """
     Time measurements (generally for multidimensional measures).
 
@@ -14,13 +14,23 @@ class Time(MeasureBase):
     functionality for handling intervals of time than this class provides.
     """
 
-    STANDARD_UNIT = "s"
-    UNITS = {"s": 1.0, "min": 60.0, "hr": 3600.0, "day": 86400.0}
-    ALIAS = {
-        "second": "s",
-        "sec": "s",  # For backward compatibility
-        "minute": "min",
-        "hour": "hr",
-        "day": "day",
-    }
-    SI_UNITS = ["s"]
+    second = Unit("1", ["s", "sec", "seconds"])
+    minute = Unit("60", ["min", "minutes"])
+    hour = Unit("3600", ["hr", "h", "hours"])
+    day = Unit("86400", ["d", "days"])
+    julian_year = MetricUnit(
+        "31557600",
+        ["year", "a", "aj", "years", "annum", "Julian year"],
+        ["a"],
+        ["annum"],
+    )
+
+
+class Frequency(AbstractMeasure):
+    hertz = MetricUnit("1", ["Hz", "Hertz"], ["Hz"], ["hertz"])
+    rpm = Unit(decimal.Decimal("1.0") / decimal.Decimal("60"), ["RPM", "bpm", "BPM"])
+
+    def __mul__(self, other):
+        if isinstance(other, Time):
+            return self.si_value * other.si_value
+        return super().__mul__(other)

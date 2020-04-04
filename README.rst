@@ -1,55 +1,86 @@
-.. image:: https://travis-ci.org/coddingtonbear/python-measurement.svg?branch=master
-   :target: https://travis-ci.org/coddingtonbear/python-measurement
+==================
+Python measurement
+==================
 
-Easily use and manipulate unit-aware measurement objects in Python.
+**High precision unit-aware measurement objects in Python.**
 
-`django.contrib.gis.measure <https://github.com/django/django/blob/master/django/contrib/gis/measure.py>`_
-has these wonderful 'Distance' objects that can be used not only for storing a
-unit-aware distance measurement, but also for converting between different
-units and adding/subtracting these objects from one another.
+    >>> from measurement import measures
+    >>> measures.Distance("12 megaparsec")["British yard"]
+    Decimal('404948208659679393828910.8771')
 
-This module not only provides those Distance and Area measurement
-objects, but also other measurements including:
-
-- Energy
-- Speed
-- Temperature
-- Time
-- Volume
-- Weight
-
-Example:
-
-.. code-block:: python
-
-   >>> from measurement.measures import Weight
-   >>> weight_1 = Weight(lb=125)
-   >>> weight_2 = Weight(kg=40)
-   >>> added_together = weight_1 + weight_2
-   >>> added_together
-   Weight(lb=213.184976807)
-   >>> added_together.kg  # Maybe I actually need this value in kg?
-   96.699
-
-.. warning::
-   Measurements are stored internally by converting them to a
-   floating-point number of a (generally) reasonable SI unit.  Given that 
-   floating-point numbers are very slightly lossy, you should be aware of
-   any inaccuracies that this might cause.
-
-   TLDR: Do not use this in
-   `navigation algorithms guiding probes into the atmosphere of extraterrestrial worlds <http://en.wikipedia.org/wiki/Mars_Climate_Orbiter>`_.
+This package provides a large reference collection of various measure and
+their corresponding SI (Metric), US or Imperial units. Its high precision
+supports use cases all the way from quantum mechanics to astrophysics.
 
 - Documentation for python-measurement is available an
   `ReadTheDocs <https://python-measurement.readthedocs.org/>`_.
 - Please post issues on
   `Github <https://github.com/coddingtonbear/python-measurement/issues>`_.
-- Test status available on
-  `Travis-CI <https://travis-ci.org/coddingtonbear/python-measurement>`_.
 
+Installation
+============
 
+You can install the latest version of the package with Pip::
 
-.. image:: https://d2weczhvl823v0.cloudfront.net/coddingtonbear/python-measurement/trend.png
-   :alt: Bitdeli badge
-   :target: https://bitdeli.com/free
+    python3 -m pip install measurement
 
+Usage
+=====
+
+Using Measurement Objects
+-------------------------
+
+You can import any of the above measures from `measurement.measures`
+and use it for easily handling measurements like so:
+
+    >>> from measurement.measures import Mass
+    >>> m = Mass(lb=135) # Represents 135 lbs
+    >>> print(m)
+    135 lb
+    >>> print(m["long ton"])
+    0.06027063971456692913385826772
+
+You can create a measurement unit using any compatible unit and can transform
+it into any compatible unit.  See :doc:`measures` for information about which
+units are supported by which measures.
+
+.. seealso::
+    Should you be planing to go to Mars, you might need to increase your
+    `decimal precision`_, like so:
+
+        >>> import decimal
+        >>> decimal.getcontext().prec = 28
+
+.. _decimal precision: https://docs.python.org/3.8/library/decimal.html
+
+Guessing Measurements
+---------------------
+
+If you happen to be in a situation where you are processing a list of
+value/unit pairs (like you might find at the beginning of a recipe), you can
+use the `guess` function to give you a measurement object.:
+
+    >>> from measurement.utils import guess
+    >>> m = guess(10, "mg")
+    >>> print(repr(m))
+    Mass(gram="0.010")
+
+By default, this will check all built-in measures, and will return the first
+measure having an appropriate unit.  You may want to constrain the list of
+measures checked (or your own measurement classes, too) to make sure
+that your measurement is not mis-guessed, and you can do that by specifying
+the ``measures`` keyword argument:
+
+    >>> from measurement.measures import Distance, Temperature, Volume
+    >>> m = guess(24, "°F", measures=[Distance, Volume, Temperature])
+    >>> print(repr(m))
+    Temperature(fahrenheit="24.00000000000000000000000008")
+
+If no match is found, a :class:`ValueError` exception will be raised.
+
+.. note::
+   It is absolutely possible for this to misguess due to common measurement
+   abbreviations overlapping -- for example, both Temperature and Energy
+   accept the argument ``c`` for representing degrees celsius and calories
+   respectively.  It is advisible that you constrain the list of measurements
+   to check to ones that you would consider appropriate for your input data.

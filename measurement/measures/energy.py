@@ -1,20 +1,20 @@
-from measurement.base import MeasureBase
+from measurement.base import AbstractMeasure, MetricUnit, Unit
 
-__all__ = ["Energy"]
+__all__ = ["Energy", "Heat"]
 
 
-class Energy(MeasureBase):
-    STANDARD_UNIT = "J"
-    UNITS = {
-        "c": 4.18400,
-        "C": 4184.0,
-        "J": 1.0,
-        "eV": 1.602177e-19,
-        "tonne_tnt": 4184000000,
-    }
-    ALIAS = {
-        "joule": "J",
-        "calorie": "c",
-        "Calorie": "C",
-    }
-    SI_UNITS = ["J", "c", "eV", "tonne_tnt"]
+class Energy(AbstractMeasure):
+    joule = MetricUnit("1", ["J", "Joule"], ["J"], ["joule"])
+    calorie = MetricUnit(
+        "4184.0", ["c", "cal", "Cal", "Calorie", "C"], ["cal"], ["calorie"]
+    )
+    electronvolt = MetricUnit(
+        "1.602177e-19",
+        ["eV", "electron-volt", "electron volt"],
+        ["eV"],
+        ["electronvolt"],
+    )
+    tonne_tnt = Unit("4184000000")
+
+
+Heat = Energy

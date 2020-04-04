@@ -1,25 +1,19 @@
-import inspect
-
-
-def get_all_measures():
-    from measurement import measures
-
-    m = []
-    for name, obj in inspect.getmembers(measures):
-        if inspect.isclass(obj):
-            m.append(obj)
-    return m
-
-
 def guess(value, unit, measures=None):
-    if measures is None:
-        measures = get_all_measures()
-    for measure in measures:
+    """
+    Return measurement instance based on given unit.
+
+    Raises:
+        ValueError: If measurement type cannot be guessed.
+
+    Returns:
+        MeasureBase: Measurement instance based on given unit.
+
+    """
+    from measurement.base import AbstractMeasure
+
+    for measure in measures or AbstractMeasure.__subclasses__():
         try:
             return measure(**{unit: value})
-        except AttributeError:
+        except KeyError:
             pass
-    raise ValueError(
-        "No valid measure found for %s %s; checked %s"
-        % (value, unit, ", ".join([m.__name__ for m in measures]))
-    )
+    raise ValueError(f"can't guess measure for '{value} {unit}'")
