@@ -4,9 +4,11 @@ __all__ = ["Inductance"]
 
 
 class Capacitance(MeasureBase):
-    STANDARD_UNIT = "L"
+    STANDARD_UNIT = "H"
     UNITS = {
-        "L": 1.0,
+        "H": 1.0,
     }
-    ALIAS = {}
-    SI_UNITS = ["L"]
+    ALIAS = {
+        "henri": "H",
+    }
+    SI_UNITS = ["H"]
