@@ -9,6 +9,6 @@ class Capacitance(MeasureBase):
         "H": 1.0,
     }
     ALIAS = {
-        "henri": "H",
+        "henry": "H",
     }
     SI_UNITS = ["H"]
