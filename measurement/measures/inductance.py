@@ -3,7 +3,7 @@ from measurement.base import MeasureBase
 __all__ = ["Inductance"]
 
 
-class Capacitance(MeasureBase):
+class Inductance(MeasureBase):
     STANDARD_UNIT = "H"
     UNITS = {
         "H": 1.0,
