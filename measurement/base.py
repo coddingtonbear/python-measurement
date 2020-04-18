@@ -339,11 +339,11 @@ class AbstractMeasure(metaclass=MeasureBase):
     def __mul__(self, other):
         try:
             value = getattr(self, self.unit.org_name) * other
+            return type(self)(value=value, unit=self.unit.org_name)
         except TypeError as e:
             raise TypeError(
                 f"can't multiply type '{qualname(self)}' and '{qualname(other)}'"
             ) from e
-        return type(self)(value=value, unit=self.unit.org_name)
 
     def __imul__(self, other):
         return self * other
