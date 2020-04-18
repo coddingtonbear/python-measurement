@@ -4,6 +4,8 @@ Python measurement
 
 **High precision unit-aware measurement objects in Python.**
 
+.. code-block:: python
+
     >>> from measurement import measures
     >>> measures.Distance("12 megaparsec")["British yard"]
     Decimal('404948208659679393828910.8771')
@@ -33,6 +35,8 @@ Using Measurement Objects
 You can import any of the above measures from `measurement.measures`
 and use it for easily handling measurements like so:
 
+.. code-block:: python
+
     >>> from measurement.measures import Mass
     >>> m = Mass(lb=135) # Represents 135 lbs
     >>> print(m)
@@ -44,9 +48,11 @@ You can create a measurement unit using any compatible unit and can transform
 it into any compatible unit.  See :doc:`measures` for information about which
 units are supported by which measures.
 
-.. seealso::
+.. note::
     Should you be planing to go to Mars, you might need to increase your
     `decimal precision`_, like so:
+
+    .. code-block:: python
 
         >>> import decimal
         >>> decimal.getcontext().prec = 28
@@ -58,7 +64,9 @@ Guessing Measurements
 
 If you happen to be in a situation where you are processing a list of
 value/unit pairs (like you might find at the beginning of a recipe), you can
-use the `guess` function to give you a measurement object.:
+use the :func:`.guess` function to give you a measurement object.:
+
+.. code-block:: python
 
     >>> from measurement.utils import guess
     >>> m = guess(10, "mg")
@@ -70,6 +78,8 @@ measure having an appropriate unit.  You may want to constrain the list of
 measures checked (or your own measurement classes, too) to make sure
 that your measurement is not mis-guessed, and you can do that by specifying
 the ``measures`` keyword argument:
+
+.. code-block:: python
 
     >>> from measurement.measures import Distance, Temperature, Volume
     >>> m = guess(24, "°F", measures=[Distance, Volume, Temperature])
