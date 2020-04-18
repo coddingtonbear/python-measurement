@@ -3,7 +3,7 @@ import decimal
 import pytest
 
 from measurement.base import ImmutableKeyDict, MetricUnit, Unit, qualname
-from measurement.measures import Distance
+from measurement.measures import Distance, Mass
 
 
 def test_qualname():
@@ -164,6 +164,11 @@ class TestAbstractMeasure:
         assert (
             str(e.value) == f"can't multiply type '{qualname(self.measure)}' and 'str'"
         )
+
+    def test_mul__raise_for_same_type(self):
+        with pytest.raises(TypeError) as e:
+            Mass("1 kg") * Mass("1 kg")
+        assert str(e.value) == f"can't multiply type 'Mass' and 'Mass'"
 
     def test_imul(self):
         d = self.measure(**{self.unit: 2})
