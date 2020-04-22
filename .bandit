@@ -1,3 +1,2 @@
 [bandit]
-exclude: /test
-
+exclude: /tests
