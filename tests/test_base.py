@@ -78,7 +78,10 @@ class TestMetricUnit:
 class TestAbstractMeasure:
     measure = Distance
     unit = "m"
-
+    
+    def test_update_org_name(self):
+        assert str(Distance('0.001 m')) == "1 mm"
+    
     def test_repr(self):
         assert repr(Distance("1 km")) == 'Distance(metre="1E+3")'
 
