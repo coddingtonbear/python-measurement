@@ -258,20 +258,22 @@ class AbstractMeasure(metaclass=MeasureBase):
         self.unit = self._units[unit]
         self.unit.org_name = unit
         self.si_value = self.unit.to_si(value)
-        self.units_conversor = { float(v.factor):k for k,v in self._units.items() if len(k) <= 3 }
+        self.units_conversor = self.units_conversor = {
+            float(v.factor): k for k, v in self._units.items() if len(k) <= 3
+        }
         self.update_org_name()
-    
+
     def update_org_name(self):
         if self.si_value == 0:
             self.unit.org_name = self.units_conversor[1.0]
         else:
-            factor = float(10**int((floor(log10(self.si_value)/3)*3)))
+            factor = float(10 ** int((floor(log10(self.si_value) / 3) * 3)))
             if factor in self.units_conversor:
                 self.unit.org_name = self.units_conversor[factor]
             elif factor > max(self.units_conversor):
-                self.unit.org_name = self.units_conversor[max(self.units_conversor)] 
+                self.unit.org_name = self.units_conversor[max(self.units_conversor)]
             elif factor < min(self.units_conversor):
-                self.unit.org_name = self.units_conversor[min(self.units_conversor)] 
+                self.unit.org_name = self.units_conversor[min(self.units_conversor)]
 
     def __getattr__(self, name):
         try:
