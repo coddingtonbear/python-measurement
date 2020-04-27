@@ -1,62 +1,57 @@
-measurement/base.py:12: error: Returning Any from function declared to return "str"
-measurement/base.py:15: error: Missing type parameters for generic type "Dict"
-measurement/base.py:18: error: Function is missing a type annotation
-measurement/base.py:52: error: Function is missing a return type annotation
-measurement/base.py:82: error: Incompatible types in assignment (expression has type "None", variable has type "Union[str, Decimal]")
-measurement/base.py:93: error: Function is missing a return type annotation
-measurement/base.py:93: note: Use "-> None" if function does not return a value
-measurement/base.py:97: error: Function is missing a type annotation
-measurement/base.py:100: error: Function is missing a type annotation
-measurement/base.py:103: error: Function is missing a return type annotation
-measurement/base.py:104: error: "None" has no attribute "replace"
-measurement/base.py:171: error: Function is missing a return type annotation
-measurement/base.py:172: error: Call to untyped function "get_symbols" in typed context
-measurement/base.py:174: error: Unsupported operand types for * ("str" and "Decimal")
-measurement/base.py:174: note: Left operand is of type "Union[str, Decimal]"
-measurement/base.py:179: error: Unsupported operand types for * ("str" and "Decimal")
-measurement/base.py:179: note: Left operand is of type "Union[str, Decimal]"
-measurement/base.py:184: error: Unsupported operand types for * ("str" and "Decimal")
-measurement/base.py:184: note: Left operand is of type "Union[str, Decimal]"
-measurement/base.py:204: error: Function is missing a type annotation
-measurement/base.py:218: error: "type" has no attribute "_units"
-measurement/base.py:222: error: Function is missing a return type annotation
-measurement/base.py:246: error: Item "Decimal" of "Union[str, Decimal, int, None]" has no attribute "split"
-measurement/base.py:246: error: Item "int" of "Union[str, Decimal, int, None]" has no attribute "split"
-measurement/base.py:246: error: Item "None" of "Union[str, Decimal, int, None]" has no attribute "split"
-measurement/base.py:254: error: Argument 1 to "Decimal" has incompatible type "Union[str, Decimal, int, None]"; expected "Union[Decimal, float, str, Tuple[int, Sequence[int], int]]"
-measurement/base.py:258: error: "None" has no attribute "org_name"
-measurement/base.py:259: error: "None" has no attribute "to_si"
-measurement/base.py:261: error: Function is missing a type annotation
-measurement/base.py:271: error: Function is missing a type annotation
-measurement/base.py:289: error: Returning Any from function declared to return "Decimal"
-measurement/base.py:289: error: "None" has no attribute "name"
-measurement/base.py:291: error: Function is missing a return type annotation
+measurement/base.py:15: error: Returning Any from function declared to return "str"
+measurement/base.py:18: error: Missing type parameters for generic type "Dict"
+measurement/base.py:21: error: Function is missing a type annotation
+measurement/base.py:85: error: Incompatible types in assignment (expression has type "None", variable has type "Union[str, Decimal]")
+measurement/base.py:96: error: Function is missing a return type annotation
+measurement/base.py:96: note: Use "-> None" if function does not return a value
+measurement/base.py:101: error: Unsupported operand types for * ("Decimal" and "str")
+measurement/base.py:101: note: Right operand is of type "Union[str, Decimal]"
+measurement/base.py:104: error: Unsupported operand types for / ("Decimal" and "str")
+measurement/base.py:104: note: Right operand is of type "Union[str, Decimal]"
+measurement/base.py:106: error: Function is missing a return type annotation
+measurement/base.py:107: error: "None" has no attribute "replace"
+measurement/base.py:174: error: Function is missing a return type annotation
+measurement/base.py:175: error: Call to untyped function "get_symbols" in typed context
+measurement/base.py:177: error: Unsupported operand types for * ("str" and "Decimal")
+measurement/base.py:177: note: Left operand is of type "Union[str, Decimal]"
+measurement/base.py:182: error: Unsupported operand types for * ("str" and "Decimal")
+measurement/base.py:182: note: Left operand is of type "Union[str, Decimal]"
+measurement/base.py:187: error: Unsupported operand types for * ("str" and "Decimal")
+measurement/base.py:187: note: Left operand is of type "Union[str, Decimal]"
+measurement/base.py:207: error: Function is missing a type annotation
+measurement/base.py:221: error: "type" has no attribute "_units"
+measurement/base.py:249: error: Item "Decimal" of "Union[str, Decimal, int, None]" has no attribute "split"
+measurement/base.py:249: error: Item "int" of "Union[str, Decimal, int, None]" has no attribute "split"
+measurement/base.py:249: error: Item "None" of "Union[str, Decimal, int, None]" has no attribute "split"
+measurement/base.py:257: error: Argument 1 to "Decimal" has incompatible type "Union[str, Decimal, int, None]"; expected "Union[Decimal, float, str, Tuple[int, Sequence[int], int]]"
+measurement/base.py:260: error: Value of type "Decimal" is not indexable
+measurement/base.py:261: error: "None" has no attribute "org_name"
+measurement/base.py:262: error: "None" has no attribute "to_si"
+measurement/base.py:266: error: Value of type "Decimal" is not indexable
+measurement/base.py:272: error: Returning Any from function declared to return "Decimal"
+measurement/base.py:276: error: Value of type "Decimal" is not indexable
+measurement/base.py:280: error: Returning Any from function declared to return "Decimal"
+measurement/base.py:292: error: Returning Any from function declared to return "Decimal"
 measurement/base.py:292: error: "None" has no attribute "name"
-measurement/base.py:294: error: Function is missing a return type annotation
-measurement/base.py:295: error: "None" has no attribute "org_name"
-measurement/base.py:297: error: Function is missing a type annotation
+measurement/base.py:295: error: "None" has no attribute "name"
 measurement/base.py:298: error: "None" has no attribute "org_name"
-measurement/base.py:299: error: "None" has no attribute "org_name"
-measurement/base.py:301: error: Function is missing a type annotation
-measurement/base.py:306: error: Function is missing a type annotation
-measurement/base.py:311: error: Function is missing a type annotation
-measurement/base.py:316: error: Function is missing a type annotation
-measurement/base.py:320: error: "None" has no attribute "name"
-measurement/base.py:323: error: Function is missing a type annotation
-measurement/base.py:326: error: Function is missing a type annotation
-measurement/base.py:333: error: "None" has no attribute "name"
-measurement/base.py:336: error: Function is missing a type annotation
-measurement/base.py:339: error: Function is missing a type annotation
-measurement/base.py:341: error: "None" has no attribute "org_name"
-measurement/base.py:342: error: "None" has no attribute "org_name"
-measurement/base.py:348: error: Function is missing a type annotation
+measurement/base.py:301: error: "None" has no attribute "org_name"
+measurement/base.py:302: error: "None" has no attribute "org_name"
+measurement/base.py:304: error: Function is missing a type annotation
+measurement/base.py:312: error: Returning Any from function declared to return "Optional[bool]"
+measurement/base.py:317: error: Returning Any from function declared to return "Optional[bool]"
+measurement/base.py:323: error: "None" has no attribute "name"
+measurement/base.py:336: error: "None" has no attribute "name"
+measurement/base.py:342: error: Function is missing a type annotation
+measurement/base.py:344: error: "None" has no attribute "org_name"
+measurement/base.py:345: error: "None" has no attribute "org_name"
 measurement/base.py:351: error: Function is missing a type annotation
 measurement/base.py:354: error: Function is missing a type annotation
-measurement/base.py:358: error: "None" has no attribute "org_name"
-measurement/base.py:364: error: "None" has no attribute "org_name"
-measurement/base.py:366: error: Function is missing a type annotation
+measurement/base.py:357: error: Function is missing a type annotation
+measurement/base.py:361: error: "None" has no attribute "org_name"
+measurement/base.py:367: error: "None" has no attribute "org_name"
 measurement/base.py:369: error: Function is missing a type annotation
-measurement/base.py:372: error: Function is missing a return type annotation
+measurement/base.py:372: error: Function is missing a type annotation
 measurement/utils.py:1: error: Function is missing a type annotation
 measurement/measures/time.py:33: error: Function is missing a type annotation
 measurement/measures/time.py:36: error: Call to untyped function "__mul__" in typed context
@@ -161,14 +156,8 @@ tests/test_base.py:32: error: Incompatible types in assignment (expression has t
 tests/test_base.py:33: error: Call to untyped function "get_symbols" in typed context
 tests/test_base.py:39: error: Function is missing a return type annotation
 tests/test_base.py:39: note: Use "-> None" if function does not return a value
-tests/test_base.py:40: error: Call to untyped function "to_si" in typed context
-tests/test_base.py:41: error: Call to untyped function "to_si" in typed context
-tests/test_base.py:42: error: Call to untyped function "to_si" in typed context
 tests/test_base.py:44: error: Function is missing a return type annotation
 tests/test_base.py:44: note: Use "-> None" if function does not return a value
-tests/test_base.py:45: error: Call to untyped function "from_si" in typed context
-tests/test_base.py:46: error: Call to untyped function "from_si" in typed context
-tests/test_base.py:47: error: Call to untyped function "from_si" in typed context
 tests/test_base.py:51: error: Function is missing a return type annotation
 tests/test_base.py:51: note: Use "-> None" if function does not return a value
 tests/test_base.py:53: error: Incompatible types in assignment (expression has type "str", variable has type "None")
@@ -201,7 +190,6 @@ tests/test_base.py:112: error: Argument 1 has incompatible type "**Dict[str, int
 tests/test_base.py:113: error: Argument 1 has incompatible type "**Dict[str, int]"; expected "Optional[str]"
 tests/test_base.py:115: error: Function is missing a return type annotation
 tests/test_base.py:115: note: Use "-> None" if function does not return a value
-tests/test_base.py:116: error: Call to untyped function "__lt__" in typed context
 tests/test_base.py:116: error: Argument 1 has incompatible type "**Dict[str, int]"; expected "Optional[str]"
 tests/test_base.py:118: error: Function is missing a return type annotation
 tests/test_base.py:118: note: Use "-> None" if function does not return a value
@@ -209,7 +197,6 @@ tests/test_base.py:119: error: Argument 1 has incompatible type "**Dict[str, int
 tests/test_base.py:120: error: Argument 1 has incompatible type "**Dict[str, int]"; expected "Optional[str]"
 tests/test_base.py:122: error: Function is missing a return type annotation
 tests/test_base.py:122: note: Use "-> None" if function does not return a value
-tests/test_base.py:123: error: Call to untyped function "__gt__" in typed context
 tests/test_base.py:123: error: Argument 1 has incompatible type "**Dict[str, int]"; expected "Optional[str]"
 tests/test_base.py:125: error: Function is missing a return type annotation
 tests/test_base.py:125: note: Use "-> None" if function does not return a value
@@ -219,6 +206,7 @@ tests/test_base.py:128: error: Argument 1 has incompatible type "**Dict[str, int
 tests/test_base.py:130: error: Function is missing a return type annotation
 tests/test_base.py:130: note: Use "-> None" if function does not return a value
 tests/test_base.py:132: error: Argument 1 has incompatible type "**Dict[str, int]"; expected "Optional[str]"
+tests/test_base.py:132: error: Unsupported operand types for + ("Distance" and "str")
 tests/test_base.py:135: error: Function is missing a return type annotation
 tests/test_base.py:135: note: Use "-> None" if function does not return a value
 tests/test_base.py:136: error: Argument 1 has incompatible type "**Dict[str, int]"; expected "Optional[str]"
@@ -232,6 +220,7 @@ tests/test_base.py:143: error: Argument 1 has incompatible type "**Dict[str, int
 tests/test_base.py:145: error: Function is missing a return type annotation
 tests/test_base.py:145: note: Use "-> None" if function does not return a value
 tests/test_base.py:147: error: Argument 1 has incompatible type "**Dict[str, int]"; expected "Optional[str]"
+tests/test_base.py:147: error: Unsupported operand types for - ("Distance" and "str")
 tests/test_base.py:153: error: Function is missing a return type annotation
 tests/test_base.py:153: note: Use "-> None" if function does not return a value
 tests/test_base.py:154: error: Argument 1 has incompatible type "**Dict[str, int]"; expected "Optional[str]"
@@ -354,4 +343,4 @@ tests/measures/test_electromagnetism.py:30: error: Function is missing a return 
 tests/measures/test_electromagnetism.py:30: note: Use "-> None" if function does not return a value
 tests/measures/test_electromagnetism.py:35: error: Function is missing a return type annotation
 tests/measures/test_electromagnetism.py:35: note: Use "-> None" if function does not return a value
-Found 261 errors in 15 files (checked 22 source files)
+Found 248 errors in 15 files (checked 22 source files)
