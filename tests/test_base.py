@@ -13,7 +13,7 @@ def test_qualname() -> None:
 
 class TestImmutableKeyDict:
     def test_setitem(self) -> None:
-        d = ImmutableKeyDict()
+        d: ImmutableKeyDict[str, str] = ImmutableKeyDict()
         d["foo"] = "bar"
         d["foo"] = "bar"
         with pytest.raises(KeyError) as e:

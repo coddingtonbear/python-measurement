@@ -5,8 +5,8 @@ import decimal
 import inspect
 import warnings
 from functools import total_ordering
-from typing import Any, Dict, Iterable, List, Optional, Tuple, Type, TypeVar, \
-    Union
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Tuple, Type, TypeVar, \
+    Union, Generic
 
 T = TypeVar("T", bound="AbstractMeasure")
 
@@ -15,10 +15,14 @@ def qualname(obj: Any) -> str:
     return obj.__qualname__ if inspect.isclass(obj) else type(obj).__qualname__
 
 
-class ImmutableKeyDict(Dict):
+K = TypeVar("K")
+V = TypeVar("V")
+
+
+class ImmutableKeyDict(Generic[K, V], Dict[K, V]):
     """Like :class:`.dict` but any key may only assigned to a value once."""
 
-    def __setitem__(self, key, value):
+    def __setitem__(self, key: K, value: V) -> None:
         """
         Map item to key once and raise error if the same key is set twice.
 
@@ -206,7 +210,7 @@ class MeasureBase(type):
 
     def __new__(mcs, name, bases, attrs):
         mcs.freeze_org_units(attrs)
-        symbols = ImmutableKeyDict()
+        symbols: ImmutableKeyDict[str, AbstractUnit] = ImmutableKeyDict()
         new_attr = {}
         for attr_name, attr in attrs.items():
             if isinstance(attr, AbstractUnit):
