@@ -53,7 +53,7 @@ class AbstractUnit(abc.ABC):
         """Return measure in the unit defined by this class based on given SI measure."""
 
     @abc.abstractmethod
-    def get_symbols(self) -> Iterable[Tuple[str, Type["AbstractUnit"]]]:
+    def get_symbols(self) -> Iterable[Tuple[str, "AbstractUnit"]]:
         """Return list of symbol names and their :class:`.AbstractUnit` representation."""
 
     def __str__(self) -> str:
@@ -97,7 +97,7 @@ class Unit(AbstractUnit):
     symbols: List[str] = dataclasses.field(default_factory=list)
     """Symbols used to describe this unit."""
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.factor is not None:
             self.factor = decimal.Decimal(self.factor)
 
@@ -107,7 +107,7 @@ class Unit(AbstractUnit):
     def from_si(self, value: decimal.Decimal) -> decimal.Decimal:
         return value / self.factor
 
-    def get_symbols(self):
+    def get_symbols(self) -> Iterable[Tuple[str, "Unit"]]:
         yield self.name.replace("_", " "), Unit(self.factor)
         yield from ((name, Unit(self.factor)) for name in self.symbols)
 
@@ -175,7 +175,7 @@ class MetricUnit(Unit):
         "yotta": decimal.Decimal("1e24"),
     }
 
-    def get_symbols(self):
+    def get_symbols(self) -> Iterable[Tuple[str, "Unit"]]:
         yield from super().get_symbols()
         yield from (
             (f"{prefix}{s}", Unit(factor=self.factor * factor))
@@ -287,7 +287,7 @@ class AbstractMeasure(metaclass=MeasureBase):
     def _attr_to_unit(cls, name: str) -> str:
         return name.replace("_", " ")
 
-    unit = None
+    unit: AbstractUnit
     """Return :class:`~Unit` initially given to construct the measure."""
 
     @property
