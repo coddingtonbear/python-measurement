@@ -168,7 +168,7 @@ class TestAbstractMeasure:
     def test_mul__raise_for_same_type(self):
         with pytest.raises(TypeError) as e:
             Mass("1 kg") * Mass("1 kg")
-        assert str(e.value) == f"can't multiply type 'Mass' and 'Mass'"
+        assert str(e.value) == "can't multiply type 'Mass' and 'Mass'"
 
     def test_imul(self):
         d = self.measure(**{self.unit: 2})
