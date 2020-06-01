@@ -12,18 +12,18 @@ class FractionMeasureBase(MeasureBase):
     def __new__(mcs, name, bases, attrs):
         mcs.freeze_org_units(attrs)
         numerator = attrs["__numerator__"]
-        denomminator = attrs["__denomimator__"]
-        attrs.update(mcs.div(numerator, denomminator))
+        denominator = attrs["__denominator__"]
+        attrs.update(mcs.div(numerator, denominator))
 
         cls = super().__new__(mcs, name, bases, attrs)
         return cls
 
     @staticmethod
-    def div(numerator, denomminator):
+    def div(numerator, denominator):
         for numerator_name, numerator_unit in numerator._units.items():
-            for (denomminator_name, denomminator_unit,) in denomminator._units.items():
-                name = f"{numerator_name}/{denomminator_name}"
-                factor = numerator_unit.factor / denomminator_unit.factor
+            for (denominator_name, denominator_unit,) in denominator._units.items():
+                name = f"{numerator_name}/{denominator_name}"
+                factor = numerator_unit.factor / denominator_unit.factor
                 unit = Unit(factor=factor)
                 unit.name = name
                 yield name, unit
@@ -33,7 +33,7 @@ class VolumetricFlowRate(AbstractMeasure, metaclass=FractionMeasureBase):
     """Volumetric Flow measurements (generally for water flow)."""
 
     __numerator__ = Volume
-    __denomimator__ = Time
+    __denominator__ = Time
 
     @classmethod
     def _attr_to_unit(cls, name):
@@ -42,7 +42,7 @@ class VolumetricFlowRate(AbstractMeasure, metaclass=FractionMeasureBase):
 
 class Speed(AbstractMeasure, metaclass=FractionMeasureBase):
     __numerator__ = Distance
-    __denomimator__ = Time
+    __denominator__ = Time
 
     mph = Unit("0.44704")
     kph = Unit(1 / decimal.Decimal("3.6"))
