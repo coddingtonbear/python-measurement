@@ -82,6 +82,7 @@ jobs:
         python-version:
           - 3.7
           - 3.8
+          - 3.9
     runs-on: ${{ matrix.os }}
     steps:
       - name: Set up Python ${{ matrix.python-version }}
