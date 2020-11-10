@@ -21,7 +21,10 @@ class FractionMeasureBase(MeasureBase):
     @staticmethod
     def div(numerator, denominator):
         for numerator_name, numerator_unit in numerator._units.items():
-            for (denominator_name, denominator_unit,) in denominator._units.items():
+            for (
+                denominator_name,
+                denominator_unit,
+            ) in denominator._units.items():
                 name = f"{numerator_name}/{denominator_name}"
                 factor = numerator_unit.factor / denominator_unit.factor
                 unit = Unit(factor=factor)

@@ -131,7 +131,8 @@ class Area(AbstractMeasure, metaclass=AreaBase):
     __factors__ = (Distance, Distance)
 
     acre = Unit(
-        (decimal.Decimal("43560") * (Distance(ft=decimal.Decimal(1)).m ** 2)), ["Acre"],
+        (decimal.Decimal("43560") * (Distance(ft=decimal.Decimal(1)).m ** 2)),
+        ["Acre"],
     )
     hectare = Unit("10000", ["Hectare", "ha"])
 
