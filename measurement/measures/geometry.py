@@ -243,6 +243,15 @@ class Volume(AbstractMeasure, metaclass=VolumeBase):
 
     oil_barrel = Unit("158.987294928e-3", ["oil bbl", "bbl"])
 
+    acre_in = Unit(
+        "102.790153128960",
+        ["ac in", "ac-in", "acre inches", "acre inch", "acre-inches", "acre-inch"],
+    )
+    acre_ft = Unit(
+        "1233.481837547520",
+        ["ac ft", "ac-ft", "acre feet", "acre foot", "acre-feet", "acre-foot"],
+    )
+
     @classmethod
     def _attr_to_unit(cls, name):
         if name[:6] in ["cubic_", "cubic "]:
