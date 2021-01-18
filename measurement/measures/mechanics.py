@@ -38,6 +38,13 @@ class VolumetricFlowRate(AbstractMeasure, metaclass=FractionMeasureBase):
     __numerator__ = Volume
     __denominator__ = Time
 
+    cms = Unit("1", ["cumecs"])
+    cfs = Unit(1 / decimal.Decimal("35.31466672148859025043801035"))
+
+    miners_inch_50 = Unit("566.33693184e-6", ["mi_50"])
+    miners_inch_40 = Unit("707.9211648e-6", ["mi_40"])
+    miners_inch_38_4 = Unit("737.41788e-6", ["mi_38_4"])
+
     @classmethod
     def _attr_to_unit(cls, name):
         return super()._attr_to_unit(name.replace("__", "/"))
