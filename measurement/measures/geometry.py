@@ -137,7 +137,7 @@ class Area(AbstractMeasure, metaclass=AreaBase):
     ):
         # Maually setting the base unit, because the process of iterating through
         # all combinations for square/cubic/fractional measures is intense
-        self.base_unit_names = ['metre²', 'm²', 'meter²', 'Meter²', 'Metre²']
+        self.base_unit_names = ["metre²", "m²", "meter²", "Meter²", "Metre²"]
 
         return super().__init__(value, unit, **kwargs)
 
@@ -214,18 +214,18 @@ class Volume(AbstractMeasure, metaclass=VolumeBase):
         # Maually setting the base unit, because the process of iterating through
         # all combinations for square/cubic/fractional measures is intense
         self.base_unit_names = [
-            'kL',
-            'kl',
-            'kℓ',
-            'kilolitre',
-            'kiloliter',
-            'Kilolitre',
-            'Kiloliter',
-            'metre³',
-            'm³',
-            'meter³',
-            'Meter³',
-            'Metre³'
+            "kL",
+            "kl",
+            "kℓ",
+            "kilolitre",
+            "kiloliter",
+            "Kilolitre",
+            "Kiloliter",
+            "metre³",
+            "m³",
+            "meter³",
+            "Meter³",
+            "Metre³",
         ]
 
         return super().__init__(value, unit, **kwargs)
