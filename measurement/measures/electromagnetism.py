@@ -42,9 +42,9 @@ class Inductance(AbstractMeasure):
 
 class ElectricPower(AbstractMeasure):
     """
-    Electric power can is defined as :class:`Voltage` multiplied by :class:`Current`.
+    Electric power is defined as :class:`Voltage` multiplied by :class:`Current`.
 
-    This is why you can devided :class:`Current` to get the :class:`Voltage`
+    This is why you can divide :class:`Current` to get the :class:`Voltage`
     by :class:`Voltage` to get the :class:`Current`
     or by :class:`Current` to get the :class:`Voltage`:
 
