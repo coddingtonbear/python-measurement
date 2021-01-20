@@ -14,7 +14,7 @@ class Time(AbstractMeasure):
     functionality for handling intervals of time than this class provides.
     """
 
-    second = Unit("1", ["s", "sec", "seconds"])
+    second = MetricUnit("1", ["s", "sec", "seconds"], ["s"], ["sec"])
     minute = Unit("60", ["min", "minutes"])
     hour = Unit("3600", ["hr", "h", "hours"])
     day = Unit("86400", ["d", "days"])
