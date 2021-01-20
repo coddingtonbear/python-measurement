@@ -4,6 +4,7 @@ import dataclasses
 import decimal
 import inspect
 import warnings
+from decimal import Decimal
 from functools import total_ordering
 from typing import Any, Dict, Iterable, List, Optional, Tuple, Type, Union
 
@@ -257,6 +258,19 @@ class AbstractMeasure(metaclass=MeasureBase):
         self.unit = self._units[unit]
         self.unit.org_name = unit
         self.si_value = self.unit.to_si(value)
+
+    def get_base_unit_names(self):
+        """Returns a list of unit names for units with a factor of 1 (base units)"""
+        if getattr(self, "base_unit_names", None) is not None:
+            return self.base_unit_names
+
+        names_list = [
+            unit_name
+            for unit_name, unit in self._units.items()
+            if getattr(unit, "factor", None) is not None and unit.factor == Decimal("1")
+        ]
+        if names_list:
+            return names_list
 
     def __getattr__(self, name):
         try:

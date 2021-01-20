@@ -59,6 +59,41 @@ class TestDistance:
         with pytest.raises(TypeError):
             Distance(m=1) ** 4
 
+    def test_unit_org_name(self):
+        one_mile = Distance(mi=1)
+
+        assert one_mile.unit.org_name == "mi"
+
+    def test_base_unit_names(self):
+        one_mile = Distance(mi=1)
+
+        assert set(one_mile.get_base_unit_names()) == set(['metre', 'm', 'meter', 'Meter', 'Metre'])
+
+    def test_manual_base_unit_names(self):
+        from measurement.base import AbstractMeasure, Unit, MetricUnit
+        from typing import Optional, Union
+
+
+        class SomeMeasure(AbstractMeasure):
+            abc = MetricUnit(
+                "1", ["ABC"], ["abc"], ["abc"]
+            )
+            xyz = Unit("0.123", ["XYZ"])
+
+            def __init__(
+                self,
+                value: Union[str, decimal.Decimal, int, None] = None,
+                unit: Optional[str] = None,
+                **kwargs: Union[str, decimal.Decimal, int, None],
+            ):
+                self.base_unit_names = ["abc", "ABC"]
+
+                return super().__init__(value, unit, **kwargs)
+
+        some_measure = SomeMeasure(abc=12)
+
+        assert set(some_measure.get_base_unit_names()) == set(['abc', 'ABC'])
+
 
 class TestArea:
     def test_truediv(self):
