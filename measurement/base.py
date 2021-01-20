@@ -280,7 +280,7 @@ class AbstractMeasure(metaclass=MeasureBase):
         self.si_value = self.unit.to_si(value)
 
     def get_base_unit_names(self):
-        """Returns a list of unit names for units with a factor of 1 (base units)"""
+        """Return a list of unit names for units with a factor of 1 (base units)."""
         if getattr(self, "base_unit_names", None) is not None:
             return self.base_unit_names
 
