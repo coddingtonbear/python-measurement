@@ -67,17 +67,17 @@ class TestDistance:
     def test_base_unit_names(self):
         one_mile = Distance(mi=1)
 
-        assert set(one_mile.get_base_unit_names()) == set(['metre', 'm', 'meter', 'Meter', 'Metre'])
+        assert set(one_mile.get_base_unit_names()) == set(
+            ["metre", "m", "meter", "Meter", "Metre"]
+        )
 
     def test_manual_base_unit_names(self):
-        from measurement.base import AbstractMeasure, Unit, MetricUnit
         from typing import Optional, Union
 
+        from measurement.base import AbstractMeasure, MetricUnit, Unit
 
         class SomeMeasure(AbstractMeasure):
-            abc = MetricUnit(
-                "1", ["ABC"], ["abc"], ["abc"]
-            )
+            abc = MetricUnit("1", ["ABC"], ["abc"], ["abc"])
             xyz = Unit("0.123", ["XYZ"])
 
             def __init__(
@@ -92,7 +92,7 @@ class TestDistance:
 
         some_measure = SomeMeasure(abc=12)
 
-        assert set(some_measure.get_base_unit_names()) == set(['abc', 'ABC'])
+        assert set(some_measure.get_base_unit_names()) == set(["abc", "ABC"])
 
 
 class TestArea:
