@@ -1,4 +1,5 @@
 import decimal
+from typing import Optional, Union
 
 from measurement.base import AbstractMeasure, MeasureBase, MetricUnit, Unit
 
@@ -35,6 +36,70 @@ class FractionMeasureBase(MeasureBase):
 class VolumetricFlowRate(AbstractMeasure, metaclass=FractionMeasureBase):
     """Volumetric Flow measurements (generally for water flow)."""
 
+    def __init__(
+        self,
+        value: Union[str, decimal.Decimal, int, None] = None,
+        unit: Optional[str] = None,
+        **kwargs: Union[str, decimal.Decimal, int, None],
+    ):
+        # Maually setting the base unit, because the process of iterating through
+        # all combinations for square/cubic/fractional measures is intense
+        self.base_unit_names = [
+            "cms",
+            "cumecs",
+            "CMS",
+            "kL/second",
+            "kL/s",
+            "kL/sec",
+            "kL/seconds",
+            "kl/second",
+            "kl/s",
+            "kl/sec",
+            "kl/seconds",
+            "kℓ/second",
+            "kℓ/s",
+            "kℓ/sec",
+            "kℓ/seconds",
+            "kilolitre/second",
+            "kilolitre/s",
+            "kilolitre/sec",
+            "kilolitre/seconds",
+            "kiloliter/second",
+            "kiloliter/s",
+            "kiloliter/sec",
+            "kiloliter/seconds",
+            "Kilolitre/second",
+            "Kilolitre/s",
+            "Kilolitre/sec",
+            "Kilolitre/seconds",
+            "Kiloliter/second",
+            "Kiloliter/s",
+            "Kiloliter/sec",
+            "Kiloliter/seconds",
+            "metre³/second",
+            "metre³/s",
+            "metre³/sec",
+            "metre³/seconds",
+            "m³/second",
+            "m³/s",
+            "m³/sec",
+            "m³/seconds",
+            "meter³/second",
+            "meter³/s",
+            "meter³/sec",
+            "meter³/seconds",
+            "Meter³/second",
+            "Meter³/s",
+            "Meter³/sec",
+            "Meter³/seconds",
+            "Metre³/second",
+            "Metre³/s",
+            "Metre³/sec",
+            "Metre³/seconds",
+        ]
+
+        return super().__init__(value, unit, **kwargs)
+
     __numerator__ = Volume
     __denominator__ = Time
 
@@ -51,6 +116,39 @@ class VolumetricFlowRate(AbstractMeasure, metaclass=FractionMeasureBase):
 
 
 class Speed(AbstractMeasure, metaclass=FractionMeasureBase):
+    def __init__(
+        self,
+        value: Union[str, decimal.Decimal, int, None] = None,
+        unit: Optional[str] = None,
+        **kwargs: Union[str, decimal.Decimal, int, None],
+    ):
+        # Maually setting the base unit, because the process of iterating through
+        # all combinations for square/cubic/fractional measures is intense
+        self.base_unit_names = [
+            "metre/second",
+            "metre/s",
+            "metre/sec",
+            "metre/seconds",
+            "m/second",
+            "m/s",
+            "m/sec",
+            "m/seconds",
+            "meter/second",
+            "meter/s",
+            "meter/sec",
+            "meter/seconds",
+            "Meter/second",
+            "Meter/s",
+            "Meter/sec",
+            "Meter/seconds",
+            "Metre/second",
+            "Metre/s",
+            "Metre/sec",
+            "Metre/seconds",
+        ]
+
+        return super().__init__(value, unit, **kwargs)
+
     __numerator__ = Distance
     __denominator__ = Time
 

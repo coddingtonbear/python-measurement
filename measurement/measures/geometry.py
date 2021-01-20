@@ -1,4 +1,5 @@
 import decimal
+from typing import Optional, Union
 
 from measurement.base import AbstractMeasure, MeasureBase, MetricUnit, Unit
 
@@ -120,13 +121,25 @@ class Area(AbstractMeasure, metaclass=AreaBase):
         >>> measures.Area('6 m²') / measures.Distance('2 m')
         Distance(metre="3")
 
-    If if multiple an :class:`Area` with a :class:`Distance`,
+    If if multiply a :class:`Area` with a :class:`Distance`,
     you will get a :class:`Volume`:
 
         >>> measures.Area('6 m²') * measures.Distance('2 m')
         Volume(metre³="12")
 
     """
+
+    def __init__(
+        self,
+        value: Union[str, decimal.Decimal, int, None] = None,
+        unit: Optional[str] = None,
+        **kwargs: Union[str, decimal.Decimal, int, None],
+    ):
+        # Maually setting the base unit, because the process of iterating through
+        # all combinations for square/cubic/fractional measures is intense
+        self.base_unit_names = ['metre²', 'm²', 'meter²', 'Meter²', 'Metre²']
+
+        return super().__init__(value, unit, **kwargs)
 
     __factors__ = (Distance, Distance)
 
@@ -191,6 +204,31 @@ class Volume(AbstractMeasure, metaclass=VolumeBase):
         Area(metre²="2")
 
     """
+
+    def __init__(
+        self,
+        value: Union[str, decimal.Decimal, int, None] = None,
+        unit: Optional[str] = None,
+        **kwargs: Union[str, decimal.Decimal, int, None],
+    ):
+        # Maually setting the base unit, because the process of iterating through
+        # all combinations for square/cubic/fractional measures is intense
+        self.base_unit_names = [
+            'kL',
+            'kl',
+            'kℓ',
+            'kilolitre',
+            'kiloliter',
+            'Kilolitre',
+            'Kiloliter',
+            'metre³',
+            'm³',
+            'meter³',
+            'Meter³',
+            'Metre³'
+        ]
+
+        return super().__init__(value, unit, **kwargs)
 
     __factors__ = (Distance, Distance, Distance)
 

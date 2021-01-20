@@ -88,6 +88,10 @@ class TestAbstractMeasure:
     def test_format(self):
         assert f"{Distance('1 km') / 3:5.3f}" == "0.333 km"
         assert f"{Distance(km=1/3):5.3f}" == "0.333 km"
+        assert (
+            f"{Distance(km=decimal.Decimal('1')/decimal.Decimal('3')):5.3f}"
+            == "0.333 km"
+        )
         with pytest.raises(ValueError):
             f"{Distance('1 km') / 3:5.3x}"
 
