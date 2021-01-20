@@ -151,8 +151,10 @@ class Area(AbstractMeasure, metaclass=AreaBase):
 
     @classmethod
     def _attr_to_unit(cls, name):
-        if name[:3] == "sq_":
+        if name[:3] in ["sq_", "sq "]:
             name = f"{name[3:]}²"
+        elif name[:7] in ["square_", "square "]:
+            name = f"{name[7:]}²"
         return super()._attr_to_unit(name)
 
     def __truediv__(self, other):
