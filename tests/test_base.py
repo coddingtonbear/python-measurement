@@ -146,8 +146,7 @@ class TestAbstractMeasure:
         with pytest.raises(TypeError) as e:
             self.measure(**{self.unit: 2}) - "not-allowed"
         assert (
-            str(e.value)
-            == f"can't subtract type 'str' from '{qualname(self.measure)}'"
+            str(e.value) == f"can't subtract type 'str' from '{qualname(self.measure)}'"
         )
 
     def test_isub(self):
