@@ -1,5 +1,6 @@
 *.pyc
 *egg-info*
+.mypy_cache/
 .Python
 bin/*
 build/

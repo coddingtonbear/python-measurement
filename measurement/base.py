@@ -5,17 +5,24 @@ import decimal
 import inspect
 import warnings
 from functools import total_ordering
-from typing import Any, Dict, Iterable, List, Optional, Tuple, Type, Union
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Tuple, Type, TypeVar, \
+    Union, Generic
+
+T = TypeVar("T", bound="AbstractMeasure")
 
 
 def qualname(obj: Any) -> str:
     return obj.__qualname__ if inspect.isclass(obj) else type(obj).__qualname__
 
 
-class ImmutableKeyDict(Dict):
+K = TypeVar("K")
+V = TypeVar("V")
+
+
+class ImmutableKeyDict(Generic[K, V], Dict[K, V]):
     """Like :class:`.dict` but any key may only assigned to a value once."""
 
-    def __setitem__(self, key, value):
+    def __setitem__(self, key: K, value: V) -> None:
         """
         Map item to key once and raise error if the same key is set twice.
 
@@ -46,10 +53,10 @@ class AbstractUnit(abc.ABC):
         """Return measure in the unit defined by this class based on given SI measure."""
 
     @abc.abstractmethod
-    def get_symbols(self) -> Iterable[Tuple[str, Type["AbstractUnit"]]]:
+    def get_symbols(self) -> Iterable[Tuple[str, "AbstractUnit"]]:
         """Return list of symbol names and their :class:`.AbstractUnit` representation."""
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.name)
 
 
@@ -90,17 +97,17 @@ class Unit(AbstractUnit):
     symbols: List[str] = dataclasses.field(default_factory=list)
     """Symbols used to describe this unit."""
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.factor is not None:
             self.factor = decimal.Decimal(self.factor)
 
-    def to_si(self, value):
+    def to_si(self, value: decimal.Decimal) -> decimal.Decimal:
         return value * self.factor
 
-    def from_si(self, value):
+    def from_si(self, value: decimal.Decimal) -> decimal.Decimal:
         return value / self.factor
 
-    def get_symbols(self):
+    def get_symbols(self) -> Iterable[Tuple[str, "Unit"]]:
         yield self.name.replace("_", " "), Unit(self.factor)
         yield from ((name, Unit(self.factor)) for name in self.symbols)
 
@@ -168,7 +175,7 @@ class MetricUnit(Unit):
         "yotta": decimal.Decimal("1e24"),
     }
 
-    def get_symbols(self):
+    def get_symbols(self) -> Iterable[Tuple[str, "Unit"]]:
         yield from super().get_symbols()
         yield from (
             (f"{prefix}{s}", Unit(factor=self.factor * factor))
@@ -203,7 +210,7 @@ class MeasureBase(type):
 
     def __new__(mcs, name, bases, attrs):
         mcs.freeze_org_units(attrs)
-        symbols = ImmutableKeyDict()
+        symbols: ImmutableKeyDict[str, AbstractUnit] = ImmutableKeyDict()
         new_attr = {}
         for attr_name, attr in attrs.items():
             if isinstance(attr, AbstractUnit):
@@ -219,7 +226,7 @@ class MeasureBase(type):
         return cls
 
     @staticmethod
-    def freeze_org_units(attrs: Dict[str, Any]):
+    def freeze_org_units(attrs: Dict[str, Any]) -> None:
         if "_org_units" in attrs:
             return
 
@@ -258,7 +265,7 @@ class AbstractMeasure(metaclass=MeasureBase):
         self.unit.org_name = unit
         self.si_value = self.unit.to_si(value)
 
-    def __getattr__(self, name):
+    def __getattr__(self, name: str) -> decimal.Decimal:
         try:
             unit = self._units[self._attr_to_unit(name)]
         except KeyError as e:
@@ -268,7 +275,7 @@ class AbstractMeasure(metaclass=MeasureBase):
         else:
             return unit.from_si(self.si_value)
 
-    def __getitem__(self, item):
+    def __getitem__(self, item: str) -> decimal.Decimal:
         try:
             unit = self._units[self._attr_to_unit(item)]
         except KeyError as e:
@@ -280,7 +287,7 @@ class AbstractMeasure(metaclass=MeasureBase):
     def _attr_to_unit(cls, name: str) -> str:
         return name.replace("_", " ")
 
-    unit = None
+    unit: AbstractUnit
     """Return :class:`~Unit` initially given to construct the measure."""
 
     @property
@@ -288,13 +295,13 @@ class AbstractMeasure(metaclass=MeasureBase):
         """Return :class:`~Decimal` value of measure in the given :attr:`.unit`."""
         return getattr(self, self.unit.name)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f'{qualname(self)}({self.unit.name}="{getattr(self, self.unit.name)}")'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "%s %s" % (getattr(self, self.unit.org_name), self.unit.org_name)
 
-    def __format__(self, format_spec):
+    def __format__(self, format_spec: str) -> str:
         decimal_format = getattr(self, self.unit.org_name).__format__(format_spec)
         return f"{decimal_format} {self.unit.org_name}"
 
@@ -303,27 +310,27 @@ class AbstractMeasure(metaclass=MeasureBase):
             return NotImplemented
         return self.si_value == other.si_value
 
-    def __lt__(self, other):
+    def __lt__(self, other: Any) -> Optional[bool]:
         if not isinstance(other, type(self)):
             return NotImplemented
         return self.si_value < other.si_value
 
-    def __gt__(self, other):
+    def __gt__(self, other: Any) -> Optional[bool]:
         if not isinstance(other, type(self)):
             return NotImplemented
         return self.si_value > other.si_value
 
-    def __add__(self, other):
+    def __add__(self: T, other: T) -> T:
         if not isinstance(other, type(self)):
             raise TypeError(f"can't add type '{qualname(self)}' to '{qualname(other)}'")
         return type(self)(
             value=self._value + getattr(other, self.unit.name), unit=self.unit.name
         )
 
-    def __iadd__(self, other):
+    def __iadd__(self: T, other: T) -> T:
         return self + other
 
-    def __sub__(self, other):
+    def __sub__(self: T, other: T) -> T:
         if not isinstance(other, type(self)):
             raise TypeError(
                 f"can't substract type '{qualname(other)}' from '{qualname(self)}'"
@@ -333,7 +340,7 @@ class AbstractMeasure(metaclass=MeasureBase):
             value=self._value - getattr(other, self.unit.name), unit=self.unit.name
         )
 
-    def __isub__(self, other):
+    def __isub__(self: T, other: T) -> T:
         return self - other
 
     def __mul__(self, other):
@@ -369,5 +376,5 @@ class AbstractMeasure(metaclass=MeasureBase):
     def __rtruediv__(self, other):
         return self / other
 
-    def __bool__(self):
+    def __bool__(self) -> bool:
         return bool(self.si_value)

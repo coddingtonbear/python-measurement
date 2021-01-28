@@ -2,7 +2,7 @@ from measurement.measures import Energy
 
 
 class TestEnergy:
-    def test_dietary_calories_kwarg(self):
+    def test_dietary_calories_kwarg(self) -> None:
         calories = Energy(Calorie=2000)
         kilojoules = Energy(kJ=8368)
 
