@@ -8,24 +8,24 @@ __all__ = ["Distance", "Area", "Volume"]
 
 class Distance(AbstractMeasure):
     """
-    A distance the factor for both :class:`Area` and :class:`Volume`.
+    Distance is a factor for both :class:`Area` and :class:`Volume`.
 
     If you multiply a :class:`Distance` with another :class:`Distance`,
-    you will get an :class:`Area`:
+    you will get a :class:`Area`:
 
         >>> from measurement import measures
         >>> measures.Distance('2 m') * measures.Distance('3 m')
         Area(metre²="6")
 
-    If you multiply a :class:`Distance` with an :class:`Area` or two
-    :class:`Distances<Distance>`, you will get an :class:`Volume`:
+    If you multiply a :class:`Distance` with a :class:`Area` or two
+    :class:`Distances<Distance>`, you will get a :class:`Volume`:
 
         >>> from measurement import measures
         >>> measures.Distance('2 m') * measures.Area('6 m²')
         Volume(metre³="12")
 
-    You can also build the second and thrid power of a :class:`Distance`,
-    to get an :class:`Area` or :class:`Volume`.
+    You can also build the second and third power of a :class:`Distance`,
+    to get a :class:`Area` or :class:`Volume`.
 
         >>> from measurement import measures
         >>> measures.Distance('2 m') ** 2
@@ -112,8 +112,8 @@ class Area(AbstractMeasure, metaclass=AreaBase):
     """
     An area is defined as :class:`Distance` multipled by :class:`Distance`.
 
-    This is why you can multiple two :class:`Distances<Distance>` to get
-    an :class:`Area` or devide an :class:`Area` to get a :class:`Distance`:
+    This is why you can multiply two :class:`Distances<Distance>` to get
+    an :class:`Area` or divide an :class:`Area` to get a :class:`Distance`:
 
         >>> from measurement import measures
         >>> measures.Distance('2 m') * measures.Distance('3 m')
@@ -151,8 +151,10 @@ class Area(AbstractMeasure, metaclass=AreaBase):
 
     @classmethod
     def _attr_to_unit(cls, name):
-        if name[:3] == "sq_":
+        if name[:3] in ["sq_", "sq "]:
             name = f"{name[3:]}²"
+        elif name[:7] in ["square_", "square "]:
+            name = f"{name[7:]}²"
         return super()._attr_to_unit(name)
 
     def __truediv__(self, other):
@@ -189,9 +191,9 @@ class Volume(AbstractMeasure, metaclass=VolumeBase):
     """
     A volume is defined as :class:`Area` multipled by :class:`Distance`.
 
-    This is why you can multiple three :class:`Distances<Distance>` to get
-    a :class:`Volume`, multiple an :class:`Area` by a :class:`Distance`
-    or devide a :class:`Volume` by both :class:`Distance` and :class:`Area`:
+    This is why you can multiply three :class:`Distances<Distance>` to get
+    a :class:`Volume`, multiply a :class:`Area` by a :class:`Distance`
+    or divide a :class:`Volume` by both :class:`Distance` and :class:`Area`:
 
         >>> from measurement import measures
         >>> measures.Distance('2 m') * measures.Distance('3 m') * measures.Distance('4 m')

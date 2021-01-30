@@ -192,7 +192,7 @@ class TestAbstractMeasure:
     def test_truediv__raise__type_error(self):
         with pytest.raises(TypeError) as e:
             self.measure(**{self.unit: 2}) / "not-allowed"
-        assert str(e.value) == f"can't devide type '{qualname(self.measure)}' by 'str'"
+        assert str(e.value) == f"can't divide type '{qualname(self.measure)}' by 'str'"
 
     def test_itruediv(self):
         d = self.measure(**{self.unit: 2})

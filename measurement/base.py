@@ -32,7 +32,7 @@ class AbstractUnit(abc.ABC):
     """
     Helper class to define units of measurement in relation to their SI definition.
 
-    Nowerdays all units of measurement are defined based on fundamental SI units.
+    Nowadays all units of measurement are defined based on fundamental SI units.
     This class provides behavior to convert a SI unit based measure to another Unit.
     """
 
@@ -65,10 +65,10 @@ class Unit(AbstractUnit):
 
 
         class Distance(AbstractMeasure):
-            metre = Unit("1", ['m', 'meter'])
+            metre = Unit("1", ["m", "meter"])
             inch = Unit("0.0254", ["in", "inches"])
 
-    In the example aboce we implemented a simple distance measure. This first
+    In the example above we implemented a simple distance measure. This first
     argument of a unit is it's SI unit factor. For the SI unit itself –
     in this example metre – it's "1". For inches, the factor is by which number
     you would need to multiple a meter to get to an inch. Or, 0.0254 metres make
@@ -77,7 +77,10 @@ class Unit(AbstractUnit):
     The second argument is a list of symbols, that are used to describe the unit.
     In the case of a metre, it is ``m`` and also the American English `meter`.
     Note that the attribute name itself, will also be added automatically to
-    the list of symboles.
+    the list of symbols.
+
+    In a real-world measure, meter in the example above would be defined as a
+    MetricUnit, as demonstrated below, allowing it to use all of the metric prefixes.
     """
 
     factor: Union[str, decimal.Decimal] = None
@@ -108,19 +111,36 @@ class Unit(AbstractUnit):
 
 @dataclasses.dataclass
 class MetricUnit(Unit):
-    """Like :class:`.Unit` but with metric prefixes like ``kilo`` for ``kilometre``."""
+    """Like :class:`.Unit` but with metric prefixes like ``kilo`` for ``kilometre``.
+
+    Usage::
+
+        from measurements.base import AbstractMeasure, Unit
+
+
+        class Distance(AbstractMeasure):
+            metre = MetricUnit(
+                "1", ["m", "meter", "Meter", "Metre"], ["m"], ["metre", "meter"]
+            )
+            inch = Unit("0.0254", ["in", "inches"])
+
+    In the example above, we update our simple distance measure to use MetricUnit
+    for the metric metre unit. As before, the first argument of a unit is it's SI
+    unit factor. For the SI unit itself – in this example metre – it's "1".
+
+    The second argument is a list of symbols, that are used to describe the unit.
+    Note that the attribute name itself, will also be added automatically to
+    the list of symbols.
+
+    The third argument is the small_metric_symbol, a List of symbols that are used
+    with single letter metric prefixes, such as ``m`` for ``km`` or ``μm``.
+
+    The fourth argument is metric_prefix, a list of symbols that are used with full
+    words metric prefixes, such as ``metre`` for ``kilometre``.
+    """
 
     small_metric_symbol: List[str] = dataclasses.field(default_factory=list)
-    """
-    List of symboles that are used with single letter metric prefixes,
-    such as ``m`` for ``km`` or ``μm``.
-    """
-
     metric_prefix: List[str] = dataclasses.field(default_factory=list)
-    """
-    List of symboles that are used with full words metric prefixes,
-    such as ``metre`` for ``kilometre``.
-    """
 
     SI_PREFIXE_SYMBOLS = {
         "y": decimal.Decimal("1e-24"),
@@ -306,7 +326,7 @@ class AbstractMeasure(metaclass=MeasureBase):
         return f'{qualname(self)}({self.unit.name}="{getattr(self, self.unit.name)}")'
 
     def __str__(self):
-        return "%s %s" % (getattr(self, self.unit.org_name), self.unit.org_name)
+        return f"{getattr(self, self.unit.org_name)} {self.unit.org_name}"
 
     def __format__(self, format_spec):
         decimal_format = getattr(self, self.unit.org_name).__format__(format_spec)
@@ -340,7 +360,7 @@ class AbstractMeasure(metaclass=MeasureBase):
     def __sub__(self, other):
         if not isinstance(other, type(self)):
             raise TypeError(
-                f"can't substract type '{qualname(other)}' from '{qualname(self)}'"
+                f"can't subtract type '{qualname(other)}' from '{qualname(self)}'"
             )
 
         return type(self)(
@@ -372,7 +392,7 @@ class AbstractMeasure(metaclass=MeasureBase):
             value = getattr(self, self.unit.org_name) / other
         except TypeError as e:
             raise TypeError(
-                f"can't devide type '{qualname(self)}' by '{qualname(other)}'"
+                f"can't divide type '{qualname(self)}' by '{qualname(other)}'"
             ) from e
         else:
             return type(self)(value=value, unit=self.unit.org_name)
