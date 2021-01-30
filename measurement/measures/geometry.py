@@ -120,7 +120,7 @@ class Area(AbstractMeasure, metaclass=AreaBase):
         >>> measures.Area('6 m²') / measures.Distance('2 m')
         Distance(metre="3")
 
-    If if multiple an :class:`Area` with a :class:`Distance`,
+    If you multiply a :class:`Area` with a :class:`Distance`,
     you will get a :class:`Volume`:
 
         >>> measures.Area('6 m²') * measures.Distance('2 m')
