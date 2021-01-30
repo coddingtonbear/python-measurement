@@ -282,7 +282,6 @@ class AbstractMeasure(metaclass=MeasureBase):
     @classmethod
     def get_base_unit_names(cls):
         """Return a list of unit names for units with a factor of 1 (base units)."""
-
         names_list = [
             unit_name
             for unit_name, unit in cls._units.items()
