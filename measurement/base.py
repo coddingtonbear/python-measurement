@@ -277,6 +277,20 @@ class AbstractMeasure(metaclass=MeasureBase):
         self.unit = self._units[unit]
         self.unit.org_name = unit
         self.si_value = self.unit.to_si(value)
+        self.base_unit_names = self.get_base_unit_names()
+
+    @classmethod
+    def get_base_unit_names(cls):
+        """Return a list of unit names for units with a factor of 1 (base units)."""
+
+        names_list = [
+            unit_name
+            for unit_name, unit in cls._units.items()
+            if getattr(unit, "factor", None) is not None
+            and unit.factor == decimal.Decimal("1")
+        ]
+        if names_list:
+            return names_list
 
     def __getattr__(self, name):
         try:

@@ -59,6 +59,30 @@ class TestDistance:
         with pytest.raises(TypeError):
             Distance(m=1) ** 4
 
+    def test_unit_org_name(self):
+        one_mile = Distance(mi=1)
+
+        assert one_mile.unit.org_name == "mi"
+
+    def test_base_unit_names(self):
+        one_mile = Distance(mi=1)
+
+        assert set(one_mile.base_unit_names) == set(
+            ["metre", "m", "meter", "Meter", "Metre"]
+        )
+
+    def test_get_base_unit_names_for_instance(self):
+        one_mile = Distance(mi=1)
+
+        assert set(one_mile.get_base_unit_names()) == set(
+            ["metre", "m", "meter", "Meter", "Metre"]
+        )
+
+    def test_get_base_unit_names_for_class(self):
+        assert set(Distance.get_base_unit_names()) == set(
+            ["metre", "m", "meter", "Meter", "Metre"]
+        )
+
 
 class TestArea:
     def test_truediv(self):
