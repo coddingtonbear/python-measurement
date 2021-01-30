@@ -110,6 +110,9 @@ class TestArea:
 
     def test_attr_to_unit(self):
         assert Area._attr_to_unit("sq_m") == "m²"
+        assert Area._attr_to_unit("sq m") == "m²"
+        assert Area._attr_to_unit("square_m") == "m²"
+        assert Area._attr_to_unit("square m") == "m²"
         assert Area._attr_to_unit("m²") == "m²"
 
 
