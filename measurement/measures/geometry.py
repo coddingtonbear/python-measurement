@@ -71,6 +71,7 @@ class Distance(AbstractMeasure):
     sears_yard = Unit("0.91439841", ["sears_yd", "Yard (Sears"])
     survey_foot = Unit("0.304800609601", ["survey_ft", "US survey foot", "U.S. Foot"])
     yard = Unit("0.9144", ["yd"])
+    point = Unit(decimal.Decimal("25.4e-3") / 72, ["pt"])
 
     def __mul__(self, other):
         if isinstance(other, Distance):

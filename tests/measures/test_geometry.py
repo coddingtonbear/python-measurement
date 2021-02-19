@@ -83,6 +83,12 @@ class TestDistance:
             ["metre", "m", "meter", "Meter", "Metre"]
         )
 
+    def test_point(self):
+        assert Distance(inch=3).mm == pytest.approx(Distance(pt=3 * 72).mm)
+        assert Distance(inch=decimal.Decimal("8") / 72).mm == pytest.approx(
+            Distance(pt=8).mm
+        )
+
 
 class TestArea:
     def test_truediv(self):
