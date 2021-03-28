@@ -1,7 +1,7 @@
 Custom Measures
 ===============
 
-API reference
+API Reference
 -------------
 
 .. inheritance-diagram:: measurement.base

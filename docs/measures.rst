@@ -1,15 +1,15 @@
 Measures
 ========
 
-There two different ways to instanciate a measure. The recommended way to instaciate
-a measure object is with a :class:`Decimal<decicmal.Decimal>` value
+There two different ways to instantiate a measure. The recommended way to instantiate
+a measure object is with a :class:`Decimal<decimal.Decimal>` value
 and a :class:`String<str>` unit:
 
     >>> from measurement import measures
     >>> measures.Distance('1.0', 'm')
     Distance(metre="1.0")
 
-Additinally, you may either pass a string
+Additionally, you may either pass a string
 containing the value and unit separated by a string:
 
     >>> from measurement import measures
@@ -46,7 +46,7 @@ or attribute:
                                           ^
         SyntaxError: invalid syntax
 
-    In this case, you may use underscrose instead of spaces:
+    In this case, you may use underscore instead of spaces:
 
         >>> from measurement import measures
         >>> measures.Distance(nautical_mile=1).km
@@ -67,6 +67,39 @@ Prefixes are supported for all metric units in their short and long version, e.g
     Decimal('1E-8')
 
 .. _`Metric Prefixes`: https://en.wikipedia.org/wiki/Metric_prefix
+
+Formatting Output
+-----------------
+
+Assuming we have the following two measures, `m` and `n`:
+
+    >>> from measurement.measures import *
+    >>> m = Volume("12 litre")
+    >>> n = Volume("12.47773243727437659328746732894 litre")
+
+Sometimes decimal values and conversions will result in numbers with many trailing
+digits, which is good for calculations, but may not be ideal for display. The
+output can easily be formatted with rounding, as in the following examples:
+
+    >>> # Output cubic_in with up to 8 digits in total
+    >>> print(f"{m.cubic_in:0.8}")
+    732.28493
+    >>> # Output cubic_in with only 5 trailing digits, regardless of leading digits
+    >>> print(f"{m.cubic_in:.5f}")
+    732.28493
+    >>> # Output 5 digits, padding with leading zeroes if needed
+    >>> print(f"{m:0>5}")
+    00012 litre
+
+    >>> print(f"{n}")
+    12.47773243727437659328746733 litre
+    >>> # Output the measure string value with up to 4 digits in total
+    >>> print(f"{n:.4}")
+    12.48 litre
+    >>> # Output the measure string value with 4 trailing digits
+    >>> print(f"{n:.4f}")
+    12.4777 litre
+
 
 Supported Measures and Units
 ----------------------------
