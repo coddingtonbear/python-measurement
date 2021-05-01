@@ -45,7 +45,8 @@ units are supported by which measures.
     .. code-block:: python
 
         >>> import decimal
-        >>> decimal.getcontext().prec = 28
+        >>> # Uncomment the line below to adjust the precision
+        >>> # decimal.getcontext().prec = 38
 
 .. _decimal precision: https://docs.python.org/3.8/library/decimal.html
 
@@ -79,10 +80,10 @@ the ``measures`` keyword argument:
 If no match is found, a :class:`ValueError` exception will be raised.
 
 .. note::
-   It is absolutely possible for this to misguess due to common measurement
+   It is absolutely possible for this to mis-guess due to common measurement
    abbreviations overlapping -- for example, both Temperature and Energy
-   accept the argument ``c`` for representing degrees celsius and calories
-   respectively.  It is advisible that you constrain the list of measurements
+   accept the argument ``c`` for representing degrees Celsius and calories
+   respectively.  It is advisable that you constrain the list of measurements
    to check to ones that you would consider appropriate for your input data.
 
 
