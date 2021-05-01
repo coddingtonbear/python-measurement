@@ -47,8 +47,6 @@ units are supported by which measures.
         >>> import decimal
         >>> # Uncomment the line below to adjust the precision
         >>> # decimal.getcontext().prec = 38
-        >>> print(m["long ton"])
-        0.060270639714566929133858267716535433071
 
 .. _decimal precision: https://docs.python.org/3.8/library/decimal.html
 
