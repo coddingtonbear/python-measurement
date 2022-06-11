@@ -54,7 +54,7 @@ jobs:
       - run: sudo apt-get install -y graphviz
       - uses: actions/checkout@v2
       - run: git fetch --prune --unshallow
-      - run: python -m pip install pip setuptools wheel
+      - run: python -m pip install pip setuptools wheel sphinx python-docs-theme
       - run: python setup.py develop
       - run: python setup.py build_sphinx -W
 
