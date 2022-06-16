@@ -10,3 +10,4 @@ lib/
 docs/_build/
 .coverage
 htmlcov/
+.venv*
