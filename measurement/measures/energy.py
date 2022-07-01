@@ -15,6 +15,25 @@ class Energy(AbstractMeasure):
         ["electronvolt"],
     )
     tonne_tnt = Unit("4184000000")
-
+    
+    watthour = MetricUnit(
+        "3600",
+        ["wh", "watthour", "watt-hour"],
+        ["wh"],
+        ["watthour"],
+    )
+    
 
 Heat = Energy
+
+class Power(AbstractMeasure, metaclass=FractionMeasureBase):
+    __numerator__ = Energy
+    __denominator__ = Time
+
+    watt = MetricUnit("1", ["W", "w", "Watt"], ["W"], ["Watt"])
+    
+
+    @classmethod
+    def _attr_to_unit(cls, name):
+        return super()._attr_to_unit(name.replace("__", "/"))
+
