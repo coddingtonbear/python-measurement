@@ -103,7 +103,7 @@ class AreaBase(MeasureBase):
     @staticmethod
     def square(klass):
         for name, unit in klass._units.items():
-            qs_unit = Unit(factor=unit.factor ** 2)
+            qs_unit = Unit(factor=unit.factor**2)
             qs_unit.name = f"{qs_unit.name}²"
             yield f"{name}²", qs_unit
 
@@ -170,7 +170,7 @@ class VolumeBase(MeasureBase):
     @staticmethod
     def cubic(klass):
         for name, unit in klass._units.items():
-            qs_unit = Unit(factor=unit.factor ** 3)
+            qs_unit = Unit(factor=unit.factor**3)
             qs_unit.name = f"{qs_unit.name}³"
             yield f"{name}³", qs_unit
 
