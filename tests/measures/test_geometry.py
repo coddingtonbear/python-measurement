@@ -35,7 +35,7 @@ class TestDistance:
 
         micrometers = one_meter.um
 
-        assert one_meter.si_value * 10 ** 6 == micrometers
+        assert one_meter.si_value * 10**6 == micrometers
 
     def test_area_sq_km(self):
         one_sq_km = Area(sq_km=10)
