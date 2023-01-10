@@ -10,3 +10,6 @@ lib/
 docs/_build/
 .coverage
 htmlcov/
+
+# packaging
+measurement/_version.py

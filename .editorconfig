@@ -11,7 +11,7 @@ charset = utf-8
 end_of_line = lf
 max_line_length = 88
 
-[*.{json,yml,yaml}]
+[*.{json,yml,yaml,toml}]
 indent_size = 2
 
 [LICENSE]
