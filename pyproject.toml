@@ -1,0 +1,83 @@
+[build-system]
+requires = ["flit_core>=3.2", "flit_scm", "wheel"]
+build-backend = "flit_scm:buildapi"
+
+[project]
+name = "measurement"
+authors = [
+  { name = "Adam Coddington", email = "me@adamcoddington.net" },
+  { name = "Johannes Maron", email = "johannes@maron.family" }
+]
+readme = "README.rst"
+license = { file = "LICENSE" }
+dynamic = ["version", "description"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: JavaScript",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Software Development",
+  "Topic :: Utilities",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Astronomy",
+  "Topic :: Scientific/Engineering :: Atmospheric Science",
+  "Topic :: Scientific/Engineering :: Chemistry",
+  "Topic :: Scientific/Engineering :: GIS",
+  "Topic :: Scientific/Engineering :: Mathematics",
+  "Topic :: Scientific/Engineering :: Physics",
+  "Topic :: Software Development :: Localization",
+]
+keywords = [
+  "measurement",
+]
+requires-python = ">=3.7"
+dependencies = []
+
+[project.optional-dependencies]
+test = [
+  "pytest",
+  "pytest-cov",
+]
+docs = [
+  "sphinx",
+  "python-docs-theme",
+]
+
+[project.urls]
+Project-URL = "http://github.com/coddingtonbear/python-measurement"
+
+[tool.flit.module]
+name = "measurement"
+
+[tool.setuptools_scm]
+write_to = "measurement/_version.py"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--doctest-glob=*.rst --doctest-modules --cov=measurement"
+testpaths = [
+  "tests",
+]
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.isort]
+atomic = true
+line_length = 88
+known_first_party = "measurement, tests"
+include_trailing_comma = true
+default_section = "THIRDPARTY"
+combine_as_imports = true
+
+[tool.pydocstyle]
+add_ignore = "D1"
+match_dir = "(?!tests|env|docs|\\.).*"
+match = "(?!setup).*.py"

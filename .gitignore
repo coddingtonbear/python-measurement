@@ -8,3 +8,7 @@ dist/
 include/
 lib/
 docs/_build/
+.coverage
+
+# packaging
+measurement/_version.py
