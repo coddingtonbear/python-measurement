@@ -38,7 +38,9 @@ keywords = [
   "measurement",
 ]
 requires-python = ">=3.7"
-dependencies = []
+dependencies = [
+  "sympy"
+]
 
 [project.optional-dependencies]
 test = [
