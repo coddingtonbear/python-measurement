@@ -59,6 +59,7 @@ class Distance(AbstractMeasure):
     clarke_ft = Unit("0.3047972654", ["Clarke's Foot"])
     clarke_link = Unit("0.201166195164", ["Clarke's link"])
     fathom = Unit("1.8288")
+    furlong = Unit("201.168")
     german_meter = Unit("1.0000135965", ["german_m", "German legal metre"])
     gold_coast_foot = Unit("0.304799710181508", ["gold_coast_ft", "Gold Coast foot"])
     indian_yard = Unit("0.914398530744", ["indian_yd", "Indian yard", "Yard (Indian)"])
