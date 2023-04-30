@@ -1,5 +1,3 @@
-from typing import Type
-
 from measurement.base import AbstractMeasure
 from measurement.measures import *
 
